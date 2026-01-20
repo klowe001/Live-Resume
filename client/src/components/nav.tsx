@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
 import { Link } from 'wouter';
+import { ThemeToggle } from './theme-toggle';
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
@@ -45,21 +46,27 @@ export function Nav() {
               <a
                 href={link.href}
                 onClick={(e) => scrollToSection(e, link.href)}
-                className="text-sm font-medium uppercase tracking-wider text-ink/80 hover:text-accent transition-colors relative group py-1"
+                className="text-sm font-medium uppercase tracking-wider text-ink hover:text-accent transition-colors relative group py-1"
               >
                 {link.name}
                 <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-accent transition-all duration-300 group-hover:w-full" />
               </a>
             </li>
           ))}
+          <li>
+            <ThemeToggle />
+          </li>
         </ul>
-        
-        <a 
-          href="mailto:kevin@wanderluxe.io" 
-          className="md:hidden text-sm font-medium uppercase tracking-wider text-ink/80"
-        >
-          Contact
-        </a>
+
+        <div className="md:hidden flex items-center gap-4">
+          <ThemeToggle />
+          <a
+            href="mailto:kevin@wanderluxe.io"
+            className="text-sm font-medium uppercase tracking-wider text-ink"
+          >
+            Contact
+          </a>
+        </div>
       </div>
     </motion.nav>
   );

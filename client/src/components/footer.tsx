@@ -10,7 +10,7 @@ export function Footer() {
               Let's Build <br />
               <span className="text-accent italic">Something Real</span>
             </h2>
-            <p className="text-white/60 max-w-md text-lg leading-relaxed mb-12">
+            <p className="text-white/75 max-w-md text-lg leading-relaxed mb-12">
               I'm exploring roles where strategy and building converge. 
               Whether it's AI Product Leadership, Growth at high-velocity companies, or founding something new.
             </p>

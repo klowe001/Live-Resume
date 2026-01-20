@@ -1,8 +1,6 @@
 import { motion } from 'framer-motion';
 import { Github, Globe } from 'lucide-react';
-import wanderLuxeImg from '@assets/generated_images/minimalist_travel_app_interface_with_maps_and_itinerary.png';
-import cpfDanceImg from '@assets/generated_images/modern_dance_studio_management_dashboard.png';
-import builderImg from '@assets/generated_images/abstract_digital_building_blocks_concept.png';
+import replitImg from '@assets/ed2c95e1-abd1-4d4f-b05a-09457bb94568.png';
 
 const projects = [
   {
@@ -15,7 +13,7 @@ const projects = [
       { label: "Website", url: "https://wanderluxe.io", icon: Globe },
       { label: "Code", url: "https://github.com/reminiscent-io/wanderluxe", icon: Github }
     ],
-    image: wanderLuxeImg
+    image: "https://images.unsplash.com/photo-1506929562872-bb421503ef21"
   },
   {
     title: "CPF Dance",
@@ -24,9 +22,10 @@ const projects = [
     description: "Comprehensive platform for professional dance instruction. Multi-portal system with role-based access control, digital waivers, and class scheduling.",
     tech: ["Next.js 16", "Supabase RLS", "Tailwind v4", "TipTap"],
     links: [
+      { label: "Website", url: "https://cpfdance.com", icon: Globe },
       { label: "Code", url: "https://github.com/reminiscent-io/CPF-Dance", icon: Github }
     ],
-    image: cpfDanceImg
+    image: "https://images.unsplash.com/photo-1674221525704-f4b2aa13df2c"
   },
   {
     title: "Top 1% Replit Builder",
@@ -35,7 +34,7 @@ const projects = [
     description: "Achieved top 1% user status on Replit through intensive AI-assisted development. Mastered the workflow of translating product vision into shipped code using agentic AI tools.",
     tech: ["Replit Agent", "Claude Code", "Agentic Workflows"],
     links: [],
-    image: builderImg
+    image: replitImg
   }
 ];
 
@@ -55,7 +54,7 @@ export function Projects() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
-            className="group bg-white border border-warm overflow-hidden hover:border-accent transition-all duration-300 hover:shadow-lg flex flex-col h-full"
+            className="group bg-paper border border-warm overflow-hidden hover:border-accent transition-all duration-300 hover:shadow-lg flex flex-col h-full"
           >
             <div className="h-48 relative overflow-hidden group-hover:opacity-90 transition-opacity">
               <img 
@@ -83,7 +82,7 @@ export function Projects() {
 
               <div className="flex flex-wrap gap-2 mb-8 mt-auto">
                 {project.tech.map(t => (
-                  <span key={t} className="px-2 py-1 bg-warm/30 text-[10px] font-medium uppercase tracking-wide text-ink/70">
+                  <span key={t} className="px-2 py-1 bg-warm/50 text-[10px] font-medium uppercase tracking-wide text-ink">
                     {t}
                   </span>
                 ))}

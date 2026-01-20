@@ -47,7 +47,7 @@ export function Philosophy() {
               <h3 className="font-serif text-2xl mb-4 text-white group-hover:text-accent transition-colors">
                 {item.title}
               </h3>
-              <p className="text-white/70 leading-relaxed">
+              <p className="text-white/80 leading-relaxed">
                 {item.description}
               </p>
             </motion.div>

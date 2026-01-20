@@ -68,7 +68,7 @@ export function Experience() {
               <span className="text-sm font-medium text-accent-dark tracking-wider uppercase">{exp.period}</span>
             </div>
             
-            <div className="text-lg font-medium text-ink/80 mb-4">{exp.role} <span className="text-muted font-normal">• {exp.location}</span></div>
+            <div className="text-lg font-medium text-ink mb-4">{exp.role} <span className="text-muted font-normal">• {exp.location}</span></div>
             
             <p className="text-muted leading-relaxed mb-6 max-w-3xl">
               {exp.description}
@@ -76,7 +76,7 @@ export function Experience() {
 
             <div className="flex flex-wrap gap-2">
               {exp.skills.map(skill => (
-                <span key={skill} className="px-3 py-1 bg-warm/30 text-xs font-medium uppercase tracking-wide text-ink/70">
+                <span key={skill} className="px-3 py-1 bg-warm/50 text-xs font-medium uppercase tracking-wide text-ink">
                   {skill}
                 </span>
               ))}

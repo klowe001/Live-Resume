@@ -1,15 +1,17 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme inline {
-  --color-ink: hsl(0 0% 10%);
+  --color-ink: hsl(0 0% 8%);
   --color-paper: hsl(40 14% 97%);
   --color-warm: hsl(33 16% 89%);
   --color-accent: hsl(34 43% 64%);
-  --color-accent-dark: hsl(38 30% 50%);
-  --color-muted: hsl(0 0% 42%);
+  --color-accent-dark: hsl(38 30% 45%);
+  --color-muted: hsl(0 0% 28%);
   --color-highlight: hsl(38 33% 94%);
-  
+
   --font-serif: "Instrument Serif", serif;
   --font-sans: "Manrope", sans-serif;
 
@@ -17,36 +19,36 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  
+
   /* Mapping standard shadcn vars to our palette for compatibility */
   --color-background: var(--color-paper);
   --color-foreground: var(--color-ink);
-  
+
   --color-card: var(--color-paper);
   --color-card-foreground: var(--color-ink);
-  
+
   --color-popover: var(--color-paper);
   --color-popover-foreground: var(--color-ink);
-  
+
   --color-primary: var(--color-ink);
   --color-primary-foreground: var(--color-paper);
-  
+
   --color-secondary: var(--color-warm);
   --color-secondary-foreground: var(--color-ink);
-  
+
   --color-muted: var(--color-warm);
   --color-muted-foreground: var(--color-muted);
-  
+
   --color-accent: var(--color-accent);
   --color-accent-foreground: var(--color-paper);
-  
+
   --color-destructive: hsl(0 84% 60%);
   --color-destructive-foreground: hsl(0 0% 98%);
-  
+
   --color-border: var(--color-warm);
   --color-input: var(--color-warm);
   --color-ring: var(--color-accent);
-  
+
   --color-sidebar: var(--color-paper);
   --color-sidebar-foreground: var(--color-ink);
   --color-sidebar-primary: var(--color-ink);
@@ -62,9 +64,29 @@
     @apply border-border;
   }
   body {
-    @apply font-sans antialiased bg-paper text-ink selection:bg-accent selection:text-paper;
+    @apply font-sans antialiased bg-paper text-ink selection:bg-accent selection:text-paper transition-colors duration-300;
   }
   h1, h2, h3, h4, h5, h6 {
     @apply font-serif font-normal;
+  }
+
+  /* Dark mode overrides */
+  .dark {
+    --color-ink: hsl(40 14% 95%);
+    --color-paper: hsl(220 15% 10%);
+    --color-warm: hsl(220 10% 18%);
+    --color-accent: hsl(34 50% 55%);
+    --color-accent-dark: hsl(34 45% 65%);
+    --color-muted: hsl(220 10% 65%);
+    --color-highlight: hsl(220 15% 15%);
+
+    --color-background: var(--color-paper);
+    --color-foreground: var(--color-ink);
+    --color-card: hsl(220 15% 12%);
+    --color-card-foreground: var(--color-ink);
+    --color-popover: hsl(220 15% 12%);
+    --color-popover-foreground: var(--color-ink);
+    --color-border: hsl(220 10% 22%);
+    --color-input: hsl(220 10% 22%);
   }
 }
