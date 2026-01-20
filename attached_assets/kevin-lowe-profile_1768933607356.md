@@ -3,7 +3,7 @@
 **Strategist Who Builds** | New York, NY
 
 📧 kevin@wanderluxe.io | 📱 505-470-3055  
-🔗 [LinkedIn](https://www.linkedin.com/in/kevin-lowe-5ab08164/) | 🐙 [GitHub](https://github.com/reminiscent-io) | 🌐 [WanderLuxe.io](https://wanderluxe.io)
+🔗 [LinkedIn](https://www.linkedin.com/in/kevin-andrew-lowe/) | 🐙 [GitHub](https://github.com/reminiscent-io) | 🌐 [WanderLuxe.io](https://wanderluxe.io)
 
 ---
 
