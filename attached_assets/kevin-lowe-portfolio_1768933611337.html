@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kevin Lowe | Strategist Who Builds</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #1a1a1a;
+      --paper: #faf9f7;
+      --warm: #e8e4df;
+      --accent: #c9a87c;
+      --accent-dark: #a68b5b;
+      --muted: #6b6b6b;
+      --highlight: #f5f0e8;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Manrope', sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      line-height: 1.7;
+      font-weight: 400;
+      overflow-x: hidden;
+    }
+
+    ::selection {
+      background: var(--accent);
+      color: var(--paper);
+    }
+
+    /* Typography */
+    h1, h2, h3 {
+      font-family: 'Instrument Serif', serif;
+      font-weight: 400;
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 1.5rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+      background: linear-gradient(to bottom, var(--paper) 60%, transparent);
+      transition: all 0.4s ease;
+    }
+
+    nav.scrolled {
+      background: rgba(250, 249, 247, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--warm);
+    }
+
+    .logo {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.5rem;
+      letter-spacing: -0.02em;
+      text-decoration: none;
+      color: var(--ink);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--ink);
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      position: relative;
+      padding-bottom: 4px;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--accent);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8rem 3rem 4rem;
+      max-width: 1400px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .hero-content {
+      max-width: 900px;
+    }
+
+    .hero-intro {
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--accent-dark);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.2s;
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 8vw, 6rem);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.4s;
+    }
+
+    .hero h1 span {
+      display: block;
+    }
+
+    .hero h1 .italic {
+      font-style: italic;
+      color: var(--accent-dark);
+    }
+
+    .hero-description {
+      font-size: 1.25rem;
+      color: var(--muted);
+      max-width: 600px;
+      line-height: 1.8;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.6s;
+    }
+
+    .hero-cta {
+      margin-top: 3rem;
+      display: flex;
+      gap: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.8s;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 2rem;
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      border-radius: 0;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background: var(--ink);
+      color: var(--paper);
+      border: 2px solid var(--ink);
+    }
+
+    .btn-primary:hover {
+      background: transparent;
+      color: var(--ink);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--ink);
+      border: 2px solid var(--ink);
+    }
+
+    .btn-secondary:hover {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 3rem;
+      left: 3rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards 1.2s;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 60px;
+      background: linear-gradient(to bottom, var(--ink), transparent);
+      animation: scrollPulse 2s ease infinite;
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { transform: scaleY(1); opacity: 1; }
+      50% { transform: scaleY(0.5); opacity: 0.5; }
+    }
+
+    /* Section Styling */
+    section {
+      padding: 8rem 3rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 2rem;
+      margin-bottom: 4rem;
+      border-bottom: 1px solid var(--warm);
+      padding-bottom: 2rem;
+    }
+
+    .section-number {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1rem;
+      color: var(--accent-dark);
+      font-style: italic;
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      letter-spacing: -0.02em;
+    }
+
+    /* Philosophy Section */
+    .philosophy {
+      background: var(--ink);
+      color: var(--paper);
+      max-width: none;
+      margin: 0;
+      padding: 8rem 3rem;
+    }
+
+    .philosophy-content {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .philosophy .section-number {
+      color: var(--accent);
+    }
+
+    .philosophy .section-header {
+      border-color: rgba(255,255,255,0.2);
+    }
+
+    .philosophy-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 3rem;
+      margin-top: 4rem;
+    }
+
+    .philosophy-card {
+      padding: 2.5rem;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: all 0.4s ease;
+    }
+
+    .philosophy-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+    }
+
+    .philosophy-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--accent);
+    }
+
+    .philosophy-card p {
+      color: rgba(255,255,255,0.7);
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+
+    /* Journey Section */
+    .journey-timeline {
+      position: relative;
+      padding-left: 3rem;
+    }
+
+    .journey-timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--accent), var(--warm), transparent);
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-bottom: 4rem;
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: all 0.6s ease;
+    }
+
+    .timeline-item.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -3rem;
+      top: 0.5rem;
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      transform: translateX(-50%);
+    }
+
+    .timeline-date {
+      font-size: 0.875rem;
+      color: var(--accent-dark);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.5rem;
+    }
+
+    .timeline-title {
+      font-size: 1.75rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .timeline-subtitle {
+      font-size: 1rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .timeline-description {
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .timeline-highlights {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .highlight-tag {
+      font-size: 0.75rem;
+      padding: 0.35rem 0.75rem;
+      background: var(--highlight);
+      color: var(--ink);
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
+
+    /* Projects Section */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 2rem;
+    }
+
+    .project-card {
+      position: relative;
+      overflow: hidden;
+      background: var(--paper);
+      border: 1px solid var(--warm);
+      transition: all 0.4s ease;
+    }
+
+    .project-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-8px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+    }
+
+    .project-image {
+      height: 280px;
+      background: linear-gradient(135deg, var(--warm) 0%, var(--highlight) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .project-image::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(45deg, 
+        rgba(201, 168, 124, 0.1) 0%, 
+        transparent 50%, 
+        rgba(201, 168, 124, 0.1) 100%);
+    }
+
+    .project-icon {
+      font-size: 4rem;
+      opacity: 0.3;
+    }
+
+    .project-content {
+      padding: 2rem;
+    }
+
+    .project-type {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--accent-dark);
+      margin-bottom: 0.75rem;
+    }
+
+    .project-title {
+      font-size: 1.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .project-description {
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+      line-height: 1.7;
+    }
+
+    .project-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .tech-tag {
+      font-size: 0.7rem;
+      padding: 0.25rem 0.5rem;
+      background: var(--ink);
+      color: var(--paper);
+      font-weight: 500;
+    }
+
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.875rem;
+      transition: gap 0.3s ease;
+    }
+
+    .project-link:hover {
+      gap: 1rem;
+    }
+
+    .project-link .arrow {
+      transition: transform 0.3s ease;
+    }
+
+    .project-link:hover .arrow {
+      transform: translateX(4px);
+    }
+
+    /* Education Section */
+    .education-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .education-card {
+      padding: 2.5rem;
+      background: var(--highlight);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .education-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--accent);
+    }
+
+    .education-school {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .education-degree {
+      color: var(--muted);
+      margin-bottom: 0.25rem;
+    }
+
+    .education-year {
+      font-size: 0.875rem;
+      color: var(--accent-dark);
+      font-weight: 600;
+    }
+
+    .education-note {
+      margin-top: 1rem;
+      font-style: italic;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    /* Contact Section */
+    .contact {
+      background: var(--ink);
+      color: var(--paper);
+      max-width: none;
+      margin: 0;
+      padding: 8rem 3rem;
+      text-align: center;
+    }
+
+    .contact-content {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .contact h2 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      margin-bottom: 1.5rem;
+    }
+
+    .contact p {
+      color: rgba(255,255,255,0.7);
+      font-size: 1.125rem;
+      margin-bottom: 3rem;
+      line-height: 1.8;
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 1rem 2rem;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.3);
+      color: var(--paper);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      transition: all 0.3s ease;
+    }
+
+    .contact-link:hover {
+      background: var(--paper);
+      color: var(--ink);
+      border-color: var(--paper);
+    }
+
+    /* Footer */
+    footer {
+      padding: 2rem 3rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.875rem;
+      border-top: 1px solid var(--warm);
+    }
+
+    /* Animations */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav {
+        padding: 1rem 1.5rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        padding: 6rem 1.5rem 3rem;
+      }
+
+      section {
+        padding: 4rem 1.5rem;
+      }
+
+      .philosophy {
+        padding: 4rem 1.5rem;
+      }
+
+      .philosophy-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .contact {
+        padding: 4rem 1.5rem;
+      }
+
+      .journey-timeline {
+        padding-left: 2rem;
+      }
+
+      .timeline-item::before {
+        left: -2rem;
+      }
+
+      .hero-cta {
+        flex-direction: column;
+      }
+
+      .btn {
+        justify-content: center;
+      }
+    }
+
+    /* Noise Texture Overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1000;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+  </style>
+</head>
+<body>
+  <nav id="navbar">
+    <a href="#" class="logo">Kevin Lowe</a>
+    <ul class="nav-links">
+      <li><a href="#philosophy">Philosophy</a></li>
+      <li><a href="#journey">Journey</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Connect</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-content">
+      <p class="hero-intro">Strategy × Product × AI</p>
+      <h1>
+        <span>I'm a strategist</span>
+        <span>who actually <span class="italic">builds</span></span>
+      </h1>
+      <p class="hero-description">
+        Eight years shaping growth strategies for the world's leading brands. 
+        Now channeling that experience into building AI-native products that solve real problems. 
+        The best insights come from shipping, not just advising.
+      </p>
+      <div class="hero-cta">
+        <a href="#projects" class="btn btn-primary">
+          See What I've Built
+          <span>→</span>
+        </a>
+        <a href="#journey" class="btn btn-secondary">
+          Read My Story
+        </a>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <section class="philosophy" id="philosophy">
+    <div class="philosophy-content">
+      <div class="section-header">
+        <span class="section-number">01</span>
+        <h2 class="section-title">How I Think</h2>
+      </div>
+      <div class="philosophy-grid">
+        <div class="philosophy-card">
+          <h3>Strategy Through Execution</h3>
+          <p>The most elegant strategy is worthless without the ability to ship. I've spent years translating business intent into engineering specs, financial models, and operating rhythms that actually move organizations. Now I build products myself to close the loop entirely.</p>
+        </div>
+        <div class="philosophy-card">
+          <h3>AI as Amplifier</h3>
+          <p>AI doesn't replace judgment—it accelerates it. I use agentic workflows to prototype in hours what once took weeks, but the value still comes from knowing which problems to solve and how to shape solutions that people actually want.</p>
+        </div>
+        <div class="philosophy-card">
+          <h3>Economics-First GTM</h3>
+          <p>Unit economics, pricing mechanics, loyalty systems—I've worked at the intersection of customer experience and P&L impact for Fortune 500 companies. Every product decision should connect to a measurable outcome.</p>
+        </div>
+        <div class="philosophy-card">
+          <h3>Player-Coach Mentality</h3>
+          <p>I go hands-on where it reduces iteration cycles or unblocks others. Build the first version, document the pattern, then coach someone to own v2 and v3. Success means the team can ship without me.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="journey">
+    <div class="section-header">
+      <span class="section-number">02</span>
+      <h2 class="section-title">The Journey</h2>
+    </div>
+    <div class="journey-timeline">
+      <div class="timeline-item">
+        <div class="timeline-date">2025 – Present</div>
+        <h3 class="timeline-title">Principal, BCG</h3>
+        <div class="timeline-subtitle">New York • Gen AI Node Lead</div>
+        <p class="timeline-description">
+          Leading enterprise loyalty redesigns for tens-of-millions member programs tied to 50–70% of company revenue. 
+          Translating business intent into engineering-ready requirements and analytic specifications. 
+          Training senior partners and client teams on AI-native workflows, driving measurable adoption gains across the practice.
+        </p>
+        <div class="timeline-highlights">
+          <span class="highlight-tag">Loyalty & Retention</span>
+          <span class="highlight-tag">AI Enablement</span>
+          <span class="highlight-tag">GTM Strategy</span>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">2023 – 2024</div>
+        <h3 class="timeline-title">Project Leader, BCG</h3>
+        <div class="timeline-subtitle">New York</div>
+        <p class="timeline-description">
+          Built high-trust teams from scratch, establishing decision rights, operating cadence, and PMO-driven processes. 
+          Delivered financial models for pricing, liability management, and revenue optimization. 
+          Led category strategy work that prioritized 30+ value plays and reduced client run-rate costs by $3M.
+        </p>
+        <div class="timeline-highlights">
+          <span class="highlight-tag">Program Leadership</span>
+          <span class="highlight-tag">Financial Modeling</span>
+          <span class="highlight-tag">Pricing Strategy</span>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">2019 – 2023</div>
+        <h3 class="timeline-title">Consultant → Senior Consultant, BCG</h3>
+        <div class="timeline-subtitle">Dallas → New York</div>
+        <p class="timeline-description">
+          Rose through ranks delivering growth strategies across retail, beauty, travel, hospitality, and airlines. 
+          Built loyalty economics models, led customer experience transformations, and developed brand positioning for iconic consumer companies.
+        </p>
+        <div class="timeline-highlights">
+          <span class="highlight-tag">Customer Experience</span>
+          <span class="highlight-tag">Growth Strategy</span>
+          <span class="highlight-tag">Brand Development</span>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">2021 – 2023</div>
+        <h3 class="timeline-title">MBA, The Wharton School</h3>
+        <div class="timeline-subtitle">University of Pennsylvania</div>
+        <p class="timeline-description">
+          A transformative window into 1,000+ classmates' industries, beliefs, and worldviews. 
+          Built a network spanning finance, tech, consulting, and entrepreneurship. 
+          Sharpened thinking on strategy, operations, and building organizations that scale.
+        </p>
+        <div class="timeline-highlights">
+          <span class="highlight-tag">Strategic Management</span>
+          <span class="highlight-tag">Global Network</span>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">2017 – 2019</div>
+        <h3 class="timeline-title">Associate, BCG</h3>
+        <div class="timeline-subtitle">Dallas</div>
+        <p class="timeline-description">
+          Entered consulting from industry with hands-on analytical skills. 
+          Quickly established credibility through rigorous financial modeling, data synthesis, and client-ready deliverables. 
+          Laid foundation for rapid advancement.
+        </p>
+        <div class="timeline-highlights">
+          <span class="highlight-tag">Data Analysis</span>
+          <span class="highlight-tag">Client Delivery</span>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">2015 – 2017</div>
+        <h3 class="timeline-title">Financial Analyst, Pizza Hut (Yum! Brands)</h3>
+        <div class="timeline-subtitle">Plano, TX</div>
+        <p class="timeline-description">
+          Built automated Tableau dashboards that transformed how leadership consumed performance data. 
+          Owned financial analysis and reporting for one of the world's largest QSR brands. 
+          This was where I learned that the best insights come from getting close to the data.
+        </p>
+        <div class="timeline-highlights">
+          <span class="highlight-tag">Tableau Automation</span>
+          <span class="highlight-tag">Financial Analysis</span>
+          <span class="highlight-tag">BI & Reporting</span>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">2011 – 2015</div>
+        <h3 class="timeline-title">BS Mechanical Engineering, SMU</h3>
+        <div class="timeline-subtitle">Southern Methodist University, Dallas</div>
+        <p class="timeline-description">
+          Engineering taught me to think in systems and constraints. 
+          How to break complex problems into components, model behavior, and iterate toward solutions. 
+          These fundamentals still shape how I approach product and strategy.
+        </p>
+        <div class="timeline-highlights">
+          <span class="highlight-tag">Systems Thinking</span>
+          <span class="highlight-tag">Problem Decomposition</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="section-header">
+      <span class="section-number">03</span>
+      <h2 class="section-title">What I've Built</h2>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-image">
+          <span class="project-icon">✈️</span>
+        </div>
+        <div class="project-content">
+          <div class="project-type">AI-Native Travel Platform</div>
+          <h3 class="project-title">WanderLuxe</h3>
+          <p class="project-description">
+            Full-stack travel planning platform with real-time collaboration, AI-assisted itinerary building, 
+            and professional PDF export. Built from zero to launched product with 200+ hours of development 
+            using agentic AI workflows. Founded LLC, filed trademark.
+          </p>
+          <div class="project-tech">
+            <span class="tech-tag">React 19</span>
+            <span class="tech-tag">TypeScript</span>
+            <span class="tech-tag">Supabase</span>
+            <span class="tech-tag">OpenAI API</span>
+            <span class="tech-tag">Claude Code</span>
+          </div>
+          <a href="https://wanderluxe.io" class="project-link" target="_blank">
+            Visit WanderLuxe.io <span class="arrow">→</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-image">
+          <span class="project-icon">💃</span>
+        </div>
+        <div class="project-content">
+          <div class="project-type">Professional Dance Management</div>
+          <h3 class="project-title">CPF Dance</h3>
+          <p class="project-description">
+            Comprehensive platform for professional dance instruction—built to transform how dance instructors 
+            (like former Rockettes) manage students, track progress, schedule classes, and handle payments. 
+            Multi-portal system with sophisticated role-based access control.
+          </p>
+          <div class="project-tech">
+            <span class="tech-tag">Next.js 16</span>
+            <span class="tech-tag">React 19</span>
+            <span class="tech-tag">Supabase RLS</span>
+            <span class="tech-tag">TipTap Editor</span>
+          </div>
+          <a href="https://github.com/reminiscent-io/CPF-Dance" class="project-link" target="_blank">
+            View on GitHub <span class="arrow">→</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-image">
+          <span class="project-icon">🤖</span>
+        </div>
+        <div class="project-content">
+          <div class="project-type">AI Development Practice</div>
+          <h3 class="project-title">Top 1% Replit Builder</h3>
+          <p class="project-description">
+            Achieved top 1% user status on Replit in 2025 through intensive AI-assisted development. 
+            Mastered the workflow of translating product vision into shipped code using agentic AI tools, 
+            building multiple production applications in the process.
+          </p>
+          <div class="project-tech">
+            <span class="tech-tag">Replit Agent</span>
+            <span class="tech-tag">Claude Code</span>
+            <span class="tech-tag">Full-Stack Development</span>
+          </div>
+          <a href="https://github.com/reminiscent-io" class="project-link" target="_blank">
+            See My GitHub <span class="arrow">→</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-image">
+          <span class="project-icon">📊</span>
+        </div>
+        <div class="project-content">
+          <div class="project-type">Enterprise AI Enablement</div>
+          <h3 class="project-title">BCG Gen AI Practice</h3>
+          <p class="project-description">
+            As Gen AI Node Lead for the New York office, organized large-scale hackathons generating substantial 
+            participation and output. Trained senior partners on AI workflows and built custom tools 
+            adopted directly by Fortune 500 C-suites.
+          </p>
+          <div class="project-tech">
+            <span class="tech-tag">AI Strategy</span>
+            <span class="tech-tag">Change Management</span>
+            <span class="tech-tag">Executive Training</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="education">
+    <div class="section-header">
+      <span class="section-number">04</span>
+      <h2 class="section-title">Education</h2>
+    </div>
+    <div class="education-grid">
+      <div class="education-card">
+        <h3 class="education-school">The Wharton School</h3>
+        <p class="education-degree">Master of Business Administration</p>
+        <p class="education-year">2021 – 2023</p>
+        <p class="education-note">
+          A window into the world—~1,000 classmates from every industry, geography, and worldview imaginable. 
+          Built lasting professional and personal connections.
+        </p>
+      </div>
+      <div class="education-card">
+        <h3 class="education-school">Southern Methodist University</h3>
+        <p class="education-degree">BS Mechanical Engineering</p>
+        <p class="education-year">2011 – 2015</p>
+        <p class="education-note">
+          Engineering fundamentals: systems thinking, constraint analysis, iterative problem-solving. 
+          The mental models that underpin everything I do.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="contact-content">
+      <h2>Let's Build Something</h2>
+      <p>
+        I'm exploring roles where strategy and building converge—AI product leadership, 
+        growth and GTM at high-velocity companies, or founding something new. 
+        If you're working on problems that matter, let's talk.
+      </p>
+      <div class="contact-links">
+        <a href="https://www.linkedin.com/in/kevin-lowe-5ab08164/" class="contact-link" target="_blank">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+          </svg>
+          LinkedIn
+        </a>
+        <a href="https://github.com/reminiscent-io" class="contact-link" target="_blank">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+          </svg>
+          GitHub
+        </a>
+        <a href="mailto:kevin@wanderluxe.io" class="contact-link">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+          Email
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Kevin Lowe. Built with intention.</p>
+  </footer>
+
+  <script>
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // Timeline animation on scroll
+    const timelineItems = document.querySelectorAll('.timeline-item');
+    
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.2
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, index * 100);
+        }
+      });
+    }, observerOptions);
+
+    timelineItems.forEach(item => observer.observe(item));
+
+    // Smooth scroll for navigation
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
