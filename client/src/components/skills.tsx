@@ -3,15 +3,15 @@ import { motion } from 'framer-motion';
 const skillCategories = [
   {
     title: "GTM & Strategy",
-    skills: ["Pricing & Packaging", "Loyalty Economics", "Launch Planning", "Experimentation Frameworks", "Retention Economics", "Positioning"]
+    skills: ["Customer Experience", "Loyalty Design", "Pricing & Packaging", "Launch Planning", "Experimentation Frameworks", "Retention Economics", "Brand Positioning"]
   },
   {
     title: "Analytics",
-    skills: ["Financial Modeling", "Unit Economics", "Risk Assessment", "Tableau", "Alteryx (1.5B+ rows)", "KPI Design"]
+    skills: ["Financial Modeling", "Unit Economics", "Risk Assessment", "Tableau", "Alteryx", "Excel", "KPI Dashboards"]
   },
   {
     title: "Technical Stack",
-    skills: ["React 19 & Next.js", "TypeScript", "Tailwind CSS", "Supabase (PostgreSQL)", "OpenAI API Integration", "Agentic Workflows"]
+    skills: ["React 19 & Next.js", "TypeScript", "Tailwind CSS", "Supabase (PostgreSQL)", "OpenAI API Integration", "Agentic Workflows", "Microsoft Office Suite", "Claude Code"]
   },
   {
     title: "Leadership",
@@ -21,7 +21,7 @@ const skillCategories = [
 
 export function Skills() {
   return (
-    <section className="py-24 px-6 max-w-7xl mx-auto">
+    <section className="py-16 px-6 max-w-7xl mx-auto">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
         {skillCategories.map((category, index) => (
           <motion.div

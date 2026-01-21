@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
 import { Link } from 'wouter';
-import { ThemeToggle } from './theme-toggle';
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
@@ -53,13 +52,9 @@ export function Nav() {
               </a>
             </li>
           ))}
-          <li>
-            <ThemeToggle />
-          </li>
         </ul>
 
-        <div className="md:hidden flex items-center gap-4">
-          <ThemeToggle />
+        <div className="md:hidden">
           <a
             href="mailto:kevin@wanderluxe.io"
             className="text-sm font-medium uppercase tracking-wider text-ink"

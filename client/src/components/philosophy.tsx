@@ -5,28 +5,28 @@ const philosophies = [
   {
     icon: Terminal,
     title: "Strategy Through Execution",
-    description: "The most elegant strategy is worthless without the ability to ship. I've spent years translating business intent into engineering specs. Now I build products myself to close the loop entirely."
+    description: "I've spent years defining growth strategy for brands and companies with a lens toward implementation feasibility. Now I'm building products on my own—so I can truly understand the end-to-end journey from strategy to shipped product."
   },
   {
     icon: Lightbulb,
     title: "AI as Amplifier",
-    description: "AI accelerates judgment. I use agentic workflows to prototype in hours what once took weeks, but the value still comes from knowing which problems to solve and how to shape solutions."
+    description: "AI accelerates judgment. I use agentic workflows to prototype in hours what once would've been impossible for me to do alone. But the real value comes from a strong foundation in customer experience design, strategic rationale, and clarity on the problems worth solving."
   },
   {
     icon: TrendingUp,
-    title: "Economics-First GTM",
-    description: "Every product decision should connect to a measurable outcome. I model revenue lift, redemption liability, and unit economics before recommending action."
+    title: "Economics-First Mindset",
+    description: "Every decision should connect to a measurable outcome. I model revenue lift, redemption liability, and unit economics before recommending action—backed by years of building complex Excel models, Tableau dashboards, and more recently, fully custom analytics tools."
   },
   {
     icon: Users,
     title: "Player-Coach Mentality",
-    description: "I go hands-on where it reduces iteration cycles or unblocks others. Build the first version, document the pattern, then coach someone to own v2. Success means the team can ship without me."
+    description: "I go hands-on where it reduces iteration cycles or unblocks others. Build the first version, document the pattern, then coach someone to own the next iteration. Success means the team can ship without me."
   }
 ];
 
 export function Philosophy() {
   return (
-    <section id="philosophy" className="py-32 bg-ink text-paper relative overflow-hidden">
+    <section id="philosophy" className="py-20 bg-ink text-paper relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="flex items-baseline gap-4 mb-16 border-b border-white/20 pb-8">
           <span className="font-serif text-accent italic text-lg">01</span>

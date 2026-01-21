@@ -2,7 +2,7 @@ import { Github, Linkedin, Mail, FileText } from 'lucide-react';
 
 export function Footer() {
   return (
-    <footer id="contact" className="bg-ink text-paper py-24 px-6">
+    <footer id="contact" className="bg-ink text-paper py-16 px-6">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
           <div>
@@ -11,8 +11,7 @@ export function Footer() {
               <span className="text-accent italic">Something Real</span>
             </h2>
             <p className="text-white/75 max-w-md text-lg leading-relaxed mb-12">
-              I'm exploring roles where strategy and building converge. 
-              Whether it's AI Product Leadership, Growth at high-velocity companies, or founding something new.
+              Expanding my skill set, exploring new technologies, and building on the side—all while serving clients at BCG and driving projects forward as a team leader.
             </p>
             
             <div className="flex flex-col gap-4 text-white/80">
@@ -22,7 +21,11 @@ export function Footer() {
               </div>
               <div className="flex items-center gap-3">
                 <span className="w-12 text-xs uppercase tracking-widest text-accent">Email</span>
-                <a href="mailto:kevin@wanderluxe.io" className="hover:text-accent transition-colors">kevin@wanderluxe.io</a>
+                <span>
+                  <a href="mailto:kevin@wanderluxe.io" className="hover:text-accent transition-colors">kevin@wanderluxe.io</a>
+                  <span className="text-white/40 mx-2">/</span>
+                  <a href="mailto:Lowe.kevin@bcg.com" className="hover:text-accent transition-colors">Lowe.kevin@bcg.com</a>
+                </span>
               </div>
             </div>
           </div>
