@@ -11,11 +11,11 @@ const skillCategories = [
   },
   {
     title: "Technical Stack",
-    skills: ["React 19 & Next.js", "TypeScript", "Tailwind CSS", "Supabase (PostgreSQL)", "OpenAI API Integration", "Agentic Workflows", "Microsoft Office Suite", "Claude Code"]
+    skills: ["Claude Code", "Microsoft Office Suite", "Supabase (PostgreSQL)", "API Integrations", "Agentic Workflows", "React 19 & Next.js", "TypeScript", "Tailwind CSS"]
   },
   {
     title: "Leadership",
-    skills: ["Program Leadership", "Team Building", "Stakeholder Alignment", "Executive Communication", "Cross-functional Coordination"]
+    skills: ["Program Leadership", "Team Mentorship", "Stakeholder Alignment", "Executive Communication", "Cross-functional Coordination"]
   }
 ];
 

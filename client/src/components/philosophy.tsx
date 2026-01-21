@@ -5,12 +5,12 @@ const philosophies = [
   {
     icon: Terminal,
     title: "Strategy Through Execution",
-    description: "I've spent years defining growth strategy for brands and companies with a lens toward implementation feasibility. Now I'm building products on my own—so I can truly understand the end-to-end journey from strategy to shipped product."
+    description: "I've spent years defining growth strategy for brands and companies with a lens toward implementation feasibility. Now I'm comfortable building fast, and early; iterating products on my own so I can truly understand the end-to-end journey from strategy to shipped product."
   },
   {
     icon: Lightbulb,
     title: "AI as Amplifier",
-    description: "AI accelerates judgment. I use agentic workflows to prototype in hours what once would've been impossible for me to do alone. But the real value comes from a strong foundation in customer experience design, strategic rationale, and clarity on the problems worth solving."
+    description: "AI accelerates good judgment. I embed it in my everyday workflows to do in minutes what previously took hours. But, AI is not a silver bullet. My years of working 'the old fashioned way' allows me to leverage its full potential. The real value comes from a strong foundation in customer experience design, strategic rationale, and clarity on the problems worth solving."
   },
   {
     icon: TrendingUp,
