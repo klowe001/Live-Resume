@@ -242,9 +242,33 @@ const timeline: TimelineItem[] = [
 export function Experience() {
   return (
     <section id="experience" className="py-20 px-6 max-w-7xl mx-auto">
-      <div className="flex items-baseline gap-4 mb-20 border-b border-warm pb-8">
+      <div className="flex items-baseline gap-4 mb-12 border-b border-warm pb-8">
         <span className="font-serif text-accent-dark italic text-lg">02</span>
         <h2 className="font-serif text-4xl md:text-5xl text-ink">Experience</h2>
+      </div>
+
+      {/* Expertise Summary */}
+      <div className="mb-16 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+        <div>
+          <h3 className="text-xs font-semibold uppercase tracking-widest text-accent-dark mb-4">Functional Expertise</h3>
+          <div className="flex flex-wrap gap-2">
+            {['Growth Strategy', 'Brand Strategy', 'Loyalty Design', 'Customer Experience'].map((item) => (
+              <span key={item} className="px-3 py-1.5 bg-warm/50 text-sm font-medium text-ink border border-warm">
+                {item}
+              </span>
+            ))}
+          </div>
+        </div>
+        <div>
+          <h3 className="text-xs font-semibold uppercase tracking-widest text-accent-dark mb-4">Industry Experience</h3>
+          <div className="flex flex-wrap gap-2">
+            {['Fashion', 'Luxury', 'Retail', 'Travel', 'Hospitality'].map((item) => (
+              <span key={item} className="px-3 py-1.5 bg-accent/10 text-sm font-medium text-ink border border-accent/20">
+                {item}
+              </span>
+            ))}
+          </div>
+        </div>
       </div>
 
       <div className="relative ml-4 md:ml-6 pl-8 md:pl-10 border-l border-warm">

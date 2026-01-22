@@ -9,6 +9,7 @@ import hazelnutCakeImg from '@assets/Hazelnut Cake.JPG';
 import croissantsImg from '@assets/Croissants.JPG';
 import chocolateCakeImg from '@assets/Chocolate Cake.JPG';
 import skiingImg from '@assets/Skiing.jpg';
+import golfVideo from '@assets/Golf.mov';
 
 const bakingPhotos = [
   { src: leCordonBleuImg, alt: 'Le Cordon Bleu Paris' },
@@ -23,36 +24,33 @@ const skiingPhotos = [
   { src: skiingImg, alt: 'On the slopes' },
 ];
 
-// Using skiing image as placeholder for golf until we have a dedicated image
-const golfPhotos = [
-  { src: skiingImg, alt: 'On the course' },
-];
-
 interface Interest {
   icon: React.ComponentType<{ className?: string }>;
   title: string;
   description: string;
   photos: { src: string; alt: string }[] | null;
+  video?: { src: string; alt: string };
 }
 
 const interests: Interest[] = [
   {
     icon: ChefHat,
     title: 'Baking & Pastry',
-    description: 'Le Cordon Bleu trained. I bring the same precision from engineering and strategy to French pastry.',
+    description: 'Achieved level one patisserie certificate from Le Cordon Bleu in Paris over an 8-week course in 2021. I\'ve baked everything from macarons to a wedding cake. I find baking is my way to explore creativity while bringing in the precision that I learned in engineering.',
     photos: bakingPhotos,
   },
   {
     icon: Mountain,
     title: 'Skiing',
-    description: 'Weekends on the mountain when possible. There\'s something clarifying about speed and focus.',
+    description: 'While living in New York makes skiing a little more difficult, I love to get out to Colorado or the French Alps as much as I possibly can. I started as a snowboarder and switched to skiing a few years back. I\'ve been heli-skiing in Jackson Hole and fell in love with the immensity of the mountain ranges.',
     photos: skiingPhotos,
   },
   {
     icon: Flag,
     title: 'Golf',
     description: 'A game of patience and precision. The mental challenge keeps me coming back.',
-    photos: golfPhotos,
+    photos: null,
+    video: { src: golfVideo, alt: 'On the course' },
   },
   {
     icon: MapPin,
@@ -127,7 +125,7 @@ function AccordionItem({
   onToggle: () => void;
 }) {
   const Icon = interest.icon;
-  const hasPhotos = interest.photos && interest.photos.length > 0;
+  const hasMedia = (interest.photos && interest.photos.length > 0) || interest.video;
 
   return (
     <div className="border-b border-warm last:border-b-0">
@@ -142,7 +140,7 @@ function AccordionItem({
             {interest.title}
           </h3>
         </div>
-        {hasPhotos && (
+        {hasMedia && (
           <motion.div
             animate={{ rotate: isOpen ? 180 : 0 }}
             transition={{ duration: 0.2 }}
@@ -174,13 +172,14 @@ function AccordionItem({
 export function PersonalInterests() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-  // Get the first photo from the selected interest (or null if none selected or no photos)
+  // Get the first photo or video from the selected interest
   const selectedInterest = openIndex !== null ? interests[openIndex] : null;
   const selectedPhoto = selectedInterest?.photos?.[0] ?? null;
+  const selectedVideo = selectedInterest?.video ?? null;
 
   const handleToggle = (index: number) => {
-    // Only allow toggle for items with photos
-    if (interests[index].photos) {
+    // Only allow toggle for items with media (photos or video)
+    if (interests[index].photos || interests[index].video) {
       setOpenIndex(openIndex === index ? null : index);
     }
   };
@@ -199,7 +198,7 @@ export function PersonalInterests() {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="border border-warm bg-paper p-6 md:p-8"
+          className="p-6 md:p-8"
         >
           {interests.map((interest, index) => (
             <AccordionItem
@@ -219,7 +218,35 @@ export function PersonalInterests() {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="aspect-[4/3] lg:aspect-auto lg:min-h-[500px] border border-warm bg-warm/5 overflow-hidden"
         >
-          {selectedPhoto ? (
+          {selectedVideo ? (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.4 }}
+              className="relative w-full aspect-square overflow-hidden"
+            >
+              <video
+                src={selectedVideo.src}
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="absolute inset-0 w-full h-full object-cover object-center"
+              />
+              <div className="absolute inset-0 bg-gradient-to-b from-amber-900/10 via-transparent to-amber-900/20 pointer-events-none" />
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="absolute bottom-4 left-4 right-4"
+              >
+                <p className="text-sm text-white/90 font-medium drop-shadow-lg">
+                  {selectedVideo.alt}
+                </p>
+              </motion.div>
+            </motion.div>
+          ) : selectedPhoto ? (
             <ParallaxImage photo={selectedPhoto} isVisible={true} />
           ) : (
             <div className="w-full h-full flex items-center justify-center text-muted">
