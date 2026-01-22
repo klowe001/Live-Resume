@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import leCordonBleuImg from '@assets/Le Cordon Bleu.JPG';
+import savarinImg from '@assets/Savarin.JPG';
+import tarteCitronImg from '@assets/Tarte Citron.JPG';
 
 interface Role {
   title: string;
@@ -108,7 +109,7 @@ function LeCordonBleuCard({ nested }: { nested: NonNullable<GraduateSchool['nest
         {nested.note}
       </p>
 
-      {/* Hover image - appears below and pushes content down */}
+      {/* Hover images - appears below and pushes content down */}
       <AnimatePresence>
         {isHovered && (
           <motion.div
@@ -118,11 +119,19 @@ function LeCordonBleuCard({ nested }: { nested: NonNullable<GraduateSchool['nest
             transition={{ duration: 0.3, ease: 'easeInOut' }}
             className="overflow-hidden"
           >
-            <div className="pt-4">
-              <div className="relative w-full max-w-xs border border-warm overflow-hidden">
+            <div className="pt-4 flex gap-3">
+              <div className="relative flex-1 border border-warm overflow-hidden">
                 <img
-                  src={leCordonBleuImg}
-                  alt="Le Cordon Bleu Paris"
+                  src={savarinImg}
+                  alt="Savarin"
+                  className="w-full h-auto object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-amber-900/10 via-transparent to-amber-900/20 pointer-events-none" />
+              </div>
+              <div className="relative flex-1 border border-warm overflow-hidden">
+                <img
+                  src={tarteCitronImg}
+                  alt="Tarte Citron"
                   className="w-full h-auto object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-b from-amber-900/10 via-transparent to-amber-900/20 pointer-events-none" />
@@ -250,24 +259,24 @@ export function Experience() {
       {/* Expertise Summary */}
       <div className="mb-16 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
         <div>
-          <h3 className="text-xs font-semibold uppercase tracking-widest text-accent-dark mb-4">Functional Expertise</h3>
-          <div className="flex flex-wrap gap-2">
-            {['Growth Strategy', 'Brand Strategy', 'Loyalty Design', 'Customer Experience'].map((item) => (
-              <span key={item} className="px-3 py-1.5 bg-warm/50 text-sm font-medium text-ink border border-warm">
-                {item}
+          <h3 className="text-xs font-semibold uppercase tracking-widest text-accent-dark mb-3">Functional Expertise</h3>
+          <p className="text-sm text-ink leading-relaxed">
+            {['Growth Strategy', 'Brand Strategy', 'Loyalty Design', 'Customer Experience', 'AI Coding'].map((item, index, arr) => (
+              <span key={item}>
+                {item}{index < arr.length - 1 && <span className="mx-2 text-muted">·</span>}
               </span>
             ))}
-          </div>
+          </p>
         </div>
         <div>
-          <h3 className="text-xs font-semibold uppercase tracking-widest text-accent-dark mb-4">Industry Experience</h3>
-          <div className="flex flex-wrap gap-2">
-            {['Fashion', 'Luxury', 'Retail', 'Travel', 'Hospitality'].map((item) => (
-              <span key={item} className="px-3 py-1.5 bg-accent/10 text-sm font-medium text-ink border border-accent/20">
-                {item}
+          <h3 className="text-xs font-semibold uppercase tracking-widest text-accent-dark mb-3">Industry Experience</h3>
+          <p className="text-sm text-ink leading-relaxed">
+            {['Fashion', 'Luxury', 'Retail', 'Travel', 'Hospitality'].map((item, index, arr) => (
+              <span key={item}>
+                {item}{index < arr.length - 1 && <span className="mx-2 text-muted">·</span>}
               </span>
             ))}
-          </div>
+          </p>
         </div>
       </div>
 
