@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ChefHat, Mountain, MapPin, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useState, useRef } from 'react';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
+import { ChefHat, Mountain, MapPin, ChevronDown, Flag } from 'lucide-react';
 
 import leCordonBleuImg from '@assets/Le Cordon Bleu.JPG';
 import tarteCitronImg from '@assets/Tarte Citron.JPG';
@@ -23,80 +23,19 @@ const skiingPhotos = [
   { src: skiingImg, alt: 'On the slopes' },
 ];
 
-function ImageCarousel({ photos }: { photos: { src: string; alt: string }[] }) {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const hasMultiple = photos.length > 1;
+// Using skiing image as placeholder for golf until we have a dedicated image
+const golfPhotos = [
+  { src: skiingImg, alt: 'On the course' },
+];
 
-  const next = () => setCurrentIndex((i) => (i + 1) % photos.length);
-  const prev = () => setCurrentIndex((i) => (i - 1 + photos.length) % photos.length);
-
-  return (
-    <div className="relative">
-      {/* Main image */}
-      <div className="relative aspect-[4/3] overflow-hidden bg-warm/10">
-        <AnimatePresence mode="wait">
-          <motion.img
-            key={currentIndex}
-            src={photos[currentIndex].src}
-            alt={photos[currentIndex].alt}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="w-full h-full object-cover"
-          />
-        </AnimatePresence>
-        {/* Warm overlay for elegance */}
-        <div className="absolute inset-0 bg-gradient-to-b from-amber-900/10 via-transparent to-amber-900/20 pointer-events-none" />
-
-        {/* Navigation arrows - only show if multiple photos */}
-        {hasMultiple && (
-          <>
-            <button
-              onClick={prev}
-              className="absolute left-2 top-1/2 -translate-y-1/2 p-1.5 bg-paper/90 hover:bg-paper border border-warm/50 rounded-full transition-colors"
-              aria-label="Previous image"
-            >
-              <ChevronLeft className="w-3.5 h-3.5 text-ink" />
-            </button>
-            <button
-              onClick={next}
-              className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 bg-paper/90 hover:bg-paper border border-warm/50 rounded-full transition-colors"
-              aria-label="Next image"
-            >
-              <ChevronRight className="w-3.5 h-3.5 text-ink" />
-            </button>
-          </>
-        )}
-      </div>
-
-      {/* Caption and dots in a row */}
-      <div className="flex items-center justify-between mt-3">
-        <p className="text-xs text-muted italic">
-          {photos[currentIndex].alt}
-        </p>
-
-        {/* Dots indicator - only show if multiple photos */}
-        {hasMultiple && (
-          <div className="flex gap-1.5">
-            {photos.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentIndex(index)}
-                className={`w-1.5 h-1.5 rounded-full transition-colors ${
-                  index === currentIndex ? 'bg-accent' : 'bg-warm'
-                }`}
-                aria-label={`Go to image ${index + 1}`}
-              />
-            ))}
-          </div>
-        )}
-      </div>
-    </div>
-  );
+interface Interest {
+  icon: React.ComponentType<{ className?: string }>;
+  title: string;
+  description: string;
+  photos: { src: string; alt: string }[] | null;
 }
 
-const interests = [
+const interests: Interest[] = [
   {
     icon: ChefHat,
     title: 'Baking & Pastry',
@@ -110,6 +49,12 @@ const interests = [
     photos: skiingPhotos,
   },
   {
+    icon: Flag,
+    title: 'Golf',
+    description: 'A game of patience and precision. The mental challenge keeps me coming back.',
+    photos: golfPhotos,
+  },
+  {
     icon: MapPin,
     title: 'New York City',
     description: 'Home base. The energy here matches how I like to work—fast, varied, always something new.',
@@ -117,7 +62,129 @@ const interests = [
   },
 ];
 
+function ParallaxImage({ photo, isVisible }: { photo: { src: string; alt: string }; isVisible: boolean }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
+
+  // Parallax effect: image moves slower than scroll
+  const y = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
+
+  return (
+    <div
+      ref={containerRef}
+      className="relative w-full h-full overflow-hidden bg-warm/10"
+    >
+      <AnimatePresence mode="wait">
+        {isVisible && (
+          <motion.div
+            key={photo.src}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.4 }}
+            className="absolute inset-0"
+          >
+            <motion.img
+              src={photo.src}
+              alt={photo.alt}
+              style={{ y }}
+              className="w-full h-[130%] object-cover absolute -top-[15%]"
+            />
+            {/* Warm overlay for elegance */}
+            <div className="absolute inset-0 bg-gradient-to-b from-amber-900/10 via-transparent to-amber-900/20 pointer-events-none" />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Caption */}
+      {isVisible && (
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="absolute bottom-4 left-4 right-4"
+        >
+          <p className="text-sm text-white/90 font-medium drop-shadow-lg">
+            {photo.alt}
+          </p>
+        </motion.div>
+      )}
+    </div>
+  );
+}
+
+function AccordionItem({
+  interest,
+  isOpen,
+  onToggle
+}: {
+  interest: Interest;
+  isOpen: boolean;
+  onToggle: () => void;
+}) {
+  const Icon = interest.icon;
+  const hasPhotos = interest.photos && interest.photos.length > 0;
+
+  return (
+    <div className="border-b border-warm last:border-b-0">
+      <button
+        onClick={onToggle}
+        className="w-full py-6 flex items-center justify-between text-left group"
+        aria-expanded={isOpen}
+      >
+        <div className="flex items-center gap-4">
+          <Icon className="w-6 h-6 text-accent stroke-[1.5] group-hover:text-accent-dark transition-colors" />
+          <h3 className="font-serif text-xl md:text-2xl text-ink group-hover:text-accent-dark transition-colors">
+            {interest.title}
+          </h3>
+        </div>
+        {hasPhotos && (
+          <motion.div
+            animate={{ rotate: isOpen ? 180 : 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            <ChevronDown className="w-5 h-5 text-muted group-hover:text-accent transition-colors" />
+          </motion.div>
+        )}
+      </button>
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="overflow-hidden"
+          >
+            <p className="text-muted leading-relaxed pb-6 pl-10">
+              {interest.description}
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
 export function PersonalInterests() {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  // Get the first photo from the selected interest (or null if none selected or no photos)
+  const selectedInterest = openIndex !== null ? interests[openIndex] : null;
+  const selectedPhoto = selectedInterest?.photos?.[0] ?? null;
+
+  const handleToggle = (index: number) => {
+    // Only allow toggle for items with photos
+    if (interests[index].photos) {
+      setOpenIndex(openIndex === index ? null : index);
+    }
+  };
+
   return (
     <section id="personal" className="py-20 px-6 max-w-7xl mx-auto">
       <div className="flex items-baseline gap-4 mb-16 border-b border-warm pb-8">
@@ -125,38 +192,43 @@ export function PersonalInterests() {
         <h2 className="font-serif text-4xl md:text-5xl text-ink">Beyond Work</h2>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {interests.map((interest, index) => (
-          <motion.div
-            key={interest.title}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-            className="group p-8 border border-warm bg-paper hover:border-accent transition-all duration-300 hover:-translate-y-1 hover:shadow-lg flex flex-col"
-          >
-            <div className="flex items-center gap-3 mb-4">
-              <interest.icon className="w-6 h-6 text-accent stroke-[1.5]" />
-              <h3 className="font-serif text-2xl text-ink group-hover:text-accent-dark transition-colors">{interest.title}</h3>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+        {/* Left side - Accordion list */}
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="border border-warm bg-paper p-6 md:p-8"
+        >
+          {interests.map((interest, index) => (
+            <AccordionItem
+              key={interest.title}
+              interest={interest}
+              isOpen={openIndex === index}
+              onToggle={() => handleToggle(index)}
+            />
+          ))}
+        </motion.div>
+
+        {/* Right side - Parallax image */}
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="aspect-[4/3] lg:aspect-auto lg:min-h-[500px] border border-warm bg-warm/5 overflow-hidden"
+        >
+          {selectedPhoto ? (
+            <ParallaxImage photo={selectedPhoto} isVisible={true} />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center text-muted">
+              <p className="text-center italic">
+                Click on an interest to see more
+              </p>
             </div>
-
-            <p className="text-muted leading-relaxed mb-6">
-              {interest.description}
-            </p>
-
-            {interest.photos ? (
-              <div className="mt-auto">
-                <ImageCarousel photos={interest.photos} />
-              </div>
-            ) : (
-              <div className="mt-auto pt-4 border-t border-warm/50">
-                <p className="text-xs text-accent-dark font-medium uppercase tracking-wide">
-                  Current Location
-                </p>
-              </div>
-            )}
-          </motion.div>
-        ))}
+          )}
+        </motion.div>
       </div>
     </section>
   );
