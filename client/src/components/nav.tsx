@@ -1,14 +1,34 @@
-import { useState } from 'react';
-import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
+import { useState, useEffect, useRef, useCallback } from 'react';
+import { motion } from 'framer-motion';
 import { Link } from 'wouter';
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
-  const { scrollY } = useScroll();
+  const rafRef = useRef<number | null>(null);
+  const lastScrollY = useRef(0);
 
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    setScrolled(latest > 50);
-  });
+  const handleScroll = useCallback(() => {
+    if (rafRef.current !== null) return;
+
+    rafRef.current = requestAnimationFrame(() => {
+      const currentScrollY = window.scrollY;
+      if (currentScrollY !== lastScrollY.current) {
+        lastScrollY.current = currentScrollY;
+        setScrolled(currentScrollY > 50);
+      }
+      rafRef.current = null;
+    });
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (rafRef.current !== null) {
+        cancelAnimationFrame(rafRef.current);
+      }
+    };
+  }, [handleScroll]);
 
   const links = [
     { name: "Philosophy", href: "#philosophy" },

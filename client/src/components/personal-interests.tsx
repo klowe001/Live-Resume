@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { ChefHat, Mountain, MapPin, ChevronDown, Flag } from 'lucide-react';
+import { useAnimationContext } from '@/context/animation-context';
 
 import leCordonBleuImg from '@assets/Le Cordon Bleu.JPG';
 import tarteCitronImg from '@assets/Tarte Citron.JPG';
@@ -62,13 +63,14 @@ const interests: Interest[] = [
 
 function ParallaxImage({ photo, isVisible }: { photo: { src: string; alt: string }; isVisible: boolean }) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const { shouldReduceAnimations } = useAnimationContext();
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"]
   });
 
-  // Parallax effect: image moves slower than scroll
+  // Parallax effect: image moves slower than scroll (only used on desktop)
   const y = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
 
   return (
@@ -83,15 +85,25 @@ function ParallaxImage({ photo, isVisible }: { photo: { src: string; alt: string
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.4 }}
+            transition={{ duration: shouldReduceAnimations ? 0.3 : 0.4 }}
             className="absolute inset-0"
           >
-            <motion.img
-              src={photo.src}
-              alt={photo.alt}
-              style={{ y }}
-              className="w-full h-[130%] object-cover absolute -top-[15%]"
-            />
+            {shouldReduceAnimations ? (
+              // Mobile/reduced-motion: simple fade with static image
+              <img
+                src={photo.src}
+                alt={photo.alt}
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              // Desktop: parallax effect with GPU acceleration
+              <motion.img
+                src={photo.src}
+                alt={photo.alt}
+                style={{ y, willChange: 'transform' }}
+                className="w-full h-[130%] object-cover absolute -top-[15%]"
+              />
+            )}
             {/* Warm overlay for elegance */}
             <div className="absolute inset-0 bg-gradient-to-b from-amber-900/10 via-transparent to-amber-900/20 pointer-events-none" />
           </motion.div>
@@ -101,9 +113,9 @@ function ParallaxImage({ photo, isVisible }: { photo: { src: string; alt: string
       {/* Caption */}
       {isVisible && (
         <motion.div
-          initial={{ opacity: 0, y: 10 }}
+          initial={{ opacity: 0, y: shouldReduceAnimations ? 0 : 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
+          transition={{ delay: 0.2, duration: shouldReduceAnimations ? 0.2 : 0.3 }}
           className="absolute bottom-4 left-4 right-4"
         >
           <p className="text-sm text-white/90 font-medium drop-shadow-lg">
