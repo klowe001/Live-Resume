@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
-import { ChefHat, Mountain, MapPin, ChevronDown, Flag } from 'lucide-react';
+import { ChefHat, Mountain, MapPin, ChevronDown, Flag, Plane } from 'lucide-react';
 import { useAnimationContext } from '@/context/animation-context';
 
 import leCordonBleuImg from '@assets/Le Cordon Bleu.JPG';
@@ -52,6 +52,12 @@ const interests: Interest[] = [
     description: 'A game of patience and precision. The mental challenge keeps me coming back.',
     photos: null,
     video: { src: golfVideo, alt: 'On the course' },
+  },
+  {
+    icon: Plane,
+    title: 'Travel Advisor',
+    description: 'I\'m a certified travel advisor with Fora Travel, a modern tech-forward travel advisory startup. I wanted to learn more about the travel industry, and I plan so many trips for myself and friends and family that it made sense to go official. It\'s fascinating what you can learn when you\'re on the inside.',
+    photos: null,
   },
   {
     icon: MapPin,
