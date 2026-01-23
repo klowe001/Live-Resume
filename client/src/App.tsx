@@ -3,6 +3,8 @@ import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { AnimationProvider } from "@/context/animation-context";
+import { ConsentProvider } from "@/context/consent-context";
+import { ConsentBanner } from "@/components/consent-banner";
 import Home from "@/pages/home";
 import NotFound from "@/pages/not-found";
 
@@ -18,10 +20,13 @@ function Router() {
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <AnimationProvider>
-        <Toaster />
-        <Router />
-      </AnimationProvider>
+      <ConsentProvider>
+        <AnimationProvider>
+          <Toaster />
+          <Router />
+          <ConsentBanner />
+        </AnimationProvider>
+      </ConsentProvider>
     </QueryClientProvider>
   );
 }
