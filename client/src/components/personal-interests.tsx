@@ -11,6 +11,7 @@ import croissantsImg from '@assets/Croissants.JPG';
 import chocolateCakeImg from '@assets/Chocolate Cake.JPG';
 import skiingImg from '@assets/Skiing.jpg';
 import golfVideo from '@assets/Golf.mov';
+import travelAdvisorImg from '@assets/Travel Advisor.jpg';
 
 const bakingPhotos = [
   { src: leCordonBleuImg, alt: 'Le Cordon Bleu Paris' },
@@ -23,6 +24,10 @@ const bakingPhotos = [
 
 const skiingPhotos = [
   { src: skiingImg, alt: 'On the slopes' },
+];
+
+const travelAdvisorPhotos = [
+  { src: travelAdvisorImg, alt: 'Travel Advisor' },
 ];
 
 interface Interest {
@@ -57,7 +62,7 @@ const interests: Interest[] = [
     icon: Plane,
     title: 'Travel Advisor',
     description: 'I\'m a certified travel advisor with Fora Travel, a modern tech-forward travel advisory startup. I wanted to learn more about the travel industry, and I plan so many trips for myself and friends and family that it made sense to go official. It\'s fascinating what you can learn when you\'re on the inside.',
-    photos: null,
+    photos: travelAdvisorPhotos,
   },
   {
     icon: MapPin,

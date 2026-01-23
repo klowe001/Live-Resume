@@ -10,7 +10,7 @@ const projects = [
     type: "AI Travel Platform",
     description: "AI-native travel planning platform with real-time collaboration, AI-assisted itinerary building, and professional PDF export. Founded LLC, filed trademark, and built from zero to launch.",
     problem: "Travel planning is fragmented across spreadsheets, docs, and screenshots. Existing tools are either too simple or too complex for collaborative trip planning.",
-    why: "I wanted to prove that the gap between 'strategy person' and 'builder' can be bridged. 200+ hours of hands-on development using agentic AI workflows, resulting in 18,000+ lines of production code.",
+    why: "I built this because I was planning a month-long honeymoon across multiple countries and needed a way to keep track of every hotel reservation, wine-tasting, and tea time that we had. I also wanted to prove that the gap between 'strategy person' and 'builder' can be bridged. 200+ hours of hands-on development using agentic AI workflows, resulting in 18,000+ lines of production code.",
     tech: ["React 19", "Supabase", "OpenAI API", "Google Places", "Vite"],
     links: [
       { label: "Website", url: "https://wanderluxe.io", icon: Globe },

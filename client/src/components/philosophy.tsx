@@ -1,5 +1,6 @@
-import { motion } from 'framer-motion';
-import { Lightbulb, Terminal, TrendingUp, Users } from 'lucide-react';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Lightbulb, Terminal, TrendingUp, Users, ChevronDown } from 'lucide-react';
 
 const philosophies = [
   {
@@ -24,6 +25,71 @@ const philosophies = [
   }
 ];
 
+function MobileCollapsibleCard({ item, index }: { item: typeof philosophies[0]; index: number }) {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const Icon = item.icon;
+
+  return (
+    <motion.div
+      key={item.title}
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, delay: index * 0.1 }}
+      className="group border border-white/10 hover:border-accent transition-all duration-300 md:hover:-translate-y-1 bg-white/5 backdrop-blur-sm"
+    >
+      {/* Mobile: Collapsible header */}
+      <button
+        onClick={() => setIsExpanded(!isExpanded)}
+        className="md:hidden w-full flex items-center justify-between text-left p-4"
+      >
+        <div className="flex items-center gap-3">
+          <Icon className="w-6 h-6 text-accent stroke-[1.5]" />
+          <h3 className="font-serif text-xl text-white">
+            {item.title}
+          </h3>
+        </div>
+        <motion.div
+          animate={{ rotate: isExpanded ? 180 : 0 }}
+          transition={{ duration: 0.2 }}
+        >
+          <ChevronDown className="w-5 h-5 text-white/60" />
+        </motion.div>
+      </button>
+
+      {/* Mobile: Collapsible content */}
+      <AnimatePresence>
+        {isExpanded && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="md:hidden overflow-hidden"
+          >
+            <div className="px-4 pb-4">
+              <p className="text-white/80 leading-relaxed text-sm">
+                {item.description}
+              </p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Desktop: Always visible */}
+      <div className="hidden md:block p-8">
+        <Icon className="w-8 h-8 text-accent mb-6 stroke-[1.5]" />
+        <h3 className="font-serif text-2xl mb-4 text-white group-hover:text-accent transition-colors">
+          {item.title}
+        </h3>
+        <p className="text-white/80 leading-relaxed">
+          {item.description}
+        </p>
+      </div>
+    </motion.div>
+  );
+}
+
 export function Philosophy() {
   return (
     <section id="philosophy" className="py-20 bg-ink text-paper relative overflow-hidden">
@@ -33,24 +99,9 @@ export function Philosophy() {
           <h2 className="font-serif text-4xl md:text-5xl">How I Think</h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-12">
           {philosophies.map((item, index) => (
-            <motion.div
-              key={item.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="group p-8 border border-white/10 hover:border-accent transition-all duration-300 hover:-translate-y-1 bg-white/5 backdrop-blur-sm"
-            >
-              <item.icon className="w-8 h-8 text-accent mb-6 stroke-[1.5]" />
-              <h3 className="font-serif text-2xl mb-4 text-white group-hover:text-accent transition-colors">
-                {item.title}
-              </h3>
-              <p className="text-white/80 leading-relaxed">
-                {item.description}
-              </p>
-            </motion.div>
+            <MobileCollapsibleCard key={item.title} item={item} index={index} />
           ))}
         </div>
       </div>
