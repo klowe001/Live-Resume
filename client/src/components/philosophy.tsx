@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Lightbulb, Terminal, TrendingUp, Users, Play, ChevronDown } from 'lucide-react';
+import { Lightbulb, Terminal, TrendingUp, Users, Play, ChevronDown, Layers } from 'lucide-react';
 
 const philosophies = [
   {
@@ -21,12 +21,17 @@ const philosophies = [
   {
     icon: Users,
     title: "Player-Coach Mentality",
-    description: "I go hands-on where it reduces iteration cycles or unblocks others. Build the first version, document the pattern, then coach someone to own the next iteration. Success means the team can ship without me."
+    description: "My job is to enable teams to do their best work. Sometimes that means stepping back and letting people run independently, driving full ownership of their work. Sometimes it means jumping into the model alongside them to accelerate progress and bring the team along. And sometimes it means building the demo or prototype myself while the team focuses elsewhere. I find as much fulfillment in getting hands-on with the work as I do in the mentorship side of leadership."
   },
   {
     icon: Play,
     title: "Demo, Not Memo",
     description: "The most powerful way to align on an idea is to show it, not explain it. Too often teams burn cycles in PowerPoint purgatory - debating hypotheticals, wordsmithing requirements docs, and arguing over abstractions. It's slow, exhausting, and usually wrong anyway. When you can just build something - a prototype, a clickable mock, a working version - you skip the translation layer entirely. People react to what they experience, not what they imagine. In a world where building is faster than ever, the memo is the bottleneck."
+  },
+  {
+    icon: Layers,
+    title: "A Jack of All Trades",
+    description: "\"A jack of all trades is a master of none, but oftentimes better than a master of one.\" People tend to leave off that last part, but I think it's the most important. I've found immense value in cultivating a wide breadth of skills and interests—from strategy to design to code to data. It's not about being the best at any one thing; it's about connecting dots others can't see. And frankly, I find it far more enjoyable to understand a little about a lot than to go deep on just one domain."
   }
 ];
 
