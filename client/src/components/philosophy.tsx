@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Lightbulb, Terminal, TrendingUp, Users, ChevronDown } from 'lucide-react';
+import { Lightbulb, Terminal, TrendingUp, Users, Play, ChevronDown } from 'lucide-react';
 
 const philosophies = [
   {
@@ -22,6 +22,11 @@ const philosophies = [
     icon: Users,
     title: "Player-Coach Mentality",
     description: "I go hands-on where it reduces iteration cycles or unblocks others. Build the first version, document the pattern, then coach someone to own the next iteration. Success means the team can ship without me."
+  },
+  {
+    icon: Play,
+    title: "Demo, Not Memo",
+    description: "The most powerful way to align on an idea is to show it, not explain it. Too often teams burn cycles in PowerPoint purgatory - debating hypotheticals, wordsmithing requirements docs, and arguing over abstractions. It's slow, exhausting, and usually wrong anyway. When you can just build something - a prototype, a clickable mock, a working version - you skip the translation layer entirely. People react to what they experience, not what they imagine. In a world where building is faster than ever, the memo is the bottleneck."
   }
 ];
 
