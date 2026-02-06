@@ -33,7 +33,9 @@ export function Nav() {
   const links = [
     { name: "Philosophy", href: "#philosophy" },
     { name: "Experience", href: "#experience" },
+    { name: "Education", href: "#education" },
     { name: "Projects", href: "#projects" },
+    { name: "Other", href: "#personal" },
     { name: "Contact", href: "#contact" },
   ];
 
