@@ -31,7 +31,7 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="text-xl md:text-2xl text-muted max-w-2xl leading-relaxed mb-12"
           >
-            BCG Principal and AI enthusiast driving growth strategy for Fortune 500 brands.
+            BCG Principal and AI practitioner driving growth strategy for Fortune 500 brands.
             I translate strategic vision into working products using modern development tools and agentic AI workflows.
           </motion.p>
 
