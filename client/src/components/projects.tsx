@@ -33,6 +33,17 @@ const projects = [
     image: "https://images.unsplash.com/photo-1674221525704-f4b2aa13df2c"
   },
   {
+    title: "3D Printed Drone",
+    role: "Creator",
+    type: "Hardware / CAD",
+    description: "Custom quadcopter built from 3D-printed parts, designed in SolidWorks. Features a DJI Naza flight controller, FatShark FPV system, and GPS module—all integrated into a self-designed frame.",
+    problem: null,
+    why: "Started in college as a way to teach myself SolidWorks 3D CAD and explore the intersection of hardware design and hands-on fabrication. What began as a learning exercise turned into a decade-long project, with iterative redesigns of the frame, upgraded components, and lessons in aerodynamics, electronics integration, and rapid prototyping.",
+    tech: ["SolidWorks", "3D Printing", "DJI Naza FC", "FatShark FPV", "GPS Navigation"],
+    links: [],
+    image: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=800"
+  },
+  {
     title: "Top 1% Replit Builder",
     role: "Achievement",
     type: "2025",
