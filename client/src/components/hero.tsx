@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion';
 import { ArrowDown } from 'lucide-react';
-import profileImg from '@assets/IMG_7895_1769693907115.png';
 
 export function Hero() {
   return (
@@ -56,24 +55,6 @@ export function Hero() {
             </a>
           </motion.div>
         </div>
-
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.6 }}
-          className="flex-1 w-full max-w-md lg:max-w-none relative"
-        >
-          <div className="aspect-[4/5] relative rounded-t-full overflow-hidden border border-warm shadow-xl">
-            <img 
-              src={profileImg} 
-              alt="Kevin Lowe" 
-              className="w-full h-full object-cover object-center grayscale hover:grayscale-0 transition-all duration-700"
-            />
-            <div className="absolute inset-0 bg-accent-dark/10 mix-blend-multiply pointer-events-none" />
-          </div>
-          {/* Decorative element */}
-          <div className="absolute -z-10 -bottom-6 -right-6 w-full h-full rounded-t-full border border-accent/30" />
-        </motion.div>
       </div>
 
       <motion.div
