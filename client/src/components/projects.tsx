@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Github, Globe, ChevronDown, Play } from 'lucide-react';
 import replitImg from '@assets/Replit.jpg';
-import droneVideo from '@assets/102BFA4C-F4DB-4368-A870-F85C9BC7537E_1773101387490.mov';
+import droneImg from '@assets/image_1773102218588.jpeg';
 
 type Project = {
   title: string;
@@ -55,7 +55,7 @@ const projects: Project[] = [
     why: "Started in college as a way to teach myself SolidWorks 3D CAD and explore the intersection of hardware design and hands-on fabrication. What began as a learning exercise turned into a decade-long project, with iterative redesigns of the frame, upgraded components, and lessons in aerodynamics, electronics integration, and rapid prototyping.",
     tech: ["SolidWorks", "3D Printing", "DJI Naza FC", "FatShark FPV", "GPS Navigation"],
     links: [],
-    video: droneVideo
+    image: droneImg
   },
   {
     title: "Top 1% Replit Builder",
@@ -72,7 +72,6 @@ const projects: Project[] = [
 
 function ProjectCard({ project, index }: { project: typeof projects[0]; index: number }) {
   const [expanded, setExpanded] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false);
 
   return (
     <motion.div
@@ -84,34 +83,12 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
     >
       <div 
         className="h-48 relative overflow-hidden group-hover:opacity-90 transition-opacity"
-        onMouseEnter={() => setIsPlaying(true)}
-        onMouseLeave={() => setIsPlaying(false)}
       >
-        {project.video ? (
-          <>
-            <video
-              src={project.video}
-              autoPlay={isPlaying}
-              loop
-              muted
-              playsInline
-              className={`w-full h-full object-cover transition-transform duration-700 ${isPlaying ? 'scale-105' : 'scale-100'}`}
-            />
-            {!isPlaying && (
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
-                <div className="w-12 h-12 rounded-full bg-black/40 backdrop-blur-sm flex items-center justify-center border border-white/20">
-                  <Play className="w-5 h-5 text-white ml-1" />
-                </div>
-              </div>
-            )}
-          </>
-        ) : (
-          <img
-            src={project.image}
-            alt={project.title}
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-          />
-        )}
+        <img
+          src={project.image}
+          alt={project.title}
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+        />
         {/* Warm overlay for elegance */}
         <div className="absolute inset-0 bg-gradient-to-b from-amber-900/10 via-transparent to-amber-900/20 pointer-events-none" />
         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/10 backdrop-blur-[2px]">
