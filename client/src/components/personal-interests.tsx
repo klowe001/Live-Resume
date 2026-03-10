@@ -2,6 +2,7 @@ import { useState, useRef } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { ChefHat, Mountain, MapPin, ChevronDown, Flag, Plane } from 'lucide-react';
 import { useAnimationContext } from '@/context/animation-context';
+import { mobileMotion } from '@/lib/motion';
 
 import leCordonBleuImg from '@assets/Le Cordon Bleu.JPG';
 import tarteCitronImg from '@assets/Tarte Citron.JPG';
@@ -149,6 +150,8 @@ function AccordionItem({
 }) {
   const Icon = interest.icon;
   const hasMedia = (interest.photos && interest.photos.length > 0) || interest.video;
+  const { isMobile } = useAnimationContext();
+  const m = mobileMotion(isMobile);
 
   return (
     <div className="border-b border-warm last:border-b-0">
@@ -176,10 +179,7 @@ function AccordionItem({
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            {...m.expand}
             className="overflow-hidden"
           >
             <p className="text-muted leading-relaxed pb-6 pl-10">
@@ -207,6 +207,9 @@ export function PersonalInterests() {
     }
   };
 
+  const { isMobile } = useAnimationContext();
+  const m = mobileMotion(isMobile);
+
   return (
     <section id="personal" className="py-20 px-6 max-w-7xl mx-auto">
       <div className="flex items-baseline gap-4 mb-16 border-b border-warm pb-8">
@@ -217,10 +220,7 @@ export function PersonalInterests() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
         {/* Left side - Accordion list */}
         <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          {...m.fadeX('left')}
           className="p-6 md:p-8"
         >
           {interests.map((interest, index) => (
@@ -235,10 +235,7 @@ export function PersonalInterests() {
 
         {/* Right side - Parallax image */}
         <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.2 }}
+          {...m.fadeX('right', 0.2)}
           className="aspect-[4/3] lg:aspect-auto lg:min-h-[500px] border border-warm bg-warm/5 overflow-hidden"
         >
           {selectedVideo ? (

@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useConsent, ConsentPreferences } from '@/context/consent-context';
 import { X, Settings, Cookie } from 'lucide-react';
+import { useAnimationContext } from '@/context/animation-context';
+import { mobileMotion } from '@/lib/motion';
 
 export function ConsentBanner() {
   const { showBanner, acceptAll, rejectNonEssential, updatePreferences, preferences, isLoading } = useConsent();
@@ -18,13 +20,13 @@ export function ConsentBanner() {
     setShowSettings(false);
   };
 
+  const { isMobile } = useAnimationContext();
+  const m = mobileMotion(isMobile);
+
   return (
     <AnimatePresence>
       <motion.div
-        initial={{ y: 100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        exit={{ y: 100, opacity: 0 }}
-        transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+        {...m.bannerSpring}
         className="fixed bottom-0 left-0 right-0 z-50 p-4 md:p-6"
       >
         <div className="mx-auto max-w-4xl rounded-lg bg-white shadow-lg border border-gray-200 overflow-hidden">

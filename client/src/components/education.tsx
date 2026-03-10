@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { GraduationCap } from 'lucide-react';
+import { useAnimationContext } from '@/context/animation-context';
+import { mobileMotion } from '@/lib/motion';
 import savarinImg from '@assets/Savarin.JPG';
 import tarteCitronImg from '@assets/Tarte Citron.JPG';
 
@@ -61,6 +63,8 @@ const education: EducationEntry[] = [
 
 function ExpandableDetails({ details }: { details: string[] }) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const { isMobile } = useAnimationContext();
+  const m = mobileMotion(isMobile);
 
   if (!details || details.length === 0) return null;
 
@@ -83,19 +87,14 @@ function ExpandableDetails({ details }: { details: string[] }) {
       <AnimatePresence>
         {isExpanded && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3, ease: 'easeOut' }}
+            {...m.expand}
             className="overflow-hidden"
           >
             <ul className="mt-3 space-y-2 pl-4 border-l border-warm/40">
               {details.map((detail, i) => (
                 <motion.li
                   key={i}
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.2, delay: i * 0.05 }}
+                  {...m.detailItem(i)}
                   className="text-xs text-muted leading-relaxed"
                 >
                   {detail}
@@ -111,6 +110,8 @@ function ExpandableDetails({ details }: { details: string[] }) {
 
 function LeCordonBleuCard({ nested }: { nested: NestedExperience }) {
   const [isHovered, setIsHovered] = useState(false);
+  const { isMobile } = useAnimationContext();
+  const m = mobileMotion(isMobile);
 
   return (
     <div
@@ -133,10 +134,8 @@ function LeCordonBleuCard({ nested }: { nested: NestedExperience }) {
       <AnimatePresence>
         {isHovered && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3, ease: 'easeInOut' }}
+            {...m.expand}
+            transition={{ duration: isMobile ? 0.2 : 0.3, ease: 'easeInOut' }}
             className="overflow-hidden"
           >
             <div className="pt-4 flex gap-3">
@@ -165,6 +164,9 @@ function LeCordonBleuCard({ nested }: { nested: NestedExperience }) {
 }
 
 export function Education() {
+  const { isMobile } = useAnimationContext();
+  const m = mobileMotion(isMobile);
+
   return (
     <section id="education" className="py-20 px-6 max-w-7xl mx-auto">
       <div className="flex items-baseline gap-4 mb-20 border-b border-warm pb-8">
@@ -176,10 +178,7 @@ export function Education() {
         {education.map((edu, index) => (
           <motion.div
             key={index}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: index * 0.1 }}
+            {...m.fadeUp(index)}
             className="relative p-8 border border-warm bg-paper hover:border-accent transition-all duration-300"
           >
             <GraduationCap className="w-8 h-8 text-accent mb-6 stroke-[1.5]" />

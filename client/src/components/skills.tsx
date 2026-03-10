@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
+import { useAnimationContext } from '@/context/animation-context';
+import { mobileMotion } from '@/lib/motion';
 
 const skillCategories = [
   {
@@ -23,14 +25,13 @@ const skillCategories = [
 
 function MobileCollapsibleSkill({ category, index }: { category: typeof skillCategories[0]; index: number }) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const { isMobile } = useAnimationContext();
+  const m = mobileMotion(isMobile);
 
   return (
     <motion.div
       key={category.title}
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
+      {...m.fadeUp(index)}
     >
       {/* Mobile: Collapsible header */}
       <button
@@ -52,10 +53,7 @@ function MobileCollapsibleSkill({ category, index }: { category: typeof skillCat
       <AnimatePresence>
         {isExpanded && (
           <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            {...m.expand}
             className="md:hidden overflow-hidden"
           >
             <ul className="space-y-2 pb-4 pt-2">

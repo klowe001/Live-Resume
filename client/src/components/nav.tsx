@@ -1,8 +1,12 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'wouter';
+import { useAnimationContext } from '@/context/animation-context';
+import { mobileMotion } from '@/lib/motion';
 
 export function Nav() {
+  const { isMobile } = useAnimationContext();
+  const m = mobileMotion(isMobile);
   const [scrolled, setScrolled] = useState(false);
   const rafRef = useRef<number | null>(null);
   const lastScrollY = useRef(0);
@@ -52,9 +56,7 @@ export function Nav() {
       className={`fixed top-0 left-0 right-0 z-50 px-6 py-6 transition-all duration-300 ${
         scrolled ? 'bg-paper/95 backdrop-blur-md border-b border-warm/50 py-4' : 'bg-transparent'
       }`}
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
+      {...m.navSlide}
     >
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         <Link href="/" className="font-serif text-2xl text-ink tracking-tight hover:opacity-70 transition-opacity cursor-pointer">

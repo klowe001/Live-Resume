@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Lightbulb, Terminal, TrendingUp, Users, Play, ChevronDown, Layers } from 'lucide-react';
+import { useAnimationContext } from '@/context/animation-context';
+import { mobileMotion } from '@/lib/motion';
 
 const philosophies = [
   {
@@ -37,15 +39,14 @@ const philosophies = [
 
 function MobileCollapsibleCard({ item, index }: { item: typeof philosophies[0]; index: number }) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const { isMobile } = useAnimationContext();
+  const m = mobileMotion(isMobile);
   const Icon = item.icon;
 
   return (
     <motion.div
       key={item.title}
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
+      {...m.fadeUp(index)}
       className="group border border-white/10 hover:border-accent transition-all duration-300 md:hover:-translate-y-1 bg-white/5 backdrop-blur-sm"
     >
       {/* Mobile: Collapsible header */}
@@ -71,10 +72,7 @@ function MobileCollapsibleCard({ item, index }: { item: typeof philosophies[0]; 
       <AnimatePresence>
         {isExpanded && (
           <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            {...m.expand}
             className="md:hidden overflow-hidden"
           >
             <div className="px-4 pb-4">

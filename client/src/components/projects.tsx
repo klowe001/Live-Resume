@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Github, Globe, ChevronDown, Play } from 'lucide-react';
+import { useAnimationContext } from '@/context/animation-context';
+import { mobileMotion } from '@/lib/motion';
 import replitImg from '@assets/Replit.jpg';
 import droneImg from '@assets/image_1773102218588.jpeg';
 
@@ -72,16 +74,15 @@ const projects: Project[] = [
 
 function ProjectCard({ project, index }: { project: typeof projects[0]; index: number }) {
   const [expanded, setExpanded] = useState(false);
+  const { isMobile } = useAnimationContext();
+  const m = mobileMotion(isMobile);
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
+      {...m.fadeUp(index)}
       className="group bg-paper border border-warm overflow-hidden hover:border-accent transition-all duration-300 hover:shadow-lg flex flex-col h-full"
     >
-      <div 
+      <div
         className="h-48 relative overflow-hidden group-hover:opacity-90 transition-opacity"
       >
         <img
@@ -123,10 +124,8 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
             <AnimatePresence>
               {expanded && (
                 <motion.div
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: 'auto', opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.2 }}
+                  {...m.expand}
+                  transition={{ duration: isMobile ? 0.15 : 0.2 }}
                   className="overflow-hidden"
                 >
                   <div className="pt-3 space-y-3 border-l-2 border-accent/30 pl-3 mt-3">
