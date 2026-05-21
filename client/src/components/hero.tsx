@@ -39,13 +39,13 @@ export function Hero() {
           >
             <a
               href="#projects"
-              className="px-8 py-4 bg-ink text-paper font-medium uppercase tracking-wider text-sm hover:bg-transparent hover:text-ink border-2 border-ink transition-all duration-300"
+              className="px-8 py-4 bg-ink text-paper font-medium uppercase tracking-wider text-sm hover:bg-transparent hover:text-ink border-2 border-ink transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
             >
               View Projects
             </a>
             <a
               href="#contact"
-              className="px-8 py-4 bg-transparent text-ink font-medium uppercase tracking-wider text-sm hover:bg-ink hover:text-paper border-2 border-ink transition-all duration-300"
+              className="px-8 py-4 bg-transparent text-ink font-medium uppercase tracking-wider text-sm hover:bg-ink hover:text-paper border-2 border-ink transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
             >
               Get in Touch
             </a>

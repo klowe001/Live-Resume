@@ -1,6 +1,8 @@
-import { Github, Linkedin, Mail, FileText } from 'lucide-react';
+import { Github, Linkedin, Mail } from 'lucide-react';
 
 export function Footer() {
+  const socialLinkClass = "p-4 border border-paper/20 hover:bg-accent hover:border-accent hover:text-ink transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-ink";
+
   return (
     <footer id="contact" className="bg-ink text-paper py-16 px-6">
       <div className="max-w-7xl mx-auto">
@@ -10,55 +12,54 @@ export function Footer() {
               Let's Build <br />
               <span className="text-accent italic">Something Real</span>
             </h2>
-            <p className="text-white/75 max-w-md text-lg leading-relaxed mb-12">
-              Expanding my skill set, exploring new technologies, and building on the side—all while serving clients at BCG and driving projects forward as a team leader.
+            <p className="text-paper/75 max-w-md text-lg leading-relaxed mb-12">
+              Expanding my skill set, exploring new technologies, and building on the side, all while serving clients at BCG and driving projects forward as a team leader.
             </p>
-            
-            <div className="flex flex-col gap-4 text-white/80">
-              <div className="flex items-center gap-3">
-                <span className="w-12 text-xs uppercase tracking-widest text-accent">Loc</span>
-                New York City
+
+            <div className="flex flex-col gap-4 text-paper/80">
+              <div className="flex items-baseline gap-4">
+                <span className="w-20 shrink-0 text-xs uppercase tracking-widest text-accent">Location</span>
+                <span>New York City</span>
               </div>
-              <div className="flex items-center gap-3">
-                <span className="w-12 text-xs uppercase tracking-widest text-accent">Email</span>
-                <span>
-                  <a href="mailto:kevin@wanderluxe.io" className="hover:text-accent transition-colors">kevin@wanderluxe.io</a>
-                  <span className="text-white/40 mx-2">/</span>
-                  <a href="mailto:Lowe.kevin@bcg.com" className="hover:text-accent transition-colors">Lowe.kevin@bcg.com</a>
-                </span>
+              <div className="flex items-baseline gap-4">
+                <span className="w-20 shrink-0 text-xs uppercase tracking-widest text-accent">Email</span>
+                <a href="mailto:klowe001@gmail.com" className="hover:text-accent transition-colors focus-visible:outline-none focus-visible:text-accent focus-visible:underline">klowe001@gmail.com</a>
               </div>
             </div>
           </div>
 
           <div className="flex flex-col justify-end h-full">
-             <div className="flex gap-6 mb-12">
-                <a 
-                  href="https://www.linkedin.com/in/kevin-andrew-lowe/" 
-                  target="_blank" 
+             <div className="flex gap-4 mb-12">
+                <a
+                  href="https://www.linkedin.com/in/kevin-andrew-lowe/"
+                  target="_blank"
                   rel="noopener noreferrer"
-                  className="p-4 border border-white/20 rounded-full hover:bg-accent hover:border-accent hover:text-ink transition-all duration-300"
+                  aria-label="LinkedIn profile"
+                  className={socialLinkClass}
                 >
                   <Linkedin className="w-6 h-6" />
                 </a>
-                <a 
-                  href="https://github.com/reminiscent-io" 
-                  target="_blank" 
+                <a
+                  href="https://github.com/reminiscent-io"
+                  target="_blank"
                   rel="noopener noreferrer"
-                  className="p-4 border border-white/20 rounded-full hover:bg-accent hover:border-accent hover:text-ink transition-all duration-300"
+                  aria-label="GitHub profile"
+                  className={socialLinkClass}
                 >
                   <Github className="w-6 h-6" />
                 </a>
-                <a 
-                  href="mailto:kevin@wanderluxe.io"
-                  className="p-4 border border-white/20 rounded-full hover:bg-accent hover:border-accent hover:text-ink transition-all duration-300"
+                <a
+                  href="mailto:klowe001@gmail.com"
+                  aria-label="Send an email"
+                  className={socialLinkClass}
                 >
                   <Mail className="w-6 h-6" />
                 </a>
              </div>
-             
-             <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-white/40 text-xs uppercase tracking-widest">
+
+             <div className="pt-8 border-t border-paper/10 flex flex-col md:flex-row justify-between items-center gap-4 text-paper/40 text-xs uppercase tracking-widest">
                <span>© {new Date().getFullYear()} Kevin Lowe</span>
-               <span>Built with React 19 + Tailwind</span>
+               <span>Built by hand with React, Tailwind, and Claude Code</span>
              </div>
           </div>
         </div>

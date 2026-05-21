@@ -40,7 +40,7 @@ const projects: Project[] = [
     type: "SaaS Platform",
     description: "Comprehensive platform for professional dance instruction. Multi-portal system with role-based access control, digital waivers, class scheduling, and AI note taking.",
     problem: "Professional dance instructors manage students via spreadsheets, text messages, and paper waivers. The operational infrastructure that exists for gyms and yoga studios doesn't exist for dance.",
-    why: "My wife is a former Rockette. I saw the problem firsthand and built the solution—bringing modern SaaS tooling to professional dance education.",
+    why: "My wife is a former Rockette. I saw the problem firsthand and built the solution, bringing modern SaaS tooling to professional dance education.",
     tech: ["Next.js 16", "Supabase RLS", "Tailwind v4", "TipTap"],
     links: [
       { label: "Website", url: "https://cpfdance.com", icon: Globe },
@@ -52,7 +52,7 @@ const projects: Project[] = [
     title: "3D Printed Drone",
     role: "Creator",
     type: "Hardware / CAD",
-    description: "Custom quadcopter built from 3D-printed parts, designed in SolidWorks. Features a DJI Naza flight controller, FatShark FPV system, and GPS module—all integrated into a self-designed frame.",
+    description: "Custom quadcopter built from 3D-printed parts, designed in SolidWorks. Features a DJI Naza flight controller, FatShark FPV system, and GPS module, all integrated into a self-designed frame.",
     problem: null,
     why: "Started in college as a way to teach myself SolidWorks 3D CAD and explore the intersection of hardware design and hands-on fabrication. What began as a learning exercise turned into a decade-long project, with iterative redesigns of the frame, upgraded components, and lessons in aerodynamics, electronics integration, and rapid prototyping.",
     tech: ["SolidWorks", "3D Printing", "DJI Naza FC", "FatShark FPV", "GPS Navigation"],
@@ -91,7 +91,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
         {/* Warm overlay for elegance */}
-        <div className="absolute inset-0 bg-gradient-to-b from-amber-900/10 via-transparent to-amber-900/20 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-ink/10 via-transparent to-ink/25 pointer-events-none" />
         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/10 backdrop-blur-[2px]">
           <span className="font-serif text-2xl text-paper drop-shadow-md italic">
             {project.type}
@@ -128,7 +128,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
                   transition={{ duration: isMobile ? 0.15 : 0.2 }}
                   className="overflow-hidden"
                 >
-                  <div className="pt-3 space-y-3 border-l-2 border-accent/30 pl-3 mt-3">
+                  <div className="pt-3 space-y-3 bg-warm/30 px-4 py-3 mt-3">
                     {project.problem && (
                       <div>
                         <div className="text-[10px] font-bold uppercase tracking-widest text-accent-dark mb-1">Problem</div>

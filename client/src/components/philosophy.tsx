@@ -18,7 +18,7 @@ const philosophies = [
   {
     icon: TrendingUp,
     title: "Economics-First Mindset",
-    description: "Every decision should connect to a measurable outcome. I model revenue lift, redemption liability, and unit economics before recommending action—backed by years of building complex Excel models, Tableau dashboards, and more recently, fully custom analytics tools."
+    description: "Every decision should connect to a measurable outcome. I model revenue lift, redemption liability, and unit economics before recommending action, backed by years of building complex Excel models, Tableau dashboards, and more recently, fully custom analytics tools."
   },
   {
     icon: Users,
@@ -28,12 +28,12 @@ const philosophies = [
   {
     icon: Play,
     title: "Demo, Not Memo",
-    description: "The most powerful way to align on an idea is to show it, not explain it. Too often teams burn cycles in PowerPoint purgatory - debating hypotheticals, wordsmithing requirements docs, and arguing over abstractions. It's slow, exhausting, and usually wrong anyway. When you can just build something - a prototype, a clickable mock, a working version - you skip the translation layer entirely. People react to what they experience, not what they imagine. In a world where building is faster than ever, the memo is the bottleneck."
+    description: "The most powerful way to align on an idea is to show it, not explain it. Too often teams burn cycles in PowerPoint purgatory: debating hypotheticals, wordsmithing requirements docs, and arguing over abstractions. It's slow, exhausting, and usually wrong anyway. When you can just build something (a prototype, a clickable mock, a working version) you skip the translation layer entirely. People react to what they experience, not what they imagine. In a world where building is faster than ever, the memo is the bottleneck."
   },
   {
     icon: Layers,
     title: "A Jack of All Trades",
-    description: "\"A jack of all trades is a master of none, but oftentimes better than a master of one.\" People tend to leave off that last part, but I think it's the most important. I've found immense value in cultivating a wide breadth of skills and interests—from strategy to design to code to data. It's not about being the best at any one thing; it's about connecting dots others can't see. And frankly, I find it far more enjoyable to understand a little about a lot than to go deep on just one domain."
+    description: "\"A jack of all trades is a master of none, but oftentimes better than a master of one.\" People tend to leave off that last part, but I think it's the most important. I've found immense value in cultivating a wide breadth of skills and interests, from strategy to design to code to data. It's not about being the best at any one thing; it's about connecting dots others can't see. And frankly, I find it far more enjoyable to understand a little about a lot than to go deep on just one domain."
   }
 ];
 
@@ -47,7 +47,7 @@ function MobileCollapsibleCard({ item, index }: { item: typeof philosophies[0]; 
     <motion.div
       key={item.title}
       {...m.fadeUp(index)}
-      className="group border border-white/10 hover:border-accent transition-all duration-300 md:hover:-translate-y-1 bg-white/5 backdrop-blur-sm"
+      className="group border border-paper/10 hover:border-accent transition-all duration-300 md:hover:-translate-y-1 bg-paper/[0.04]"
     >
       {/* Mobile: Collapsible header */}
       <button
@@ -56,7 +56,7 @@ function MobileCollapsibleCard({ item, index }: { item: typeof philosophies[0]; 
       >
         <div className="flex items-center gap-3">
           <Icon className="w-6 h-6 text-accent stroke-[1.5]" />
-          <h3 className="font-serif text-xl text-white">
+          <h3 className="font-serif text-xl text-paper">
             {item.title}
           </h3>
         </div>
@@ -64,7 +64,7 @@ function MobileCollapsibleCard({ item, index }: { item: typeof philosophies[0]; 
           animate={{ rotate: isExpanded ? 180 : 0 }}
           transition={{ duration: 0.2 }}
         >
-          <ChevronDown className="w-5 h-5 text-white/60" />
+          <ChevronDown className="w-5 h-5 text-paper/60" />
         </motion.div>
       </button>
 
@@ -76,7 +76,7 @@ function MobileCollapsibleCard({ item, index }: { item: typeof philosophies[0]; 
             className="md:hidden overflow-hidden"
           >
             <div className="px-4 pb-4">
-              <p className="text-white/80 leading-relaxed text-sm">
+              <p className="text-paper/80 leading-relaxed text-sm">
                 {item.description}
               </p>
             </div>
@@ -87,10 +87,10 @@ function MobileCollapsibleCard({ item, index }: { item: typeof philosophies[0]; 
       {/* Desktop: Always visible */}
       <div className="hidden md:block p-8">
         <Icon className="w-8 h-8 text-accent mb-6 stroke-[1.5]" />
-        <h3 className="font-serif text-2xl mb-4 text-white group-hover:text-accent transition-colors">
+        <h3 className="font-serif text-2xl mb-4 text-paper group-hover:text-accent transition-colors">
           {item.title}
         </h3>
-        <p className="text-white/80 leading-relaxed">
+        <p className="text-paper/80 leading-relaxed">
           {item.description}
         </p>
       </div>
@@ -102,7 +102,7 @@ export function Philosophy() {
   return (
     <section id="philosophy" className="py-20 bg-ink text-paper relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="flex items-baseline gap-4 mb-16 border-b border-white/20 pb-8">
+        <div className="flex items-baseline gap-4 mb-16 border-b border-paper/15 pb-8">
           <span className="font-serif text-accent italic text-lg">01</span>
           <h2 className="font-serif text-4xl md:text-5xl">How I Think</h2>
         </div>

@@ -68,7 +68,7 @@ const interests: Interest[] = [
   {
     icon: MapPin,
     title: 'New York City',
-    description: 'Home base. The energy here matches how I like to work—fast, varied, always something new.',
+    description: 'Home base. The energy here matches how I like to work: fast, varied, always something new.',
     photos: null,
   },
 ];
@@ -117,7 +117,7 @@ function ParallaxImage({ photo, isVisible }: { photo: { src: string; alt: string
               />
             )}
             {/* Warm overlay for elegance */}
-            <div className="absolute inset-0 bg-gradient-to-b from-amber-900/10 via-transparent to-amber-900/20 pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-b from-ink/10 via-transparent to-ink/25 pointer-events-none" />
           </motion.div>
         )}
       </AnimatePresence>
@@ -130,7 +130,7 @@ function ParallaxImage({ photo, isVisible }: { photo: { src: string; alt: string
           transition={{ delay: 0.2, duration: shouldReduceAnimations ? 0.2 : 0.3 }}
           className="absolute bottom-4 left-4 right-4"
         >
-          <p className="text-sm text-white/90 font-medium drop-shadow-lg">
+          <p className="text-sm text-paper font-medium drop-shadow-lg">
             {photo.alt}
           </p>
         </motion.div>
@@ -254,14 +254,14 @@ export function PersonalInterests() {
                 playsInline
                 className="absolute inset-0 w-full h-full object-cover object-center"
               />
-              <div className="absolute inset-0 bg-gradient-to-b from-amber-900/10 via-transparent to-amber-900/20 pointer-events-none" />
+              <div className="absolute inset-0 bg-gradient-to-b from-ink/10 via-transparent to-ink/25 pointer-events-none" />
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
                 className="absolute bottom-4 left-4 right-4"
               >
-                <p className="text-sm text-white/90 font-medium drop-shadow-lg">
+                <p className="text-sm text-paper font-medium drop-shadow-lg">
                   {selectedVideo.alt}
                 </p>
               </motion.div>

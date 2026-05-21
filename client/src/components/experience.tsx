@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronDown } from 'lucide-react';
 import { useAnimationContext } from '@/context/animation-context';
 import { mobileMotion } from '@/lib/motion';
 
@@ -29,15 +30,16 @@ function ExpandableDetails({ details }: { details: string[] }) {
     <div className="mt-3">
       <button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="group flex items-center gap-1.5 text-xs text-muted hover:text-accent-dark transition-colors"
+        className="group flex items-center gap-1.5 text-xs text-muted hover:text-accent-dark transition-colors focus-visible:outline-none focus-visible:text-accent-dark focus-visible:underline"
+        aria-expanded={isExpanded}
       >
         <span className="font-medium">{isExpanded ? 'Show less' : 'Read more'}</span>
         <motion.span
           animate={{ rotate: isExpanded ? 180 : 0 }}
           transition={{ duration: 0.2 }}
-          className="text-[10px]"
+          className="inline-flex"
         >
-          ▼
+          <ChevronDown className="w-3 h-3" />
         </motion.span>
       </button>
 
@@ -133,7 +135,7 @@ const timeline: CareerBlock[] = [
         expandedDetails: [
           "Owned financial analysis and reporting for one of the world's largest QSR brands",
           "Built automated reporting infrastructure that became standard practice for the finance organization",
-          "Key learning: The best insights come from getting close to the data—bridging the gap between having data and making decisions"
+          "Key learning: the best insights come from getting close to the data, bridging the gap between having data and making decisions"
         ]
       }
     ]

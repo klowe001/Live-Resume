@@ -15,7 +15,7 @@ const skillCategories = [
   },
   {
     title: "Technical Stack",
-    skills: ["Claude Code", "Microsoft Office Suite", "Supabase (PostgreSQL)", "API Integrations", "Agentic Workflows", "React 19 & Next.js", "TypeScript", "Tailwind CSS"]
+    skills: ["Claude Code", "Microsoft Office Suite", "Supabase (PostgreSQL)", "VSCode", "API Integrations", "Agentic Workflows"]
   },
   {
     title: "Leadership",
@@ -86,7 +86,12 @@ function MobileCollapsibleSkill({ category, index }: { category: typeof skillCat
 
 export function Skills() {
   return (
-    <section className="py-16 px-6 max-w-7xl mx-auto">
+    <section className="py-20 px-6 max-w-7xl mx-auto">
+      <div className="flex items-baseline gap-4 mb-12 border-b border-warm pb-8">
+        <span className="text-xs font-semibold uppercase tracking-[0.2em] text-accent-dark">Kit</span>
+        <h2 className="font-serif text-3xl md:text-4xl text-ink">What I Work With</h2>
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-12">
         {skillCategories.map((category, index) => (
           <MobileCollapsibleSkill key={category.title} category={category} index={index} />

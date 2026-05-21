@@ -20,7 +20,7 @@ client/src/           # React frontend
   hooks/              # Custom React hooks
   lib/                # Utilities, query client
 server/               # Express backend
-  index.ts            # Server entry point (port 5000)
+  index.ts            # Server entry point (port 5002)
   routes.ts           # API routes
   storage.ts          # Data storage interface
 shared/               # Shared code
@@ -46,7 +46,7 @@ npm run db:push        # Push database migrations (Drizzle Kit)
 
 ## Key Details
 
-- App serves on port 5000
+- App serves on port 5002 (5000 conflicts with macOS Control Center / AirPlay Receiver)
 - Theme uses custom warm/paper-like palette with CSS variables (--color-ink, --color-paper, --color-accent)
 - Fonts: "Instrument Serif" (serif), "Manrope" (sans-serif)
 - GDPR consent management built in (ConsentContext + ConsentBanner)
