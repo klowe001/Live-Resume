@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Github, Globe, ChevronDown, Play } from 'lucide-react';
+import { Github, Globe, ChevronDown } from 'lucide-react';
 import { useAnimationContext } from '@/context/animation-context';
 import { mobileMotion } from '@/lib/motion';
 import replitImg from '@assets/Replit.jpg';
 import droneImg from '@assets/image_1773102218588.jpeg';
+import wanderluxeImg from '@assets/wanderluxe-product-clean.jpeg';
+import cpfDanceImg from '@assets/cpfdance-clean.jpeg';
 
 type Project = {
   title: string;
@@ -32,7 +34,7 @@ const projects: Project[] = [
       { label: "Website", url: "https://wanderluxe.io", icon: Globe },
       { label: "Code", url: "https://github.com/reminiscent-io/wanderluxe", icon: Github }
     ],
-    image: "https://images.unsplash.com/photo-1506929562872-bb421503ef21"
+    image: wanderluxeImg
   },
   {
     title: "CPF Dance",
@@ -46,7 +48,7 @@ const projects: Project[] = [
       { label: "Website", url: "https://cpfdance.com", icon: Globe },
       { label: "Code", url: "https://github.com/reminiscent-io/CPF-Dance", icon: Github }
     ],
-    image: "https://images.unsplash.com/photo-1674221525704-f4b2aa13df2c"
+    image: cpfDanceImg
   },
   {
     title: "3D Printed Drone",
@@ -90,18 +92,12 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
           alt={project.title}
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
-        {/* Warm overlay for elegance */}
         <div className="absolute inset-0 bg-gradient-to-b from-ink/10 via-transparent to-ink/25 pointer-events-none" />
-        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/10 backdrop-blur-[2px]">
-          <span className="font-serif text-2xl text-paper drop-shadow-md italic">
-            {project.type}
-          </span>
-        </div>
       </div>
 
       <div className="p-8 flex flex-col flex-grow">
         <div className="text-xs font-bold text-accent-dark tracking-widest uppercase mb-2">
-          {project.role}
+          {project.role} <span className="text-warm">/</span> {project.type}
         </div>
         <h3 className="font-serif text-3xl mb-3 text-ink group-hover:text-accent-dark transition-colors">
           {project.title}
@@ -110,7 +106,6 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
           {project.description}
         </p>
 
-        {/* Expandable origin story */}
         {(project.problem || project.why) && (
           <div className="mb-4">
             <button
