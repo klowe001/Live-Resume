@@ -85,18 +85,45 @@ function MobileCollapsibleSkill({ category, index }: { category: typeof skillCat
 }
 
 export function Skills() {
+  const { isMobile } = useAnimationContext();
+  const m = mobileMotion(isMobile);
+
   return (
     <section className="py-20 px-6 max-w-7xl mx-auto">
-      <div className="flex items-baseline gap-4 mb-12 border-b border-warm pb-8">
-        <span className="text-xs font-semibold uppercase tracking-[0.2em] text-accent-dark">Kit</span>
-        <h2 className="font-serif text-3xl md:text-4xl text-ink">What I Work With</h2>
+      <div className="flex items-baseline gap-4 mb-16 border-b border-warm pb-8">
+        <span className="font-serif text-accent-dark italic text-lg">06</span>
+        <h2 className="font-serif text-4xl md:text-5xl text-ink">Kit</h2>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-12">
+      <div className="md:hidden space-y-2">
         {skillCategories.map((category, index) => (
           <MobileCollapsibleSkill key={category.title} category={category} index={index} />
         ))}
       </div>
+
+      <dl className="hidden md:block divide-y divide-warm">
+        {skillCategories.map((category, index) => (
+          <motion.div
+            key={category.title}
+            {...m.fadeUp(index)}
+            className="grid grid-cols-12 gap-8 py-8 first:pt-0"
+          >
+            <dt className="col-span-3 font-serif text-2xl text-accent-dark leading-tight">
+              {category.title}
+            </dt>
+            <dd className="col-span-9 text-muted text-base leading-relaxed">
+              {category.skills.map((skill, i) => (
+                <span key={skill}>
+                  {skill}
+                  {i < category.skills.length - 1 && (
+                    <span className="text-warm mx-2" aria-hidden="true">·</span>
+                  )}
+                </span>
+              ))}
+            </dd>
+          </motion.div>
+        ))}
+      </dl>
     </section>
   );
 }

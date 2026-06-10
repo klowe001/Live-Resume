@@ -146,7 +146,7 @@ function LeCordonBleuCard({ nested }: { nested: NestedExperience }) {
                   alt="Savarin"
                   className="w-full h-auto object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-b from-amber-900/10 via-transparent to-amber-900/20 pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-b from-ink/10 via-transparent to-ink/20 pointer-events-none" />
               </div>
               <div className="relative flex-1 border border-warm overflow-hidden">
                 <img
@@ -154,7 +154,7 @@ function LeCordonBleuCard({ nested }: { nested: NestedExperience }) {
                   alt="Tarte Citron"
                   className="w-full h-auto object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-b from-amber-900/10 via-transparent to-amber-900/20 pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-b from-ink/10 via-transparent to-ink/20 pointer-events-none" />
               </div>
             </div>
           </motion.div>
@@ -175,7 +175,7 @@ export function Education() {
         <h2 className="font-serif text-4xl md:text-5xl text-ink">Education</h2>
       </div>
 
-      <div className="space-y-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
         {education.map((edu, index) => (
           <motion.div
             key={index}

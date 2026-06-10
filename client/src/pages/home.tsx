@@ -10,16 +10,16 @@ import { Footer } from '@/components/footer';
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-paper text-ink font-sans selection:bg-accent selection:text-paper">
+    <div className="min-h-screen bg-paper text-ink font-sans">
       <Nav />
       <main>
         <Hero />
         <Philosophy />
-        <Skills />
         <Experience />
         <Education />
         <Projects />
         <PersonalInterests />
+        <Skills />
       </main>
       <Footer />
     </div>

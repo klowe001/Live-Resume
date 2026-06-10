@@ -59,7 +59,7 @@ export function Footer() {
 
              <div className="pt-8 border-t border-paper/10 flex flex-col md:flex-row justify-between items-center gap-4 text-paper/40 text-xs uppercase tracking-widest">
                <span>© {new Date().getFullYear()} Kevin Lowe</span>
-               <span>Built by hand with React, Tailwind, and Claude Code</span>
+               <span>Made in New York <span className="text-paper/30" aria-hidden="true">·</span> MMXXVI</span>
              </div>
           </div>
         </div>
