@@ -175,7 +175,7 @@ export function Education() {
         <h2 className="font-serif text-4xl md:text-5xl text-ink">Education</h2>
       </div>
 
-      <div className="space-y-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
         {education.map((edu, index) => (
           <motion.div
             key={index}

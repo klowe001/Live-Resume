@@ -7,6 +7,7 @@ import replitImg from '@assets/Replit.jpg';
 import droneImg from '@assets/image_1773102218588.jpeg';
 import wanderluxeImg from '@assets/wanderluxe-product-clean.jpeg';
 import cpfDanceImg from '@assets/cpfdance-clean.jpeg';
+import cardCaddieImg from '@assets/cardcaddie-product.jpeg';
 
 type Project = {
   title: string;
@@ -49,6 +50,20 @@ const projects: Project[] = [
       { label: "Code", url: "https://github.com/reminiscent-io/CPF-Dance", icon: Github }
     ],
     image: cpfDanceImg
+  },
+  {
+    title: "Card Caddie",
+    role: "Founder",
+    type: "Live Golf Scoring App",
+    description: "Live scoring app for golf trips. Players enter scores from their phones and the whole group watches an auto-refreshing leaderboard — Stableford, Skins, Nassau, and Net Stroke built in, with WHS handicap math handled automatically.",
+    problem: "Group golf trips run on paper scorecards and group texts. Nobody knows the standings until someone does the skins carry-over math at the bar, and net scoring by hand is error-prone.",
+    why: "Golf is one of my favorite hobbies, and every trip ended the same way: arguing over the math. I built Card Caddie so the leaderboard travels with the group — live between holes, settled cleanly at the end, with kudos and trash talk on the feed after.",
+    tech: ["React 19", "Express 5", "OpenAPI + Orval", "Drizzle ORM", "Twilio SMS"],
+    links: [
+      { label: "Website", url: "https://cardcaddie.golf", icon: Globe },
+      { label: "Code", url: "https://github.com/reminiscent-io/Golf-Outing", icon: Github }
+    ],
+    image: cardCaddieImg
   },
   {
     title: "3D Printed Drone",

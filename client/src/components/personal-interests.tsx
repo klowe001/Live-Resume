@@ -193,7 +193,7 @@ function AccordionItem({
 }
 
 export function PersonalInterests() {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   // Get the first photo or video from the selected interest
   const selectedInterest = openIndex !== null ? interests[openIndex] : null;
