@@ -11,6 +11,7 @@ const links = [
   { name: "Education", href: "#education", number: "03" },
   { name: "Projects", href: "#projects", number: "04" },
   { name: "Other", href: "#personal", number: "05" },
+  { name: "Contact", href: "#contact", number: null },
 ];
 
 export function Nav() {
@@ -23,6 +24,7 @@ export function Nav() {
 
   const handleScroll = useCallback(() => {
     if (rafRef.current !== null) return;
+
     rafRef.current = requestAnimationFrame(() => {
       const currentScrollY = window.scrollY;
       if (currentScrollY !== lastScrollY.current) {
@@ -37,13 +39,17 @@ export function Nav() {
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
+      if (rafRef.current !== null) {
+        cancelAnimationFrame(rafRef.current);
+      }
     };
   }, [handleScroll]);
 
   useEffect(() => {
     if (!mobileOpen) return;
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setMobileOpen(false); };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setMobileOpen(false);
+    };
     document.body.style.overflow = 'hidden';
     document.addEventListener('keydown', onKey);
     return () => {
@@ -56,65 +62,53 @@ export function Nav() {
     e.preventDefault();
     setMobileOpen(false);
     const element = document.querySelector(href);
-    if (element) element.scrollIntoView({ behavior: 'smooth' });
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
   };
+
+  const linkClass = "text-sm font-medium uppercase tracking-wider text-ink hover:text-accent transition-colors relative group py-1 focus-visible:outline-none focus-visible:text-accent";
 
   return (
     <>
-      <motion.header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled
-            ? 'bg-paper/90 backdrop-blur-sm border-b border-warm'
-            : 'bg-paper/90 backdrop-blur-sm border-b border-warm'
+      <motion.nav
+        className={`fixed top-0 left-0 right-0 z-50 px-6 py-6 transition-all duration-300 ${
+          scrolled ? 'bg-paper/95 backdrop-blur-md border-b border-warm/50 py-4' : 'bg-transparent'
         }`}
         {...m.navSlide}
       >
-        <div className="max-w-[1320px] mx-auto px-6 lg:px-10 h-[68px] flex items-center justify-between">
-          {/* Logo */}
-          <Link
-            href="/"
-            className="font-serif text-[22px] font-semibold tracking-tight text-ink hover:opacity-75 transition-opacity focus-visible:outline-none"
-          >
-            Apertura<span className="text-accent">*</span>
+        <div className="max-w-7xl mx-auto flex justify-between items-center">
+          <Link href="/" className="font-serif text-2xl text-ink tracking-tight hover:opacity-70 transition-opacity cursor-pointer focus-visible:outline-none focus-visible:opacity-70">
+            Kevin Lowe
           </Link>
 
-          {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-8">
+          <ul className="hidden md:flex gap-8 items-center">
             {links.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                onClick={(e) => scrollToSection(e, link.href)}
-                className="text-[13px] font-medium text-muted hover:text-ink transition-colors duration-200 focus-visible:outline-none focus-visible:text-ink"
-              >
-                {link.name}
-              </a>
+              <li key={link.name}>
+                <a
+                  href={link.href}
+                  onClick={(e) => scrollToSection(e, link.href)}
+                  className={linkClass}
+                >
+                  {link.name}
+                  <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-accent transition-all duration-300 group-hover:w-full" />
+                </a>
+              </li>
             ))}
-          </nav>
+          </ul>
 
-          {/* Desktop CTA */}
-          <a
-            href="#contact"
-            onClick={(e) => scrollToSection(e, '#contact')}
-            className="hidden md:inline-flex text-[13px] font-medium px-4 py-2 bg-ink text-paper rounded-full hover:bg-accent transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
-          >
-            Get in Touch
-          </a>
-
-          {/* Mobile hamburger */}
           <button
             type="button"
             onClick={() => setMobileOpen((v) => !v)}
             aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={mobileOpen}
-            className="md:hidden p-2 -mr-2 text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+            className="md:hidden p-2 -mr-2 text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
           >
             {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
-      </motion.header>
+      </motion.nav>
 
-      {/* Mobile menu */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -125,21 +119,27 @@ export function Nav() {
             className="md:hidden fixed inset-0 z-40 bg-paper"
           >
             <div className="pt-24 px-6">
-              <ul className="flex flex-col">
+              <ul className="flex flex-col gap-2">
                 {links.map((link, i) => (
                   <motion.li
                     key={link.name}
                     initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.25, delay: 0.05 + i * 0.04 }}
-                    className="border-b border-warm"
+                    className="border-b border-warm/50"
                   >
                     <a
                       href={link.href}
                       onClick={(e) => scrollToSection(e, link.href)}
-                      className="flex items-baseline gap-4 py-5 font-serif text-3xl text-ink hover:text-accent transition-colors focus-visible:outline-none"
+                      className="flex items-baseline gap-3 py-5 font-serif text-3xl text-ink hover:text-accent-dark transition-colors focus-visible:outline-none focus-visible:text-accent-dark"
                     >
-                      <span className="text-accent italic text-sm w-6 font-sans">{link.number}</span>
+                      {link.number ? (
+                        <span className="text-accent italic text-sm w-6">
+                          {link.number}
+                        </span>
+                      ) : (
+                        <span className="w-6" aria-hidden="true" />
+                      )}
                       <span>{link.name}</span>
                     </a>
                   </motion.li>
@@ -149,11 +149,11 @@ export function Nav() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.3, delay: 0.3 }}
-                className="mt-12"
+                className="mt-12 text-sm text-muted"
               >
                 <a
                   href="mailto:klowe001@gmail.com"
-                  className="text-[13px] font-medium text-muted hover:text-ink transition-colors"
+                  className="block hover:text-accent-dark transition-colors"
                 >
                   klowe001@gmail.com
                 </a>
