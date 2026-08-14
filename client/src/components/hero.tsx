@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
 import { useAnimationContext } from '@/context/animation-context';
 import { mobileMotion } from '@/lib/motion';
 
@@ -8,68 +9,80 @@ export function Hero() {
 
   return (
     <section className="min-h-screen flex flex-col justify-center px-6 pt-32 pb-16 relative overflow-hidden">
-      <div className="max-w-7xl mx-auto w-full z-10">
-        <motion.div
-          {...m.heroFadeUp(0.1)}
-          className="border-t border-b border-ink/15 py-3 mb-16 flex justify-between items-center text-[10px] font-semibold uppercase tracking-[0.25em] text-accent-dark"
-        >
-          <span>Portfolio</span>
-          <span aria-label="Twenty Twenty-Six">MMXXVI</span>
-        </motion.div>
+      <div className="max-w-[1320px] mx-auto w-full z-10">
 
-        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
-          <div className="max-w-4xl flex-1">
-            <motion.div
-              {...m.heroFadeUp(0.2)}
-              className="text-accent-dark uppercase tracking-[0.2em] font-medium mb-6 text-sm"
-            >
-              BCG <span className="text-warm" aria-hidden="true">·</span> Gen AI <span className="text-warm" aria-hidden="true">·</span> New York
-            </motion.div>
-
-          <motion.h1
-            {...m.heroFadeUp(0.4)}
-            className="font-serif text-6xl md:text-8xl lg:text-9xl leading-[0.95] mb-8 text-ink"
-          >
-            Strategist <br />
-            <span className="italic text-accent-dark">Who Builds</span>
-          </motion.h1>
-
+        <div className="flex flex-col max-w-[1100px]">
+          {/* Category label — Apertura style */}
           <motion.p
-            {...m.heroFadeUp(0.6)}
-            className="text-xl md:text-2xl text-muted max-w-2xl leading-relaxed mb-12"
+            {...m.heroFadeUp(0.15)}
+            className="font-sans text-[12px] font-semibold tracking-[0.18em] uppercase text-accent mb-5"
           >
-            BCG Principal leading Gen AI strategy for Fortune 500 brands. I also ship the products: a collaborative travel platform, a SaaS for dance instructors, and the site you're reading.
+            Portfolio · MMXXVI
           </motion.p>
 
+          {/* Headline */}
+          <motion.h1
+            {...m.heroFadeUp(0.3)}
+            className="font-serif font-light text-[44px] leading-[1.04] sm:text-[64px] lg:text-[88px] tracking-[-0.02em] mb-8 text-ink"
+          >
+            Strategist <br />
+            <span className="italic">Who&nbsp;Builds.</span>
+          </motion.h1>
+
+          {/* Sub-copy — two-column Apertura pattern */}
           <motion.div
-            {...m.heroFadeUp(0.8)}
-            className="flex flex-wrap items-center gap-6"
+            {...m.heroFadeUp(0.5)}
+            className="flex flex-wrap items-baseline gap-x-10 gap-y-3 font-sans text-[14px] text-muted mb-12"
+          >
+            <p className="max-w-md leading-relaxed">
+              BCG Principal leading Gen AI strategy for Fortune 500 brands. I also ship the products: a collaborative travel platform, a SaaS for dance instructors, and the site you're reading.
+            </p>
+            <p className="text-[12px] tracking-wide">
+              BCG <span className="mx-1 text-warm">·</span> Gen AI <span className="mx-1 text-warm">·</span> New York
+            </p>
+          </motion.div>
+
+          {/* CTAs */}
+          <motion.div
+            {...m.heroFadeUp(0.7)}
+            className="flex flex-wrap items-center gap-4"
           >
             <a
               href="#contact"
-              className="px-8 py-4 bg-ink text-paper font-medium uppercase tracking-wider text-sm hover:bg-transparent hover:text-ink border-2 border-ink transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
+              onClick={(e) => {
+                e.preventDefault();
+                document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="font-sans text-[13px] font-medium px-5 py-2.5 bg-ink text-paper rounded-full hover:bg-accent transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
             >
               Get in Touch
             </a>
             <a
               href="#projects"
-              className="text-sm font-medium text-muted hover:text-ink underline underline-offset-4 decoration-warm hover:decoration-accent transition-colors focus-visible:outline-none focus-visible:text-ink"
+              onClick={(e) => {
+                e.preventDefault();
+                document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="font-sans text-[13px] font-medium flex items-center gap-2 text-muted hover:text-ink transition-colors duration-300 focus-visible:outline-none"
             >
-              or jump to selected work
+              See selected work
+              <span className="w-8 h-8 rounded-full border border-warm grid place-items-center hover:border-ink transition-colors">
+                <ArrowRight size={14} />
+              </span>
             </a>
           </motion.div>
-          </div>
         </div>
       </div>
 
+      {/* Scroll indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: isMobile ? 0.5 : 1, delay: isMobile ? 0.6 : 1.2 }}
-        className="absolute bottom-12 left-6 md:left-12 flex flex-col items-center gap-4"
+        className="absolute bottom-12 left-6 md:left-10 flex flex-col items-center gap-4"
       >
-        <div className="w-[1px] h-16 bg-gradient-to-b from-ink to-transparent animate-pulse" />
-        <span className="text-xs uppercase tracking-widest text-muted">Scroll</span>
+        <div className="w-[1px] h-16 bg-gradient-to-b from-ink to-transparent" />
+        <span className="text-[11px] uppercase tracking-widest text-muted font-sans">Scroll</span>
       </motion.div>
     </section>
   );
