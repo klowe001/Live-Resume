@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Share image template</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* Same tokens as client/src/index.css */
+      :root {
+        --paper: hsl(40 14% 97%);
+        --ink: hsl(0 0% 8%);
+        --accent-dark: hsl(38 30% 45%);
+        --muted: hsl(0 0% 25%);
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1200px; height: 630px; overflow: hidden; }
+      body {
+        background: var(--paper);
+        color: var(--ink);
+        font-family: "Manrope", sans-serif;
+        -webkit-font-smoothing: antialiased;
+        padding: 60px 72px 64px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .masthead {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        padding-bottom: 18px;
+        border-bottom: 1px solid hsl(0 0% 8% / 0.15);
+      }
+      .name {
+        font-family: "Instrument Serif", serif;
+        font-size: 36px;
+        letter-spacing: -0.01em;
+        color: var(--ink);
+      }
+      h1 {
+        font-family: "Instrument Serif", serif;
+        font-weight: 400;
+        font-size: 176px;
+        line-height: 0.92;
+        letter-spacing: -0.015em;
+        color: var(--ink);
+      }
+      h1 em {
+        font-style: italic;
+        color: var(--accent-dark);
+      }
+      .url {
+        font-size: 15px;
+        font-weight: 500;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="masthead">
+      <span class="name">Kevin Lowe</span>
+    </div>
+    <h1>Strategist<br /><em>Who Builds</em></h1>
+    <div class="url">kevin-lowe.com</div>
+  </body>
+</html>

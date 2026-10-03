@@ -38,6 +38,16 @@ async function buildAll() {
   console.log("building client...");
   await viteBuild();
 
+  console.log("prerendering...");
+  try {
+    const { prerender } = await import("./prerender");
+    await prerender();
+  } catch (err) {
+    // The site still works without this step. Crawlers and link previews just
+    // see an empty page until it is fixed, so warn loudly but do not fail.
+    console.warn("[prerender] Skipped:", err);
+  }
+
   console.log("building server...");
   const pkg = JSON.parse(await readFile("package.json", "utf-8"));
   const allDeps = [
