@@ -1,10 +1,9 @@
 import { Nav } from '@/components/nav';
 import { Hero } from '@/components/hero';
-import { Philosophy } from '@/components/philosophy';
-import { Experience } from '@/components/experience';
-import { Education } from '@/components/education';
 import { Projects } from '@/components/projects';
-import { Skills } from '@/components/skills';
+import { Experience } from '@/components/experience';
+import { Philosophy } from '@/components/philosophy';
+import { Education } from '@/components/education';
 import { PersonalInterests } from '@/components/personal-interests';
 import { Footer } from '@/components/footer';
 
@@ -14,12 +13,11 @@ export default function Home() {
       <Nav />
       <main>
         <Hero />
-        <Philosophy />
-        <Experience />
-        <Education />
         <Projects />
+        <Experience />
+        <Philosophy />
+        <Education />
         <PersonalInterests />
-        <Skills />
       </main>
       <Footer />
     </div>

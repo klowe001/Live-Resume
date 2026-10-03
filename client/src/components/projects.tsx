@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Globe, FileText, Mail, ChevronDown } from 'lucide-react';
 import { useAnimationContext } from '@/context/animation-context';
 import { mobileMotion } from '@/lib/motion';
-import replitImg from '@assets/Replit.jpg';
 import droneImg from '@assets/image_1773102218588.jpeg';
 import wanderluxeImg from '@assets/wanderluxe-product-clean.jpeg';
 import cpfDanceImg from '@assets/cpfdance-clean.jpeg';
@@ -84,17 +83,6 @@ const projects: Project[] = [
     links: [],
     footer: "Hardware project",
     image: droneImg
-  },
-  {
-    title: "Top 1% Replit Builder",
-    role: "Achievement",
-    type: "2025",
-    description: "Achieved top 1% user status on Replit through intensive AI-assisted development. Mastered the workflow of translating product vision into shipped code using agentic AI tools.",
-    why: "Proof that consultants can build. The gap between strategic thinking and technical execution can be bridged with the right tools and mindset.",
-    chips: ["Replit Agent", "Claude Code", "Agentic Workflows"],
-    links: [],
-    footer: "Personal Achievement",
-    image: replitImg
   }
 ];
 
@@ -212,7 +200,7 @@ export function Projects() {
     <section id="projects" className="py-20 px-6 max-w-7xl mx-auto bg-paper">
       <div className="mb-16 border-b border-warm pb-8">
         <div className="flex items-baseline gap-4">
-          <span className="font-serif text-accent-dark italic text-lg">04</span>
+          <span className="font-serif text-accent-dark italic text-lg">01</span>
           <h2 className="font-serif text-4xl md:text-5xl text-ink">Selected Work</h2>
         </div>
         <p className="mt-6 text-lg text-muted leading-relaxed max-w-2xl">

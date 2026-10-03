@@ -6,10 +6,10 @@ import { useAnimationContext } from '@/context/animation-context';
 import { mobileMotion } from '@/lib/motion';
 
 const links = [
-  { name: "Philosophy", href: "#philosophy", number: "01" },
+  { name: "Projects", href: "#projects", number: "01" },
   { name: "Experience", href: "#experience", number: "02" },
-  { name: "Education", href: "#education", number: "03" },
-  { name: "Projects", href: "#projects", number: "04" },
+  { name: "Philosophy", href: "#philosophy", number: "03" },
+  { name: "Education", href: "#education", number: "04" },
   { name: "Other", href: "#personal", number: "05" },
   { name: "Contact", href: "#contact", number: null },
 ];

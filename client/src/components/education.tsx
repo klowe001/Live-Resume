@@ -3,16 +3,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { GraduationCap, ChevronDown } from 'lucide-react';
 import { useAnimationContext } from '@/context/animation-context';
 import { mobileMotion } from '@/lib/motion';
-import savarinImg from '@assets/Savarin.JPG';
-import tarteCitronImg from '@assets/Tarte Citron.JPG';
-
-interface NestedExperience {
-  name: string;
-  credential: string;
-  period: string;
-  location: string;
-  note: string;
-}
 
 interface EducationEntry {
   school: string;
@@ -24,7 +14,6 @@ interface EducationEntry {
   highlights: string[];
   description?: string;
   expandedDetails?: string[];
-  nested?: NestedExperience;
 }
 
 const education: EducationEntry[] = [
@@ -36,14 +25,7 @@ const education: EducationEntry[] = [
     location: "Philadelphia, PA",
     focus: "Strategic Management & Entrepreneurship",
     highlights: ["Director's List (top 10%)", "First-Year Honors (top 20%)", "GMAT: 740"],
-    description: "Strategic Management & Entrepreneurship. Built a network spanning finance, tech, consulting, and entrepreneurship.",
-    nested: {
-      name: "Le Cordon Bleu",
-      credential: "Pastry Certificate",
-      period: "Summer 2021",
-      location: "Paris",
-      note: "Intensive patisserie program during MBA summer break"
-    }
+    description: "Strategic Management & Entrepreneurship. Built a network spanning finance, tech, consulting, and entrepreneurship."
   },
   {
     school: "Southern Methodist University",
@@ -105,61 +87,6 @@ function ExpandableDetails({ details }: { details: string[] }) {
   );
 }
 
-function LeCordonBleuCard({ nested }: { nested: NestedExperience }) {
-  const [isHovered, setIsHovered] = useState(false);
-  const { isMobile } = useAnimationContext();
-  const m = mobileMotion(isMobile);
-
-  return (
-    <div
-      className="mt-4 ml-4 pl-4 border-l border-warm/60 py-2 cursor-pointer"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      <div className="flex flex-col md:flex-row md:items-baseline justify-between mb-0.5">
-        <span className="font-medium text-sm text-ink hover:text-accent-dark transition-colors">{nested.name}</span>
-        <span className="text-xs text-muted uppercase tracking-wide">{nested.period}</span>
-      </div>
-      <div className="text-xs text-muted">
-        {nested.credential} · {nested.location}
-      </div>
-      <p className="text-xs text-muted mt-1 italic">
-        {nested.note}
-      </p>
-
-      {/* Hover images - appears below and pushes content down */}
-      <AnimatePresence>
-        {isHovered && (
-          <motion.div
-            {...m.expand}
-            transition={{ duration: isMobile ? 0.2 : 0.3, ease: 'easeInOut' }}
-            className="overflow-hidden"
-          >
-            <div className="pt-4 flex gap-3">
-              <div className="relative flex-1 border border-warm overflow-hidden">
-                <img
-                  src={savarinImg}
-                  alt="Savarin"
-                  className="w-full h-auto object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-b from-ink/10 via-transparent to-ink/20 pointer-events-none" />
-              </div>
-              <div className="relative flex-1 border border-warm overflow-hidden">
-                <img
-                  src={tarteCitronImg}
-                  alt="Tarte Citron"
-                  className="w-full h-auto object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-b from-ink/10 via-transparent to-ink/20 pointer-events-none" />
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
-}
-
 export function Education() {
   const { isMobile } = useAnimationContext();
   const m = mobileMotion(isMobile);
@@ -167,7 +94,7 @@ export function Education() {
   return (
     <section id="education" className="py-20 px-6 max-w-7xl mx-auto">
       <div className="flex items-baseline gap-4 mb-20 border-b border-warm pb-8">
-        <span className="font-serif text-accent-dark italic text-lg">03</span>
+        <span className="font-serif text-accent-dark italic text-lg">04</span>
         <h2 className="font-serif text-4xl md:text-5xl text-ink">Education</h2>
       </div>
 
@@ -215,9 +142,6 @@ export function Education() {
               <ExpandableDetails details={edu.expandedDetails} />
             )}
 
-            {edu.nested && (
-              <LeCordonBleuCard nested={edu.nested} />
-            )}
           </motion.div>
         ))}
       </div>

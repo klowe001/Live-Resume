@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Lightbulb, Terminal, TrendingUp, Users, Play, ChevronDown, Layers } from 'lucide-react';
+import { TrendingUp, Users, Play, ChevronDown } from 'lucide-react';
 import { useAnimationContext } from '@/context/animation-context';
 import { mobileMotion } from '@/lib/motion';
 
@@ -14,14 +14,10 @@ interface Philosophy {
 
 const philosophies: Philosophy[] = [
   {
-    icon: Terminal,
-    title: "Strategy Through Execution",
-    description: "I've spent years defining growth strategy for brands and companies with a lens toward implementation feasibility. Now I'm comfortable building fast, and early; iterating products on my own so I can truly understand the end-to-end journey from strategy to shipped product."
-  },
-  {
-    icon: Lightbulb,
-    title: "AI as Amplifier",
-    description: "AI accelerates good judgment. I embed it in my everyday workflows to do in minutes what previously took hours. But, AI is not a silver bullet. My years of working 'the old fashioned way' allows me to leverage its full potential. The real value comes from a strong foundation in customer experience design, strategic rationale, and clarity on the problems worth solving."
+    icon: Play,
+    title: "Demo, Not Memo",
+    description: "The most powerful way to align on an idea is to show it, not explain it. Too often teams burn cycles in PowerPoint purgatory: debating hypotheticals, wordsmithing requirements docs, and arguing over abstractions. It's slow, exhausting, and usually wrong anyway. When you can just build something (a prototype, a clickable mock, a working version) you skip the translation layer entirely. On one loyalty redesign we swapped a 50 to 70 page deck for a clickable version of the program, and the client shared it with his Chief Customer Officer in week 5 of 14. Every demo I build still starts from a one-page spec.",
+    link: { text: "Here's the one for WanderLuxe", url: "https://github.com/reminiscent-io/wanderluxe/blob/main-agent/PRODUCT.md" }
   },
   {
     icon: TrendingUp,
@@ -32,17 +28,6 @@ const philosophies: Philosophy[] = [
     icon: Users,
     title: "Player-Coach Mentality",
     description: "My job is to enable teams to do their best work. Sometimes that means stepping back and letting people run independently, driving full ownership of their work. Sometimes it means jumping into the model alongside them to accelerate progress and bring the team along. And sometimes it means building the demo or prototype myself while the team focuses elsewhere. I find as much fulfillment in getting hands-on with the work as I do in the mentorship side of leadership."
-  },
-  {
-    icon: Play,
-    title: "Demo, Not Memo",
-    description: "The most powerful way to align on an idea is to show it, not explain it. Too often teams burn cycles in PowerPoint purgatory: debating hypotheticals, wordsmithing requirements docs, and arguing over abstractions. It's slow, exhausting, and usually wrong anyway. When you can just build something (a prototype, a clickable mock, a working version) you skip the translation layer entirely. On one loyalty redesign we swapped a 50 to 70 page deck for a clickable version of the program, and the client shared it with his Chief Customer Officer in week 5 of 14. Every demo I build still starts from a one-page spec.",
-    link: { text: "Here's the one for WanderLuxe", url: "https://github.com/reminiscent-io/wanderluxe/blob/main-agent/PRODUCT.md" }
-  },
-  {
-    icon: Layers,
-    title: "A Jack of All Trades",
-    description: "\"A jack of all trades is a master of none, but oftentimes better than a master of one.\" People tend to leave off that last part, but I think it's the most important. I've found immense value in cultivating a wide breadth of skills and interests, from strategy to design to code to data. It's not about being the best at any one thing; it's about connecting dots others can't see. And frankly, I find it far more enjoyable to understand a little about a lot than to go deep on just one domain."
   }
 ];
 
@@ -134,7 +119,7 @@ export function Philosophy() {
     <section id="philosophy" className="py-20 bg-ink text-paper relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="flex items-baseline gap-4 mb-16 border-b border-paper/15 pb-8">
-          <span className="font-serif text-accent italic text-lg">01</span>
+          <span className="font-serif text-accent italic text-lg">03</span>
           <h2 className="font-serif text-4xl md:text-5xl">How I Think</h2>
         </div>
 
