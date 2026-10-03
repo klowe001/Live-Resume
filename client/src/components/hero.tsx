@@ -38,7 +38,7 @@ export function Hero() {
             {...m.heroFadeUp(0.6)}
             className="text-xl md:text-2xl text-muted max-w-2xl leading-relaxed mb-12"
           >
-            BCG Principal leading Gen AI strategy for Fortune 500 brands. I also ship the products: a collaborative travel platform, a SaaS for dance instructors, and the site you're reading.
+            BCG Principal. I lead loyalty redesigns for Fortune 500 brands and GenAI enablement for BCG's New York office, driving grassroots adoption of AI tools. On my own time I direct AI coding agents to build products, including a group trip planner, a private coaching platform for dancers, and a fleet dashboard for a robot maker I wanted to work for. Next, I want to run operations or product at a company building in AI, robotics, or defense.
           </motion.p>
 
           <motion.div

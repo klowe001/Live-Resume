@@ -37,11 +37,6 @@ const education: EducationEntry[] = [
     focus: "Strategic Management & Entrepreneurship",
     highlights: ["Director's List (top 10%)", "First-Year Honors (top 20%)", "GMAT: 740"],
     description: "Strategic Management & Entrepreneurship. Built a network spanning finance, tech, consulting, and entrepreneurship.",
-    expandedDetails: [
-      "A transformative window into ~1,000 classmates' industries, beliefs, and worldviews",
-      "Exposure to classmates from private equity, tech startups, nonprofits, government, and family businesses",
-      "Built a more complete mental model of how value is created and captured across contexts"
-    ],
     nested: {
       name: "Le Cordon Bleu",
       credential: "Pastry Certificate",
@@ -57,7 +52,8 @@ const education: EducationEntry[] = [
     period: "2011 – 2015",
     location: "Dallas, TX",
     focus: "Minor: Business",
-    highlights: ["Magna Cum Laude", "Tau Beta Pi Engineering Honor Society", "GPA: 3.86"]
+    highlights: ["Magna Cum Laude", "Tau Beta Pi Engineering Honor Society", "GPA: 3.86"],
+    description: "Senior design: conduit-bending robot, full CAD, multi-axis motion."
   }
 ];
 

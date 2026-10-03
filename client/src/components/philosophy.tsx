@@ -4,7 +4,15 @@ import { Lightbulb, Terminal, TrendingUp, Users, Play, ChevronDown, Layers } fro
 import { useAnimationContext } from '@/context/animation-context';
 import { mobileMotion } from '@/lib/motion';
 
-const philosophies = [
+interface Philosophy {
+  icon: React.ComponentType<{ className?: string }>;
+  title: string;
+  description: string;
+  /** Optional closing sentence rendered as a link, followed by a period. */
+  link?: { text: string; url: string };
+}
+
+const philosophies: Philosophy[] = [
   {
     icon: Terminal,
     title: "Strategy Through Execution",
@@ -28,7 +36,8 @@ const philosophies = [
   {
     icon: Play,
     title: "Demo, Not Memo",
-    description: "The most powerful way to align on an idea is to show it, not explain it. Too often teams burn cycles in PowerPoint purgatory: debating hypotheticals, wordsmithing requirements docs, and arguing over abstractions. It's slow, exhausting, and usually wrong anyway. When you can just build something (a prototype, a clickable mock, a working version) you skip the translation layer entirely. People react to what they experience, not what they imagine. In a world where building is faster than ever, the memo is the bottleneck."
+    description: "The most powerful way to align on an idea is to show it, not explain it. Too often teams burn cycles in PowerPoint purgatory: debating hypotheticals, wordsmithing requirements docs, and arguing over abstractions. It's slow, exhausting, and usually wrong anyway. When you can just build something (a prototype, a clickable mock, a working version) you skip the translation layer entirely. On one loyalty redesign we swapped a 50 to 70 page deck for a clickable version of the program, and the client shared it with his Chief Customer Officer in week 5 of 14. Every demo I build still starts from a one-page spec.",
+    link: { text: "Here's the one for WanderLuxe", url: "https://github.com/reminiscent-io/wanderluxe/blob/main-agent/PRODUCT.md" }
   },
   {
     icon: Layers,
@@ -37,7 +46,29 @@ const philosophies = [
   }
 ];
 
-function MobileCollapsibleCard({ item, index }: { item: typeof philosophies[0]; index: number }) {
+function Body({ item }: { item: Philosophy }) {
+  return (
+    <>
+      {item.description}
+      {item.link && (
+        <>
+          {' '}
+          <a
+            href={item.link.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-accent underline underline-offset-4 decoration-accent/50 hover:text-paper hover:decoration-paper transition-colors focus-visible:outline-none focus-visible:text-paper"
+          >
+            {item.link.text}
+          </a>
+          .
+        </>
+      )}
+    </>
+  );
+}
+
+function MobileCollapsibleCard({ item, index }: { item: Philosophy; index: number }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const { isMobile } = useAnimationContext();
   const m = mobileMotion(isMobile);
@@ -77,7 +108,7 @@ function MobileCollapsibleCard({ item, index }: { item: typeof philosophies[0]; 
           >
             <div className="px-4 pb-4">
               <p className="text-paper/80 leading-relaxed text-sm">
-                {item.description}
+                <Body item={item} />
               </p>
             </div>
           </motion.div>
@@ -91,7 +122,7 @@ function MobileCollapsibleCard({ item, index }: { item: typeof philosophies[0]; 
           {item.title}
         </h3>
         <p className="text-paper/80 leading-relaxed">
-          {item.description}
+          <Body item={item} />
         </p>
       </div>
     </motion.div>
