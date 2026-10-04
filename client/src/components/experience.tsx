@@ -9,6 +9,8 @@ interface Role {
   badge?: string;
   period: string;
   location: string;
+  /** Short note shown after the location, e.g. a promotion date. */
+  note?: string;
   description: string;
   skills: string[];
   expandedDetails?: string[];
@@ -16,6 +18,8 @@ interface Role {
 
 interface CareerBlock {
   company: string;
+  /** One-line tenure summary shown under the company name. */
+  summary?: string;
   roles: Role[];
 }
 
@@ -70,55 +74,34 @@ function ExpandableDetails({ details }: { details: string[] }) {
 const timeline: CareerBlock[] = [
   {
     company: "Boston Consulting Group",
+    summary: "Five loyalty redesigns for Fortune 500 retail, hospitality, and airline companies, where the program drives 50 to 70% of revenue. $500M+ in identified impact.",
     roles: [
       {
-        title: "Principal",
-        badge: "Gen AI Node Lead",
-        period: "Jan 2025 – Present",
+        title: "Principal · Project Leader",
+        badge: "GenAI Enablement Lead, New York",
+        period: "2023 – Present",
         location: "New York, NY",
-        description: "Owner of multi-workstream strategy-to-execution programs. Led end-to-end loyalty redesigns for programs touching tens of millions of members. Introduced practical agentic tools and workflows to enhance consumer research effectiveness.",
-        skills: ["Enterprise Loyalty", "Gen AI Enablement", "Technical Translation", "Financial Modeling"],
+        note: "Principal since Jan 2025",
+        description: "Lead loyalty redesigns end to end, from consumer research and transaction-level analysis through financial modeling, executive alignment, and launch KPIs. Lead GenAI enablement for BCG's New York office, driving grassroots adoption of AI tools.",
+        skills: ["Enterprise Loyalty", "GenAI Enablement", "Team Leadership", "Financial Modeling"],
         expandedDetails: [
-          "Led enterprise loyalty redesigns for programs representing 50–70% of company revenue, defining tiering logic, earn-burn mechanics, and rollout governance",
-          "Converted business intent into engineering-ready requirements in large-scale data transformation projects, pressure-testing technical constraints",
-          "Built and maintained financial models to quantify revenue lift, redemption liability, and unit economics with success thresholds for MVPs",
-          "Established decision rights, operating cadence, and PMO-driven processes to keep teams aligned while moving fast",
-          "Organized large-scale hackathons, trained senior partners on AI workflows, and built custom tools adopted by Fortune 500 C-suites"
+          "Work directly for VP and C-suite clients while keeping 20 to 40 cross-functional stakeholders aligned",
+          "Lead teams of 4 to 6 consultants and analysts; coached team members into repeat staffing and, in several cases, promotion",
+          "Turned business goals into engineering-ready requirements on a large data transformation and framed the technical trade-offs so executives could decide quickly",
+          "Built an interactive calculator in two days with AI coding tools, comparing member return across six airline loyalty programs; shared directly with the airline's CCO",
+          "Coached an associate through building a branded, clickable version of a loyalty redesign with AI coding tools; the client shared it with his Chief Customer Officer in week 5 of 14",
+          "Ran a three-hour Replit hackathon where 50 colleagues built working apps, and trained senior partners on AI workflows"
         ]
       },
       {
-        title: "Project Leader",
-        period: "2023 – Dec 2024",
-        location: "New York, NY",
-        description: "Owned multi-workstream programs. Led pricing and competitor analytics to prioritize 30+ value plays. Coached senior client leaders through negotiations that reduced run-rate costs by $3M.",
-        skills: ["Program Leadership", "Category Strategy", "Stakeholder Alignment"],
-        expandedDetails: [
-          "Owned strategy-to-execution programs from kickoff through implementation across multiple workstreams",
-          "Delivered financial models for pricing, liability management, and revenue optimization across client engagements",
-          "Built high-trust teams from scratch with established decision rights and operating cadence"
-        ]
-      },
-      {
-        title: "Consultant",
-        period: "2019 – 2023",
+        title: "Consultant · Associate",
+        period: "2017 – 2021",
         location: "Dallas, TX → New York, NY",
-        description: "Delivered growth strategies across retail, beauty, travel, hospitality, and airlines. Built detailed economic models for $3B+ loyalty programs to capture shifting industry trends.",
-        skills: ["Growth Strategy", "Loyalty Economics", "Data Analysis (Alteryx)"],
+        description: "Built the economic model for a $3B loyalty program redesign on 1.5B+ rows of transaction data. Led pricing and competitor analytics that prioritized 30 value plays, then coached senior client leaders through negotiations that cut run-rate costs by $3M.",
+        skills: ["Loyalty Economics", "Pricing", "Financial Modeling", "Data Analysis (Alteryx)"],
         expandedDetails: [
-          "Headed development of loyalty redesign models analyzing 1.5B+ rows of transaction data using Alteryx",
-          "Led customer experience transformations connecting operational improvements to measurable business outcomes",
-          "Developed brand positioning strategies for consumer companies navigating market shifts"
-        ]
-      },
-      {
-        title: "Associate",
-        period: "2017 – 2019",
-        location: "Dallas, TX",
-        description: "Built rigorous financial models, synthesized complex data, and delivered client-ready materials. Transitioned from industry with hands-on analytical skills.",
-        skills: ["Financial Modeling", "Client Delivery"],
-        expandedDetails: [
-          "Entered consulting from industry (Pizza Hut/Yum! Brands) and established credibility quickly",
-          "Laid the foundation for rapid advancement through consistent high-quality delivery and proactive skill development"
+          "Built the company-wide financial model a $5B business used to set targets and track progress",
+          "Delivered growth strategies across retail, beauty, travel, hospitality, and airlines"
         ]
       }
     ]
@@ -131,12 +114,7 @@ const timeline: CareerBlock[] = [
         period: "2015 – 2017",
         location: "Plano, TX",
         description: "Designed novel Tableau dashboards that transformed how leadership consumed performance data. Reduced recurring workloads for 30+ colleagues from weeks to one day.",
-        skills: ["Tableau Automation", "BI & Reporting", "Process Improvement"],
-        expandedDetails: [
-          "Owned financial analysis and reporting for one of the world's largest QSR brands",
-          "Built automated reporting infrastructure that became standard practice for the finance organization",
-          "Key learning: the best insights come from getting close to the data, bridging the gap between having data and making decisions"
-        ]
+        skills: ["Tableau Automation", "BI & Reporting", "Process Improvement"]
       }
     ]
   }
@@ -154,27 +132,15 @@ export function Experience() {
       </div>
 
       {/* Expertise Summary */}
-      <div className="mb-16 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-        <div>
-          <h3 className="text-xs font-semibold uppercase tracking-widest text-accent-dark mb-3">Functional Expertise</h3>
-          <p className="text-sm text-ink leading-relaxed">
-            {['Growth Strategy', 'Brand Strategy', 'Loyalty Design', 'Customer Experience', 'AI Coding'].map((item, index, arr) => (
-              <span key={item}>
-                {item}{index < arr.length - 1 && <span className="mx-2 text-muted">·</span>}
-              </span>
-            ))}
-          </p>
-        </div>
-        <div>
-          <h3 className="text-xs font-semibold uppercase tracking-widest text-accent-dark mb-3">Industry Experience</h3>
-          <p className="text-sm text-ink leading-relaxed">
-            {['Fashion', 'Luxury', 'Retail', 'Travel', 'Hospitality'].map((item, index, arr) => (
-              <span key={item}>
-                {item}{index < arr.length - 1 && <span className="mx-2 text-muted">·</span>}
-              </span>
-            ))}
-          </p>
-        </div>
+      <div className="mb-16">
+        <h3 className="text-xs font-semibold uppercase tracking-widest text-accent-dark mb-3">Functional Expertise</h3>
+        <p className="text-sm text-ink leading-relaxed">
+          {['Program Leadership', 'Unit Economics', 'Loyalty & Pricing', 'Launches & Rollouts', 'Building with AI Agents'].map((item, index, arr) => (
+            <span key={item}>
+              {item}{index < arr.length - 1 && <span className="mx-2 text-muted">·</span>}
+            </span>
+          ))}
+        </p>
       </div>
 
       <div className="relative ml-4 md:ml-6 pl-8 md:pl-10 border-l border-warm">
@@ -188,7 +154,10 @@ export function Experience() {
               {/* Company marker on timeline */}
               <div className="absolute -left-[37px] md:-left-[47px] top-2 w-3 h-3 rounded-full bg-accent" />
 
-              <h3 className="font-serif text-2xl text-ink mb-5">{item.company}</h3>
+              <h3 className={`font-serif text-2xl text-ink ${item.summary ? 'mb-2' : 'mb-5'}`}>{item.company}</h3>
+              {item.summary && (
+                <p className="text-sm text-muted leading-relaxed max-w-3xl mb-6">{item.summary}</p>
+              )}
 
               {/* Roles within this company */}
               <div className="space-y-8 ml-4 border-l border-warm/50 pl-6">
@@ -211,6 +180,7 @@ export function Experience() {
 
                     <div className="text-sm text-muted mb-3">
                       {role.location}
+                      {role.note && <span><span className="mx-2 text-warm" aria-hidden="true">·</span>{role.note}</span>}
                     </div>
 
                     <p className="text-muted leading-relaxed mb-4 max-w-3xl text-sm">

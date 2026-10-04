@@ -32,7 +32,9 @@ shared/               # Shared code
 ```bash
 npm run dev            # Start dev server (Express + Vite HMR)
 npm run dev:client     # Start Vite dev server only
-npm run build          # Build client (Vite) and server (ESBuild) to dist/
+npm run build          # Build client (Vite), prerender index.html (Puppeteer), build server (ESBuild) to dist/
+npm run prerender      # Re-run only the prerender step against an existing dist/public
+npm run og:render      # Re-render client/public/og.jpg from script/og-template.html
 npm start              # Start production server
 npm run check          # TypeScript type checking (tsc)
 npm run db:push        # Push database migrations (Drizzle Kit)
@@ -51,5 +53,7 @@ npm run db:push        # Push database migrations (Drizzle Kit)
 - Fonts: "Instrument Serif" (serif), "Manrope" (sans-serif)
 - GDPR consent management built in (ConsentContext + ConsentBanner)
 - Google Tag Manager integration (GTM-W9Q3GNGD)
+- The build writes the rendered home page into dist/public/index.html so crawlers and link previews see real content. React replaces it on load. Replit deploys dist/public as static files.
+- Head tags (title, description, canonical, Open Graph) live in client/index.html. The share image is client/public/og.jpg.
 - No test suite or linter configured
 - PostgreSQL required via DATABASE_URL env var
