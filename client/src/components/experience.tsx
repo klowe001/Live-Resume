@@ -5,6 +5,7 @@ import { useAnimationContext } from '@/context/animation-context';
 import { mobileMotion } from '@/lib/motion';
 import bcgLogo from '@assets/logos/bcg.png';
 import siliconLabsLogo from '@assets/logos/silicon-labs.png';
+import pizzaHutLogo from '@assets/logos/pizza-hut.png';
 
 interface Role {
   title: string;
@@ -112,6 +113,7 @@ const timeline: CareerBlock[] = [
   },
   {
     company: "Pizza Hut (Yum! Brands)",
+    logo: { src: pizzaHutLogo, width: 200, height: 160 },
     roles: [
       {
         title: "Associate Financial Analyst",
