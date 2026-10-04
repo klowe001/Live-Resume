@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Globe, FileText, Mail, ChevronDown } from 'lucide-react';
+import { Globe, FileText, ChevronDown } from 'lucide-react';
 import { useAnimationContext } from '@/context/animation-context';
 import { mobileMotion } from '@/lib/motion';
 import droneImg from '@assets/image_1773102218588.jpeg';
@@ -30,19 +30,6 @@ type Project = {
 };
 
 const projects: Project[] = [
-  {
-    title: "Anvil",
-    role: "Built Unasked",
-    type: "Robot Fleet Ops",
-    description: "Fleet lifecycle dashboard for an industrial robot maker. It follows each customer from pilot through payback to expansion.",
-    problem: "A robot maker grows when installs turn into expansions. Anvil flags the three moments that decide it: a stalled install, a robot that has gone dark, and an account ready for more units.",
-    why: "I wanted to work there, so I built a working demo before anyone asked.",
-    call: "I built it against the company's published API with synthetic data. The demo never pretends to be live, and connecting real data is a data-layer swap.",
-    chips: ["Pilot to Expansion", "Fleet Health", "Published API, Synthetic Data"],
-    links: [
-      { label: "Live demo on request", url: "mailto:klowe001@gmail.com", icon: Mail }
-    ]
-  },
   {
     title: "WanderLuxe",
     role: "Founder",
