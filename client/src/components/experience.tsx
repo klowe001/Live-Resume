@@ -3,6 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import { useAnimationContext } from '@/context/animation-context';
 import { mobileMotion } from '@/lib/motion';
+import bcgLogo from '@assets/logos/bcg.png';
+import siliconLabsLogo from '@assets/logos/silicon-labs.png';
 
 interface Role {
   title: string;
@@ -18,6 +20,7 @@ interface Role {
 
 interface CareerBlock {
   company: string;
+  logo?: { src: string; width: number; height: number };
   /** One-line tenure summary shown under the company name. */
   summary?: string;
   roles: Role[];
@@ -74,6 +77,7 @@ function ExpandableDetails({ details }: { details: string[] }) {
 const timeline: CareerBlock[] = [
   {
     company: "Boston Consulting Group",
+    logo: { src: bcgLogo, width: 736, height: 160 },
     summary: "Five loyalty redesigns for Fortune 500 retail, hospitality, and airline companies, where the program drives 50 to 70% of revenue. $500M+ in identified impact.",
     roles: [
       {
@@ -120,6 +124,7 @@ const timeline: CareerBlock[] = [
   },
   {
     company: "Silicon Labs",
+    logo: { src: siliconLabsLogo, width: 250, height: 128 },
     roles: [
       {
         title: "Engineering Intern",
@@ -166,7 +171,19 @@ export function Experience() {
               {/* Company marker on timeline */}
               <div className="absolute -left-[37px] md:-left-[47px] top-2 w-3 h-3 rounded-full bg-accent" />
 
-              <h3 className={`font-serif text-2xl text-ink ${item.summary ? 'mb-2' : 'mb-5'}`}>{item.company}</h3>
+              <div className={`flex flex-wrap items-center gap-x-4 gap-y-2 ${item.summary ? 'mb-2' : 'mb-5'}`}>
+                {item.logo && (
+                  <img
+                    src={item.logo.src}
+                    width={item.logo.width}
+                    height={item.logo.height}
+                    alt={`${item.company} logo`}
+                    loading="lazy"
+                    className="h-8 md:h-9 w-auto mix-blend-multiply"
+                  />
+                )}
+                <h3 className="font-serif text-2xl text-ink">{item.company}</h3>
+              </div>
               {item.summary && (
                 <p className="text-sm text-muted leading-relaxed max-w-3xl mb-6">{item.summary}</p>
               )}
