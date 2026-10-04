@@ -38,7 +38,7 @@ export function Hero() {
             {...m.heroFadeUp(0.6)}
             className="text-xl md:text-2xl text-muted max-w-2xl leading-relaxed mb-12"
           >
-            BCG Principal. Kevin leads loyalty redesigns for Fortune 500 brands and GenAI enablement for BCG's New York office, driving grassroots adoption of AI tools. On the side, Kevin directs AI coding agents to build products, including a group trip planner and a private coaching platform for dancers. Next, Kevin wants to run operations or product at a company building in AI, robotics, or defense.
+            BCG Principal. Kevin leads loyalty redesigns for Fortune 500 brands and GenAI enablement for BCG's New York office, driving grassroots adoption of AI tools. On the side, Kevin directs AI coding agents to build products, including a group trip planner and a private coaching platform for dancers. Next, Kevin wants to run strategy, operations, or product at a company putting AI to work, whether it's AI-native or bringing AI into an established business. Any industry works, though physical products like robots and aircraft are a soft spot.
           </motion.p>
 
           <motion.div
