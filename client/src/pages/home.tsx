@@ -1,23 +1,23 @@
 import { Nav } from '@/components/nav';
 import { Hero } from '@/components/hero';
-import { Projects } from '@/components/projects';
 import { Experience } from '@/components/experience';
-import { Philosophy } from '@/components/philosophy';
+import { Projects } from '@/components/projects';
+import { HowHeWorks } from '@/components/how-he-works';
 import { Education } from '@/components/education';
-import { PersonalInterests } from '@/components/personal-interests';
+import { Life } from '@/components/life';
 import { Footer } from '@/components/footer';
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-paper text-ink font-sans">
+    <div className="min-h-screen bg-paper font-sans text-ink">
       <Nav />
-      <main>
+      <main id="main" tabIndex={-1} className="outline-none">
         <Hero />
-        <Projects />
         <Experience />
-        <Philosophy />
+        <Projects />
+        <HowHeWorks />
         <Education />
-        <PersonalInterests />
+        <Life />
       </main>
       <Footer />
     </div>

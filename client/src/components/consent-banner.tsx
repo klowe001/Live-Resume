@@ -9,6 +9,8 @@ export function ConsentBanner() {
   const { showBanner, acceptAll, rejectNonEssential, updatePreferences, preferences, isLoading } = useConsent();
   const [showSettings, setShowSettings] = useState(false);
   const [localPrefs, setLocalPrefs] = useState<ConsentPreferences>(preferences);
+  const { isMobile } = useAnimationContext();
+  const m = mobileMotion(isMobile);
 
   if (isLoading || !showBanner) {
     return null;
@@ -18,9 +20,6 @@ export function ConsentBanner() {
     updatePreferences(localPrefs);
     setShowSettings(false);
   };
-
-  const { isMobile } = useAnimationContext();
-  const m = mobileMotion(isMobile);
 
   return (
     <AnimatePresence>
@@ -38,22 +37,22 @@ export function ConsentBanner() {
                 <div className="flex flex-wrap items-center gap-3">
                   <button
                     onClick={acceptAll}
-                    className="px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.15em] text-paper bg-ink border-2 border-ink hover:bg-transparent hover:text-ink transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
+                    className="px-5 py-2.5 text-[0.9375rem] font-semibold text-paper bg-ink border-2 border-ink hover:bg-transparent hover:text-ink transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
                   >
-                    Accept All
+                    Accept all
                   </button>
                   <button
                     onClick={rejectNonEssential}
-                    className="px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.15em] text-ink border-2 border-ink hover:bg-ink hover:text-paper transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
+                    className="px-5 py-2.5 text-[0.9375rem] font-semibold text-ink border-2 border-ink hover:bg-ink hover:text-paper transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
                   >
-                    Essential Only
+                    Essential only
                   </button>
                   <button
                     onClick={() => {
                       setLocalPrefs(preferences);
                       setShowSettings(true);
                     }}
-                    className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.15em] text-muted hover:text-ink underline underline-offset-4 decoration-warm hover:decoration-accent transition-colors focus-visible:outline-none focus-visible:text-ink"
+                    className="inline-flex items-center gap-1.5 text-[0.9375rem] font-semibold text-muted hover:text-ink underline underline-offset-4 decoration-warm hover:decoration-accent transition-colors focus-visible:outline-none focus-visible:text-ink"
                   >
                     <Settings className="h-3.5 w-3.5" strokeWidth={1.5} />
                     Customize
@@ -64,7 +63,7 @@ export function ConsentBanner() {
           ) : (
             <div className="p-5 md:p-6">
               <div className="flex items-baseline justify-between mb-6 pb-4 border-b border-warm">
-                <h3 className="font-serif text-2xl text-ink">Cookie Preferences</h3>
+                <h3 className="text-2xl font-bold text-ink">Cookie preferences</h3>
                 <button
                   onClick={() => setShowSettings(false)}
                   className="p-1 text-muted hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
@@ -78,15 +77,15 @@ export function ConsentBanner() {
                 <div className="flex items-center justify-between py-4 first:pt-0">
                   <div>
                     <dt className="text-sm font-semibold text-ink">Functional</dt>
-                    <dd className="text-xs text-muted mt-0.5">Required for the site to work properly</dd>
+                    <dd className="text-[0.9375rem] text-muted mt-0.5">Required for the site to work properly</dd>
                   </div>
-                  <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-accent-dark">Always on</span>
+                  <span className="text-[0.9375rem] font-semibold text-accent">Always on</span>
                 </div>
 
                 <div className="flex items-center justify-between py-4">
                   <div>
                     <dt className="text-sm font-semibold text-ink">Analytics</dt>
-                    <dd className="text-xs text-muted mt-0.5">Help us understand site usage</dd>
+                    <dd className="text-[0.9375rem] text-muted mt-0.5">Shows Kevin which sections get read</dd>
                   </div>
                   <Toggle
                     checked={localPrefs.analytics}
@@ -98,7 +97,7 @@ export function ConsentBanner() {
                 <div className="flex items-center justify-between py-4 last:pb-0">
                   <div>
                     <dt className="text-sm font-semibold text-ink">Marketing</dt>
-                    <dd className="text-xs text-muted mt-0.5">Personalized ads and content</dd>
+                    <dd className="text-[0.9375rem] text-muted mt-0.5">Personalized ads and content</dd>
                   </div>
                   <Toggle
                     checked={localPrefs.marketing}
@@ -111,15 +110,15 @@ export function ConsentBanner() {
               <div className="mt-6 flex flex-wrap gap-3">
                 <button
                   onClick={handleSaveSettings}
-                  className="px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.15em] text-paper bg-ink border-2 border-ink hover:bg-transparent hover:text-ink transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
+                  className="px-5 py-2.5 text-[0.9375rem] font-semibold text-paper bg-ink border-2 border-ink hover:bg-transparent hover:text-ink transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
                 >
-                  Save Preferences
+                  Save preferences
                 </button>
                 <button
                   onClick={acceptAll}
-                  className="px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.15em] text-ink border-2 border-ink hover:bg-ink hover:text-paper transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
+                  className="px-5 py-2.5 text-[0.9375rem] font-semibold text-ink border-2 border-ink hover:bg-ink hover:text-paper transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
                 >
-                  Accept All
+                  Accept all
                 </button>
               </div>
             </div>
@@ -142,8 +141,8 @@ function Toggle({ checked, onChange, label }: { checked: boolean; onChange: () =
       }`}
     >
       <span
-        className={`absolute top-[2px] w-4 h-4 transition-all ${
-          checked ? 'right-[2px] bg-paper' : 'left-[2px] bg-ink'
+        className={`absolute left-[2px] top-[2px] h-4 w-4 transition-[translate,background-color] duration-200 ${
+          checked ? 'translate-x-[22px] bg-paper' : 'translate-x-0 bg-ink'
         }`}
       />
     </button>

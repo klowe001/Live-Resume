@@ -1,54 +1,58 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Link } from 'wouter';
-import { Menu, X } from 'lucide-react';
-import { useAnimationContext } from '@/context/animation-context';
-import { mobileMotion } from '@/lib/motion';
+import { useEffect, useState } from 'react';
+import { Menu, X, ArrowUpRight } from 'lucide-react';
+import { EMAIL, LINKEDIN_URL } from '@/lib/contact';
 
 const links = [
-  { name: "Projects", href: "#projects", number: "01" },
-  { name: "Experience", href: "#experience", number: "02" },
-  { name: "Philosophy", href: "#philosophy", number: "03" },
-  { name: "Education", href: "#education", number: "04" },
-  { name: "Other", href: "#personal", number: "05" },
-  { name: "Contact", href: "#contact", number: null },
+  { name: 'Experience', id: 'experience' },
+  { name: 'Projects', id: 'projects' },
+  { name: 'How he works', id: 'how-he-works' },
+  { name: 'Education', id: 'education' },
+  { name: 'Life', id: 'life' },
+  { name: 'Contact', id: 'contact' },
 ];
 
+/** Tracks which section sits under the top third of the viewport. */
+function useActiveSection(ids: string[]) {
+  const [active, setActive] = useState<string | null>(null);
+
+  useEffect(() => {
+    const sections = ids
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) setActive(entry.target.id);
+        }
+      },
+      { rootMargin: '-30% 0px -65% 0px' },
+    );
+    sections.forEach((s) => observer.observe(s));
+    return () => observer.disconnect();
+  }, [ids]);
+
+  return active;
+}
+
+const sectionIds = links.map((l) => l.id);
+
 export function Nav() {
-  const { isMobile } = useAnimationContext();
-  const m = mobileMotion(isMobile);
   const [scrolled, setScrolled] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const rafRef = useRef<number | null>(null);
-  const lastScrollY = useRef(0);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const active = useActiveSection(sectionIds);
 
-  const handleScroll = useCallback(() => {
-    if (rafRef.current !== null) return;
-
-    rafRef.current = requestAnimationFrame(() => {
-      const currentScrollY = window.scrollY;
-      if (currentScrollY !== lastScrollY.current) {
-        lastScrollY.current = currentScrollY;
-        setScrolled(currentScrollY > 50);
-      }
-      rafRef.current = null;
-    });
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      if (rafRef.current !== null) {
-        cancelAnimationFrame(rafRef.current);
-      }
-    };
-  }, [handleScroll]);
-
-  useEffect(() => {
-    if (!mobileOpen) return;
+    if (!menuOpen) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setMobileOpen(false);
+      if (e.key === 'Escape') setMenuOpen(false);
     };
     document.body.style.overflow = 'hidden';
     document.addEventListener('keydown', onKey);
@@ -56,112 +60,102 @@ export function Nav() {
       document.body.style.overflow = '';
       document.removeEventListener('keydown', onKey);
     };
-  }, [mobileOpen]);
-
-  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
-    setMobileOpen(false);
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  const linkClass = "text-sm font-medium uppercase tracking-wider text-ink hover:text-accent transition-colors relative group py-1 focus-visible:outline-none focus-visible:text-accent";
+  }, [menuOpen]);
 
   return (
     <>
-      <motion.nav
-        className={`fixed top-0 left-0 right-0 z-50 px-6 py-6 transition-all duration-300 ${
-          scrolled ? 'bg-paper/95 backdrop-blur-md border-b border-warm/50 py-4' : 'bg-transparent'
-        }`}
-        {...m.navSlide}
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:bg-ink focus:px-4 focus:py-3 focus:font-semibold focus:text-paper"
       >
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <Link href="/" className="font-serif text-2xl text-ink tracking-tight hover:opacity-70 transition-opacity cursor-pointer focus-visible:outline-none focus-visible:opacity-70">
-            Kevin Lowe
-          </Link>
+        Skip to content
+      </a>
 
-          <ul className="hidden md:flex gap-8 items-center">
-            {links.map((link) => (
-              <li key={link.name}>
-                <a
-                  href={link.href}
-                  onClick={(e) => scrollToSection(e, link.href)}
-                  className={linkClass}
-                >
-                  {link.name}
-                  <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-accent transition-all duration-300 group-hover:w-full" />
-                </a>
-              </li>
-            ))}
+      <nav
+        aria-label="Primary"
+        className={`fixed inset-x-0 top-0 z-50 transition-[background-color,border-color] duration-300 ${
+          scrolled || menuOpen ? 'border-b border-line bg-paper' : 'border-b border-transparent bg-transparent'
+        }`}
+      >
+        <div className="page flex h-16 items-center justify-between gap-6 md:h-[4.5rem]">
+          <a href="#top" className="text-lg font-bold tracking-tight text-ink" onClick={() => setMenuOpen(false)}>
+            Kevin Lowe
+          </a>
+
+          <ul className="hidden items-center gap-7 lg:flex">
+            {links.map((link) => {
+              const isActive = active === link.id;
+              return (
+                <li key={link.id}>
+                  <a
+                    href={`#${link.id}`}
+                    aria-current={isActive ? 'true' : undefined}
+                    className={`relative py-2 text-[0.9375rem] font-medium transition-colors after:absolute after:inset-x-0 after:-bottom-0.5 after:h-0.5 after:origin-left after:bg-accent after:transition-transform after:duration-300 ${
+                      isActive ? 'text-ink after:scale-x-100' : 'text-ink-soft hover:text-ink after:scale-x-0'
+                    }`}
+                  >
+                    {link.name}
+                  </a>
+                </li>
+              );
+            })}
+            <li>
+              <a
+                href={LINKEDIN_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 border border-ink px-3.5 py-2 text-[0.9375rem] font-semibold text-ink transition-colors hover:bg-ink hover:text-paper"
+              >
+                LinkedIn
+                <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
+              </a>
+            </li>
           </ul>
 
           <button
             type="button"
-            onClick={() => setMobileOpen((v) => !v)}
-            aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
-            aria-expanded={mobileOpen}
-            className="md:hidden p-2 -mr-2 text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
+            onClick={() => setMenuOpen((v) => !v)}
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
+            className="-mr-2 p-2.5 text-ink lg:hidden"
           >
-            {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {menuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
-      </motion.nav>
+      </nav>
 
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="md:hidden fixed inset-0 z-40 bg-paper"
-          >
-            <div className="pt-24 px-6">
-              <ul className="flex flex-col gap-2">
-                {links.map((link, i) => (
-                  <motion.li
-                    key={link.name}
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.25, delay: 0.05 + i * 0.04 }}
-                    className="border-b border-warm/50"
-                  >
-                    <a
-                      href={link.href}
-                      onClick={(e) => scrollToSection(e, link.href)}
-                      className="flex items-baseline gap-3 py-5 font-serif text-3xl text-ink hover:text-accent-dark transition-colors focus-visible:outline-none focus-visible:text-accent-dark"
-                    >
-                      {link.number ? (
-                        <span className="text-accent italic text-sm w-6">
-                          {link.number}
-                        </span>
-                      ) : (
-                        <span className="w-6" aria-hidden="true" />
-                      )}
-                      <span>{link.name}</span>
-                    </a>
-                  </motion.li>
-                ))}
-              </ul>
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.3, delay: 0.3 }}
-                className="mt-12 text-sm text-muted"
-              >
+      {menuOpen && (
+        <div id="mobile-menu" className="fixed inset-0 z-40 overflow-y-auto bg-paper pt-16 lg:hidden">
+          <ul className="page flex flex-col pt-4">
+            {links.map((link) => (
+              <li key={link.id} className="border-b border-line">
                 <a
-                  href="mailto:klowe001@gmail.com"
-                  className="block hover:text-accent-dark transition-colors"
+                  href={`#${link.id}`}
+                  onClick={() => setMenuOpen(false)}
+                  className="type-section block py-3 text-[2.75rem] text-ink"
                 >
-                  klowe001@gmail.com
+                  {link.name}
                 </a>
-              </motion.div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+              </li>
+            ))}
+          </ul>
+          <div className="page mt-8 flex flex-wrap gap-3 pb-10">
+            <a href={`mailto:${EMAIL}`} className="bg-ink px-5 py-3.5 font-semibold text-paper">
+              Email Kevin
+            </a>
+            <a
+              href={LINKEDIN_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 border border-ink px-5 py-3.5 font-semibold text-ink"
+            >
+              LinkedIn
+              <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
+            </a>
+          </div>
+        </div>
+      )}
     </>
   );
 }
