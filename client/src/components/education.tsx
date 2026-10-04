@@ -3,10 +3,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { GraduationCap, ChevronDown } from 'lucide-react';
 import { useAnimationContext } from '@/context/animation-context';
 import { mobileMotion } from '@/lib/motion';
+import whartonLogo from '@assets/logos/wharton.png';
+import smuLogo from '@assets/logos/smu.png';
 
 interface EducationEntry {
   school: string;
   university: string | null;
+  logo?: { src: string; width: number; height: number };
   degree: string;
   period: string;
   location: string;
@@ -20,6 +23,7 @@ const education: EducationEntry[] = [
   {
     school: "The Wharton School",
     university: "University of Pennsylvania",
+    logo: { src: whartonLogo, width: 643, height: 160 },
     degree: "Master of Business Administration",
     period: "2020 – 2022",
     location: "Philadelphia, PA",
@@ -30,6 +34,7 @@ const education: EducationEntry[] = [
   {
     school: "Southern Methodist University",
     university: null,
+    logo: { src: smuLogo, width: 207, height: 160 },
     degree: "Bachelor of Science, Mechanical Engineering",
     period: "2011 – 2015",
     location: "Dallas, TX",
@@ -105,7 +110,18 @@ export function Education() {
             {...m.fadeUp(index)}
             className="relative p-8 border border-warm bg-paper hover:border-accent transition-all duration-300"
           >
-            <GraduationCap className="w-8 h-8 text-accent mb-6 stroke-[1.5]" />
+            {edu.logo ? (
+              <img
+                src={edu.logo.src}
+                width={edu.logo.width}
+                height={edu.logo.height}
+                alt={`${edu.school} logo`}
+                loading="lazy"
+                className="h-12 w-auto mb-6 mix-blend-multiply"
+              />
+            ) : (
+              <GraduationCap className="w-8 h-8 text-accent mb-6 stroke-[1.5]" />
+            )}
 
             <div className="flex flex-col md:flex-row md:items-baseline justify-between mb-2">
               <h3 className="font-serif text-2xl text-ink">{edu.school}</h3>
