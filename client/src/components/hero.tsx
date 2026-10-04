@@ -4,15 +4,17 @@ import { useAnimationContext } from '@/context/animation-context';
 import { EMAIL, LINKEDIN_URL, OPEN_TO } from '@/lib/contact';
 import portrait from '@assets/web/portrait.webp';
 import bcgLogo from '@assets/logos/bcg.png';
+import pizzaHutLogo from '@assets/logos/pizza-hut.png';
 import whartonLogo from '@assets/logos/wharton.png';
 import smuLogo from '@assets/logos/smu.png';
 import siliconLabsLogo from '@assets/logos/silicon-labs.png';
 
 const logos = [
   { src: bcgLogo, alt: 'Boston Consulting Group', width: 736, height: 160 },
+  { src: pizzaHutLogo, alt: 'Pizza Hut', width: 200, height: 160 },
+  { src: siliconLabsLogo, alt: 'Silicon Labs', width: 250, height: 128 },
   { src: whartonLogo, alt: 'The Wharton School', width: 643, height: 160 },
   { src: smuLogo, alt: 'Southern Methodist University', width: 207, height: 160 },
-  { src: siliconLabsLogo, alt: 'Silicon Labs', width: 250, height: 128 },
 ];
 
 /**

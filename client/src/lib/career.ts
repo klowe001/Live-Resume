@@ -1,5 +1,6 @@
 import bcgLogo from '@assets/logos/bcg.png';
 import siliconLabsLogo from '@assets/logos/silicon-labs.png';
+import pizzaHutLogo from '@assets/logos/pizza-hut.png';
 import whartonLogo from '@assets/logos/wharton.png';
 import smuLogo from '@assets/logos/smu.png';
 
@@ -100,6 +101,7 @@ export const employers: Employer[] = [
   {
     id: 'exp-pizza-hut',
     company: 'Pizza Hut (Yum! Brands)',
+    logo: { src: pizzaHutLogo, width: 200, height: 160 },
     tenure: '2015 – 2017',
     location: 'Plano, TX',
     roles: [
