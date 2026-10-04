@@ -117,6 +117,18 @@ const timeline: CareerBlock[] = [
         skills: ["Tableau Automation", "BI & Reporting", "Process Improvement"]
       }
     ]
+  },
+  {
+    company: "Silicon Labs",
+    roles: [
+      {
+        title: "Engineering Intern",
+        period: "May – Aug 2013",
+        location: "Austin, TX",
+        description: "Developed 3D CAD models in SolidWorks and supported manufacturing teams on special projects. Introduced and tested 3D printing techniques and materials. Worked with internal teams to gather customer needs and built custom products for them.",
+        skills: ["SolidWorks CAD", "3D Printing", "Manufacturing Support", "Customer Requirements"]
+      }
+    ]
   }
 ];
 
