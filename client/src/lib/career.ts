@@ -12,6 +12,8 @@ export interface Logo {
 
 export interface Role {
   title: string;
+  /** Earlier title in the same role, shown after the title in regular weight. */
+  formerly?: string;
   period: string;
   /** Promotions or leave inside the role, shown under the title. */
   note?: string;
@@ -56,43 +58,43 @@ export const employers: Employer[] = [
     logo: { src: bcgLogo, width: 730, height: 154 },
     tenure: '2017 – Present',
     location: 'Dallas → New York',
-    // confirm: "five", "$500M+" (annual or total), and "drives" vs "represents".
+    // confirm: "$500M+" (annual or total), and "drives" vs "represents".
     summary:
-      'Five loyalty redesigns for Fortune 500 retail, hospitality, and airline companies, on programs representing 50 to 70% of company revenue. $500M+ in identified impact.',
+      'Growth strategy and loyalty redesign for Fortune 500 retail, hospitality, and airline companies, on programs representing 50 to 70% of company revenue. $500M+ in identified impact.',
     roles: [
       {
         title: 'Principal',
+        formerly: 'Project Leader',
         period: '2023 – Present',
-        note: 'Project Leader 2023 – 2024 · Principal since January 2025',
         location: 'New York, NY',
         summary:
           'Leads loyalty redesigns end to end, from consumer research and transaction-level analysis through financial modeling, executive alignment, and launch KPIs. Also leads GenAI enablement for BCG’s New York office.',
         highlights: [
-          'Works directly for VP and C-suite clients while keeping 20 to 40 cross-functional stakeholders aligned.',
-          'Leads teams of 4 to 6 consultants and analysts; coached team members into repeat staffing and, in several cases, promotion.',
+          'Works directly for VP and C-suite clients while keeping 20 to 40 cross-functional stakeholders aligned',
+          'Leads teams of 4 to 6 consultants and analysts; coached team members into repeat staffing and, in several cases, promotion',
           // confirm: CCO here may mean Chief Commercial Officer.
-          'Built an interactive calculator in two days with AI coding tools, comparing member return across six airline loyalty programs; shared directly with the airline’s CCO.',
+          'Built an interactive calculator in two days with AI coding tools, comparing member return across six airline loyalty programs; shared directly with the airline’s CCO',
         ],
         more: [
-          'Ran a three-hour Replit hackathon where 50 colleagues built working apps, and trained senior partners on AI workflows.',
-          'Coached an associate through building a branded, clickable version of a loyalty redesign with AI coding tools; the client shared it with the company’s Chief Customer Officer in week 5 of 14.',
-          'Turned business goals into engineering-ready requirements on a large data transformation and framed the technical trade-offs so executives could decide quickly.',
+          'Ran a three-hour Replit hackathon where 50 colleagues built working apps, and trained senior partners on AI workflows',
+          'Coached an associate through building a branded, clickable version of a loyalty redesign with AI coding tools; the client shared it with the company’s Chief Customer Officer in week 5 of 14',
+          'Turned business goals into engineering-ready requirements on a large data transformation and framed the technical trade-offs so executives could decide quickly',
         ],
         // confirm: badge title, "Node Lead" vs "Enablement Lead".
         focus: ['GenAI Enablement Lead, New York office', 'Enterprise loyalty', 'Team leadership', 'Financial modeling'],
       },
       {
-        title: 'Consultant · Associate',
+        title: 'Consultant',
+        formerly: 'Associate',
         // confirm: exact title dates inside this span.
         period: '2017 – 2023',
-        note: 'On BCG-sponsored leave for the Wharton MBA, 2020 – 2022',
         location: 'Dallas, TX → New York, NY',
         summary:
           // confirm: profile files "30+ value plays" and "$3M" under Project Leader.
           'Built the economic model for a $3B loyalty program redesign on 1.5B+ rows of transaction data. Led pricing and competitor analytics that prioritized 30 value plays, then coached senior client leaders through negotiations that cut run-rate costs by $3M.',
         highlights: [
-          'Built the company-wide financial model a $5B business used to set targets and track progress.',
-          'Delivered growth strategies across retail, beauty, travel, hospitality, and airlines.',
+          'Built the company-wide financial model a $5B business used to set targets and track progress',
+          'Delivered growth strategies across retail, beauty, travel, hospitality, and airlines',
         ],
         focus: ['Loyalty economics', 'Pricing', 'Financial modeling', 'Alteryx'],
       },
@@ -163,32 +165,84 @@ export const schools: School[] = [
   },
 ];
 
-export interface Span {
-  label: string;
-  /** Shorter label for narrow bands. */
-  short?: string;
+/**
+ * One stop on the career journey chart. Colors are each brand's own, sampled
+ * from the logos in attached_assets/web/logos (SMU uses its official blue so
+ * it reads apart from the Silicon Labs and Pizza Hut reds).
+ */
+export interface Stop {
+  id: string;
+  name: string;
+  role: string;
+  years: string;
   /** Decimal years. A year range "2015 – 2017" runs from 2015.0 to 2017.0. */
   start: number;
   /** null means ongoing. */
   end: number | null;
-  years: string;
-  href: string;
+  color: string;
+  logo: Logo;
 }
 
 const now = new Date();
 export const TIMELINE_START = 2011;
 export const TIMELINE_END = now.getFullYear() + now.getMonth() / 12;
 
-export const workSpans: Span[] = [
-  { label: 'Silicon Labs', short: 'Silicon Labs', start: 2013 + 4 / 12, end: 2013 + 8 / 12, years: 'Summer 2013', href: '#exp-silicon-labs' },
-  { label: 'Pizza Hut', start: 2015, end: 2017, years: '2015 – 2017', href: '#exp-pizza-hut' },
-  { label: 'Boston Consulting Group', short: 'BCG', start: 2017, end: null, years: '2017 – Present', href: '#exp-bcg' },
+export const stops: Stop[] = [
+  {
+    id: 'edu-smu',
+    name: 'Southern Methodist University',
+    role: 'B.S. Mechanical Engineering',
+    years: '2011 – 2015',
+    start: 2011,
+    end: 2015,
+    color: '#354ca1',
+    logo: { src: smuLogo, width: 201, height: 155 },
+  },
+  {
+    id: 'exp-silicon-labs',
+    name: 'Silicon Labs',
+    role: 'Engineering intern',
+    years: 'Summer 2013',
+    start: 2013 + 4 / 12,
+    end: 2013 + 8 / 12,
+    color: '#d80008',
+    logo: { src: siliconLabsLogo, width: 242, height: 120 },
+  },
+  {
+    id: 'exp-pizza-hut',
+    name: 'Pizza Hut',
+    role: 'Financial analyst',
+    years: '2015 – 2017',
+    start: 2015,
+    end: 2017,
+    color: '#bd0200',
+    logo: { src: pizzaHutLogo, width: 200, height: 160 },
+  },
+  {
+    id: 'exp-bcg',
+    name: 'Boston Consulting Group',
+    role: 'Associate to Principal',
+    years: '2017 – Present',
+    start: 2017,
+    end: null,
+    color: '#006c44',
+    logo: { src: bcgLogo, width: 730, height: 154 },
+  },
+  {
+    id: 'edu-wharton',
+    name: 'The Wharton School',
+    role: 'MBA, sponsored by BCG',
+    years: '2020 – 2022',
+    start: 2020,
+    end: 2022,
+    color: '#002c77',
+    logo: { src: whartonLogo, width: 641, height: 158 },
+  },
 ];
 
-export const schoolSpans: Span[] = [
-  { label: 'SMU, Mechanical Engineering', short: 'SMU', start: 2011, end: 2015, years: '2011 – 2015', href: '#edu-smu' },
-  { label: 'Wharton MBA', short: 'Wharton', start: 2020, end: 2022, years: '2020 – 2022', href: '#edu-wharton' },
+/** Promotions marked along the BCG stretch of the line. */
+export const milestones = [
+  { label: 'Consultant', year: 2019 + 8 / 12, display: 'Sept 2019' },
+  { label: 'Project Leader', year: 2023, display: '2023' },
+  { label: 'Principal', year: 2025, display: '2025' },
 ];
-
-/** The BCG-sponsored MBA, drawn inside the BCG band. */
-export const leaveSpan = { start: 2020, end: 2022, label: 'MBA leave' };

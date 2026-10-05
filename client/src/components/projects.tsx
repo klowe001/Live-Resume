@@ -11,6 +11,8 @@ interface Feature {
   description: string;
   why: string;
   call: string;
+  /** Heading over call. */
+  callLabel: string;
   features: string[];
   links: { label: string; url: string }[];
   image: { src: string; width: number; height: number; alt: string };
@@ -22,7 +24,8 @@ const featured: Feature[] = [
     kicker: 'Founder · Group trip planner',
     description:
       'A group trip planner for the person who always ends up organizing. Every booking lands on one shared timeline, and the AI assistant turns a pasted confirmation into an itinerary item. Kevin founded the LLC, filed the trademark, and wrote the product spec.',
-    why: 'He was planning a month-long honeymoon across multiple countries and needed one place to track every hotel reservation, wine tasting, and tea time.',
+    why: 'He was planning a month-long honeymoon across multiple countries and needed one place to track every hotel reservation, wine tasting, and dinner.',
+    callLabel: 'Key monetization decision',
     call: 'Planning is free in full, including unlimited AI chat. The one paid feature is Print Studio, a keepsake edition of the trip, because metering the assistant would have taxed the behavior the product is built around. In Print Studio the model art-directs and the database supplies every fact, so a bad generation can hurt the styling but never the itinerary.',
     features: ['Real-time collaboration', 'AI assistant', 'Print Studio (Pro)', 'MCP server'],
     links: [
@@ -38,8 +41,9 @@ const featured: Feature[] = [
     description:
       'An invite-only app for one coach and her dancers. She leaves a note after each lesson, typed or by voice. Dancers read it on their phones, journal against it, and request lessons.',
     why: 'His wife is a former Rockette. He saw the problem firsthand and built it for her and her dancers.',
+    callLabel: 'Key design choice',
     call: 'Narrowed it from a multi-instructor platform to a private one for a single coach. No streaks or badges, since the dancers are already motivated. Success is dancers logging in between lessons because a new note is waiting.',
-    features: ['Invite-only', 'Lesson notes', 'Dancer journal', 'Digital waivers'],
+    features: ['Invite-only', 'Lesson notes', 'Dancer journal', 'Payments portal'],
     links: [
       { label: 'cpfdance.com', url: 'https://cpfdance.com' },
       { label: 'Product spec', url: 'https://github.com/reminiscent-io/CPF-Dance/blob/main/PRODUCT.md' },
@@ -88,7 +92,7 @@ function FeaturedProject({ project, flip }: { project: Feature; flip: boolean })
             <dd className="mt-1 text-ink-soft">{project.why}</dd>
           </div>
           <div>
-            <dt className="font-bold">The call he made</dt>
+            <dt className="font-bold">{project.callLabel}</dt>
             <dd className="mt-1 text-ink-soft">{project.call}</dd>
           </div>
         </dl>
@@ -133,7 +137,10 @@ export function Projects() {
           />
           <div>
             <h3 className="text-2xl font-extrabold tracking-[-0.02em]">Card Caddie</h3>
-            <p className="mt-1 text-ink-soft">Live scoring and leaderboards for golf trips.</p>
+            <p className="mt-1 text-ink-soft">
+              Live scoring and leaderboards for golf trips, built for how collaborative golf already is. It takes the
+              hassle out of tracking side games and handicap calculations.
+            </p>
             <p className="mt-3">
               <ExternalLink href="https://cardcaddie.golf">cardcaddie.golf</ExternalLink>
             </p>
