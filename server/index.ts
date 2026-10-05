@@ -94,7 +94,8 @@ app.use((req, res, next) => {
     {
       port,
       host: "0.0.0.0",
-      reusePort: true,
+      // macOS rejects reusePort with ENOTSUP; Replit (Linux) supports it.
+      reusePort: process.platform === "linux",
     },
     () => {
       log(`serving on port ${port}`);

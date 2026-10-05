@@ -59,7 +59,8 @@ for (const year of stops.flatMap((s) => (s.end ? [s.start, s.end] : [s.start])).
   if (!ticks.some((tick) => tick.label === label)) ticks.push({ year, label });
 }
 
-const listItems = [...stops].sort((a, b) => b.start - a.start);
+// Current role first, then newest start first.
+const listItems = [...stops].sort((a, b) => Number(a.end !== null) - Number(b.end !== null) || b.start - a.start);
 
 function Label({ stop, active, onActive }: { stop: Stop; active: string | null; onActive: (id: string | null) => void }) {
   const { side, align, reach } = placement[stop.id];
