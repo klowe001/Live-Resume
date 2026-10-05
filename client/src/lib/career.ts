@@ -235,7 +235,7 @@ export const stops: Stop[] = [
   {
     id: 'exp-bcg',
     name: 'Boston Consulting Group',
-    role: 'Associate to Principal',
+    role: 'Principal (from Associate)',
     years: '2017 – Present',
     start: 2017,
     end: null,
