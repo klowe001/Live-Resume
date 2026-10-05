@@ -51,7 +51,7 @@ Measure stays under about 68ch. No text below 15px except timeline year labels. 
 
 ## Motion
 
-- Hero depth on scroll (desktop, not reduced motion): masthead moves at 0.7× page speed, portrait at 0.9× with a 3% scale-up, the facts at full speed. Transform only.
+- Hero depth on scroll (desktop, not reduced motion): masthead moves at 0.7× page speed and fades to 6% over the first 260px (so the facts stay readable as they slide over it), portrait at 0.9× with a 3% scale-up, the facts at full speed. Transform only.
 - Portrait rises 24px on load; skipped under reduced motion.
 - Disclosures open by transitioning `grid-template-rows` with `ease-out-quart`; closed panels are `inert`.
 - Nav underline scales on `transform`. Consent banner slides with an ease-out, no spring.
@@ -70,7 +70,7 @@ Measure stays under about 68ch. No text below 15px except timeline year labels. 
 | Component | File | Notes |
 |---|---|---|
 | Nav | `nav.tsx` | Skip link, active-section underline via IntersectionObserver, LinkedIn button, full-screen mobile menu. Labels match section headings. |
-| Hero | `hero.tsx` | Three layers described above. Logos: BCG, Wharton, SMU, Silicon Labs. |
+| Hero | `hero.tsx` | Three layers described above. Logos: BCG, Pizza Hut, Silicon Labs, Wharton, SMU. |
 | Career timeline | `career-timeline.tsx` | Year ruler (md+) with linked bands; hatched MBA leave inside BCG. List on phones. Data in `lib/career.ts`. |
 | Experience / Education | `experience.tsx`, `education.tsx` | Data in `lib/career.ts`. Dates beside titles, in ink. Top highlights visible, the rest behind `Disclosure`. |
 | Disclosure | `disclosure.tsx` | "N more" / "Show less", `aria-expanded`, grid-rows transition. |
@@ -86,6 +86,7 @@ Buttons: square corners, `border border-ink`, filled ink for primary, outline fo
 
 - Originals stay in `attached_assets/`. Web versions live in `attached_assets/web/` and are built by `script/optimize-media.py` (WebP via Pillow, golf clip to MP4 via ffmpeg).
 - The hero portrait comes from `attached_assets/headshot.png`, a waist-up shot that is already cut out: `python3 script/optimize-media.py --portrait attached_assets/headshot.png --erode 0`. A photo with a background needs `swift script/cutout.swift <photo> <tmp>.png` first (macOS 14+, Apple Vision). If the new image has different proportions, update its width, height, and `lg:aspect-[…]` in `hero.tsx`.
+- Logos come from `attached_assets/web/logos/`, made transparent by `python3 script/optimize-media.py --logos` (color-to-alpha against white, for light backgrounds only). Don't rely on `mix-blend-multiply` to hide white logo backgrounds: it stops working inside an isolated stacking context such as the hero.
 - No gradient overlays on photos. No hover zoom. Every image has specific alt text, and every image tag carries width and height.
 
 ## Voice

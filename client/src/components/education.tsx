@@ -16,7 +16,7 @@ export function Education() {
                 height={s.logo.height}
                 alt=""
                 loading="lazy"
-                className="h-12 w-auto mix-blend-multiply"
+                className="h-12 w-auto"
               />
             </div>
 

@@ -11,25 +11,33 @@ const links = [
   { name: 'Contact', id: 'contact' },
 ];
 
-/** Tracks which section sits under the top third of the viewport. */
+/** The last section whose top has passed a third of the way down the viewport, or null in the hero. */
 function useActiveSection(ids: string[]) {
   const [active, setActive] = useState<string | null>(null);
 
   useEffect(() => {
-    const sections = ids
-      .map((id) => document.getElementById(id))
-      .filter((el): el is HTMLElement => el !== null);
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) setActive(entry.target.id);
-        }
-      },
-      { rootMargin: '-30% 0px -65% 0px' },
-    );
-    sections.forEach((s) => observer.observe(s));
-    return () => observer.disconnect();
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const line = window.innerHeight / 3;
+      let current: string | null = null;
+      for (const id of ids) {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top <= line) current = id;
+      }
+      setActive(current);
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
   }, [ids]);
 
   return active;

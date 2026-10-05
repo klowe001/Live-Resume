@@ -51,6 +51,40 @@ def photos() -> None:
         save_webp(img, OUT / out_name, 78)
 
 
+def logos() -> None:
+    """Makes the white in each logo transparent (color-to-alpha against white).
+
+    Every pixel is un-blended from white, so on any light background the logo
+    looks exactly like mix-blend-multiply would make it, without depending on
+    blend modes (which stop working inside an isolated stacking context, like
+    the hero). White parts of a mark become see-through, so these files are
+    for light backgrounds only.
+    """
+    out_dir = OUT / "logos"
+    out_dir.mkdir(exist_ok=True)
+    for src in sorted((SRC / "logos").glob("*.png")):
+        img = Image.open(src).convert("RGB")
+        rgba = Image.new("RGBA", img.size)
+        out = rgba.load()
+        px = img.load()
+        for y in range(img.height):
+            for x in range(img.width):
+                r, g, b = px[x, y]
+                a = max(255 - r, 255 - g, 255 - b) / 255
+                if a < 0.02:
+                    out[x, y] = (0, 0, 0, 0)
+                    continue
+                un = lambda c: max(0, min(255, round((c - 255 * (1 - a)) / a)))
+                out[x, y] = (un(r), un(g), un(b), round(a * 255))
+
+        bbox = rgba.getchannel("A").getbbox()
+        if bbox:
+            rgba = rgba.crop(bbox)
+        dest = out_dir / src.name
+        rgba.save(dest, optimize=True)
+        print(f"  {dest.relative_to(ROOT)}  {rgba.width}x{rgba.height}  {dest.stat().st_size // 1024} KB")
+
+
 def portrait(path: Path, keep_top: float, erode: int) -> None:
     img = Image.open(path).convert("RGBA")
     if erode:
@@ -94,13 +128,18 @@ def main() -> None:
     parser.add_argument("--portrait", type=Path, help="transparent PNG from script/cutout.swift")
     parser.add_argument("--keep-top", type=float, default=1.0)
     parser.add_argument("--erode", type=int, default=1, help="px to trim from the mask edge")
+    parser.add_argument("--logos", action="store_true", help="only rebuild the transparent logos")
     args = parser.parse_args()
 
     OUT.mkdir(exist_ok=True)
     if args.portrait:
         portrait(args.portrait, args.keep_top, args.erode)
         return
+    if args.logos:
+        logos()
+        return
     photos()
+    logos()
     golf()
 
 

@@ -71,7 +71,7 @@ export function Experience() {
                   height={employer.logo.height}
                   alt=""
                   loading="lazy"
-                  className="mb-4 h-8 w-auto mix-blend-multiply"
+                  className="mb-4 h-8 w-auto"
                 />
               )}
               <h3 className="text-2xl font-bold leading-tight tracking-[-0.015em]">{employer.company}</h3>

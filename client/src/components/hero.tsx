@@ -3,18 +3,18 @@ import { ArrowUpRight } from 'lucide-react';
 import { useAnimationContext } from '@/context/animation-context';
 import { EMAIL, LINKEDIN_URL, OPEN_TO } from '@/lib/contact';
 import portrait from '@assets/web/portrait.webp';
-import bcgLogo from '@assets/logos/bcg.png';
-import pizzaHutLogo from '@assets/logos/pizza-hut.png';
-import whartonLogo from '@assets/logos/wharton.png';
-import smuLogo from '@assets/logos/smu.png';
-import siliconLabsLogo from '@assets/logos/silicon-labs.png';
+import bcgLogo from '@assets/web/logos/bcg.png';
+import pizzaHutLogo from '@assets/web/logos/pizza-hut.png';
+import whartonLogo from '@assets/web/logos/wharton.png';
+import smuLogo from '@assets/web/logos/smu.png';
+import siliconLabsLogo from '@assets/web/logos/silicon-labs.png';
 
 const logos = [
-  { src: bcgLogo, alt: 'Boston Consulting Group', width: 736, height: 160 },
+  { src: bcgLogo, alt: 'Boston Consulting Group', width: 730, height: 154 },
   { src: pizzaHutLogo, alt: 'Pizza Hut', width: 200, height: 160 },
-  { src: siliconLabsLogo, alt: 'Silicon Labs', width: 250, height: 128 },
-  { src: whartonLogo, alt: 'The Wharton School', width: 643, height: 160 },
-  { src: smuLogo, alt: 'Southern Methodist University', width: 207, height: 160 },
+  { src: siliconLabsLogo, alt: 'Silicon Labs', width: 242, height: 120 },
+  { src: whartonLogo, alt: 'The Wharton School', width: 641, height: 158 },
+  { src: smuLogo, alt: 'Southern Methodist University', width: 201, height: 155 },
 ];
 
 /**
@@ -28,6 +28,8 @@ export function Hero() {
 
   const { scrollY } = useScroll();
   const mastY = useTransform(scrollY, [0, 700], [0, 210]);
+  // Fade the masthead so the facts stay readable as they slide up over it.
+  const mastOpacity = useTransform(scrollY, [0, 260], [1, 0.06]);
   const portraitY = useTransform(scrollY, [0, 700], [0, 70]);
   const portraitScale = useTransform(scrollY, [0, 700], [1, 1.03]);
 
@@ -45,7 +47,7 @@ export function Hero() {
       {/* Layer 1: masthead */}
       <motion.div
         aria-hidden="true"
-        style={still ? undefined : { y: mastY }}
+        style={still ? undefined : { y: mastY, opacity: mastOpacity }}
         className="page type-masthead relative z-0 select-none pt-[calc(4rem_+_0.75rem)] text-[20.5vw] text-ink lg:absolute lg:inset-x-0 lg:top-[calc(4.5rem_+_3svh)] lg:pt-0 lg:text-[length:var(--mast)]"
       >
         <span className="block lg:text-right">Strategist</span>
@@ -119,7 +121,7 @@ export function Hero() {
                   alt={logo.alt}
                   width={logo.width}
                   height={logo.height}
-                  className="h-7 w-auto mix-blend-multiply"
+                  className="h-7 w-auto"
                 />
               </li>
             ))}

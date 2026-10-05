@@ -1,8 +1,8 @@
-import bcgLogo from '@assets/logos/bcg.png';
-import siliconLabsLogo from '@assets/logos/silicon-labs.png';
-import pizzaHutLogo from '@assets/logos/pizza-hut.png';
-import whartonLogo from '@assets/logos/wharton.png';
-import smuLogo from '@assets/logos/smu.png';
+import bcgLogo from '@assets/web/logos/bcg.png';
+import siliconLabsLogo from '@assets/web/logos/silicon-labs.png';
+import pizzaHutLogo from '@assets/web/logos/pizza-hut.png';
+import whartonLogo from '@assets/web/logos/wharton.png';
+import smuLogo from '@assets/web/logos/smu.png';
 
 export interface Logo {
   src: string;
@@ -53,7 +53,7 @@ export const employers: Employer[] = [
   {
     id: 'exp-bcg',
     company: 'Boston Consulting Group',
-    logo: { src: bcgLogo, width: 736, height: 160 },
+    logo: { src: bcgLogo, width: 730, height: 154 },
     tenure: '2017 – Present',
     location: 'Dallas → New York',
     // confirm: "five", "$500M+" (annual or total), and "drives" vs "represents".
@@ -119,7 +119,7 @@ export const employers: Employer[] = [
   {
     id: 'exp-silicon-labs',
     company: 'Silicon Labs',
-    logo: { src: siliconLabsLogo, width: 250, height: 128 },
+    logo: { src: siliconLabsLogo, width: 242, height: 120 },
     tenure: 'Summer 2013',
     location: 'Austin, TX',
     roles: [
@@ -141,7 +141,7 @@ export const schools: School[] = [
     id: 'edu-wharton',
     school: 'The Wharton School',
     university: 'University of Pennsylvania',
-    logo: { src: whartonLogo, width: 643, height: 160 },
+    logo: { src: whartonLogo, width: 641, height: 158 },
     degree: 'Master of Business Administration',
     // confirm: Wharton names the majors "Strategic Management" and "Entrepreneurship & Innovation".
     focus: 'Strategic Management & Entrepreneurship',
@@ -153,7 +153,7 @@ export const schools: School[] = [
   {
     id: 'edu-smu',
     school: 'Southern Methodist University',
-    logo: { src: smuLogo, width: 207, height: 160 },
+    logo: { src: smuLogo, width: 201, height: 155 },
     degree: 'Bachelor of Science, Mechanical Engineering',
     focus: 'Minor in Business',
     period: '2011 – 2015',
