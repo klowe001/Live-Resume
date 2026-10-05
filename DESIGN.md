@@ -8,6 +8,8 @@ A magazine cover that turns into a résumé. The hero layers three planes: a hug
 
 **Restrained.** Tinted neutrals carry the page. Copper is the only accent and stays under about 10% of the surface: bullets, kickers, the active nav underline, the "Show more" toggles, and the "Demo, not memo." line on ink.
 
+One exception: the career timeline's bars take each logo's own color (BCG green, Pizza Hut and Silicon Labs red, Wharton and SMU blue), so a bar reads as that place at a glance. Those colors live with the logos in `lib/career.ts` and appear nowhere else.
+
 ## Color Palette
 
 Tokens live in `client/src/index.css` under `@theme inline`, written in OKLCH.
@@ -71,7 +73,7 @@ Measure stays under about 68ch. No text below 15px except timeline year labels. 
 |---|---|---|
 | Nav | `nav.tsx` | Skip link, active-section underline via IntersectionObserver, LinkedIn button, full-screen mobile menu. Labels match section headings. |
 | Hero | `hero.tsx` | Three layers described above. Logos: BCG, Pizza Hut, Silicon Labs, Wharton, SMU. |
-| Career timeline | `career-timeline.tsx` | Year ruler (md+) with linked bands; hatched MBA leave inside BCG. List on phones. Data in `lib/career.ts`. |
+| Career timeline | `career-timeline.tsx` | One lane per employer and school (md+), logo in place of the name, bar in the logo's main color, tenure at the bar's end ("2 yrs", "9+ yrs", computed from the dates). Hatched MBA leave inside BCG. Logo list with tenure on phones. Data, logos, and bar colors in `lib/career.ts`. |
 | Experience / Education | `experience.tsx`, `education.tsx` | Data in `lib/career.ts`. Dates beside titles, in ink. Top highlights visible, the rest behind `Disclosure`. |
 | Disclosure | `disclosure.tsx` | "N more" / "Show less", `aria-expanded`, grid-rows transition. |
 | Projects | `projects.tsx` | Two featured rows (image and text alternate sides), then a compact row. Only links look clickable. |

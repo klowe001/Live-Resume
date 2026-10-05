@@ -165,14 +165,15 @@ export const schools: School[] = [
 
 export interface Span {
   label: string;
-  /** Shorter label for narrow bands. */
-  short?: string;
   /** Decimal years. A year range "2015 – 2017" runs from 2015.0 to 2017.0. */
   start: number;
   /** null means ongoing. */
   end: number | null;
   years: string;
   href: string;
+  logo: Logo;
+  /** The logo's main color, used for the timeline bar. */
+  color: string;
 }
 
 const now = new Date();
@@ -180,15 +181,23 @@ export const TIMELINE_START = 2011;
 export const TIMELINE_END = now.getFullYear() + now.getMonth() / 12;
 
 export const workSpans: Span[] = [
-  { label: 'Silicon Labs', short: 'Silicon Labs', start: 2013 + 4 / 12, end: 2013 + 8 / 12, years: 'Summer 2013', href: '#exp-silicon-labs' },
-  { label: 'Pizza Hut', start: 2015, end: 2017, years: '2015 – 2017', href: '#exp-pizza-hut' },
-  { label: 'Boston Consulting Group', short: 'BCG', start: 2017, end: null, years: '2017 – Present', href: '#exp-bcg' },
+  { label: 'Silicon Labs', start: 2013 + 4 / 12, end: 2013 + 8 / 12, years: 'Summer 2013', href: '#exp-silicon-labs', logo: { src: siliconLabsLogo, width: 242, height: 120 }, color: 'oklch(0.575 0.22 26.5)' },
+  { label: 'Pizza Hut', start: 2015, end: 2017, years: '2015 – 2017', href: '#exp-pizza-hut', logo: { src: pizzaHutLogo, width: 200, height: 160 }, color: 'oklch(0.556 0.188 25.8)' },
+  { label: 'Boston Consulting Group', start: 2017, end: null, years: '2017 – Present', href: '#exp-bcg', logo: { src: bcgLogo, width: 730, height: 154 }, color: 'oklch(0.465 0.107 159.1)' },
 ];
 
 export const schoolSpans: Span[] = [
-  { label: 'SMU, Mechanical Engineering', short: 'SMU', start: 2011, end: 2015, years: '2011 – 2015', href: '#edu-smu' },
-  { label: 'Wharton MBA', short: 'Wharton', start: 2020, end: 2022, years: '2020 – 2022', href: '#edu-wharton' },
+  { label: 'SMU, Mechanical Engineering', start: 2011, end: 2015, years: '2011 – 2015', href: '#edu-smu', logo: { src: smuLogo, width: 201, height: 155 }, color: 'oklch(0.444 0.14 269.1)' },
+  { label: 'Wharton MBA', start: 2020, end: 2022, years: '2020 – 2022', href: '#edu-wharton', logo: { src: whartonLogo, width: 641, height: 158 }, color: 'oklch(0.322 0.136 260.6)' },
 ];
+
+/** "4 mo", "2 yrs", or "9+ yrs" for an ongoing span. */
+export function tenure(span: Span): string {
+  const months = Math.round(((span.end ?? TIMELINE_END) - span.start) * 12);
+  if (months < 12) return `${months} mo`;
+  const years = months / 12;
+  return span.end === null ? `${Math.floor(years)}+ yrs` : `${Math.round(years)} yrs`;
+}
 
 /** The BCG-sponsored MBA, drawn inside the BCG band. */
 export const leaveSpan = { start: 2020, end: 2022, label: 'MBA leave' };

@@ -4,6 +4,7 @@ import {
   workSpans,
   schoolSpans,
   leaveSpan,
+  tenure,
   type Span,
 } from '@/lib/career';
 
@@ -13,74 +14,87 @@ const pct = (year: number) => ((year - TIMELINE_START) / total) * 100;
 const years: number[] = [];
 for (let y = TIMELINE_START; y <= Math.floor(TIMELINE_END); y++) years.push(y);
 
-function Band({ span, tone }: { span: Span; tone: 'work' | 'school' }) {
-  const end = span.end ?? TIMELINE_END;
+const newestFirst = (a: Span, b: Span) => b.start - a.start;
+const work = [...workSpans].sort(newestFirst);
+const school = [...schoolSpans].sort(newestFirst);
+
+// Square-ish marks (Pizza Hut, SMU) read much smaller than wordmarks at the
+// same height, so they get more of it.
+const isCompact = (span: Span) => span.logo.width / span.logo.height < 2.5;
+
+function Logo({ span, className }: { span: Span; className: string }) {
+  return (
+    <img
+      src={span.logo.src}
+      alt={span.label}
+      width={span.logo.width}
+      height={span.logo.height}
+      className={`w-auto max-w-full object-contain object-left ${className}`}
+    />
+  );
+}
+
+/** One place per lane, so back-to-back jobs never merge into one bar. */
+function Lane({ span }: { span: Span }) {
   const left = pct(span.start);
-  const width = pct(end) - left;
-  const narrow = width < 7;
-  const colors =
-    tone === 'work'
-      ? 'bg-ink text-paper hover:bg-accent'
-      : 'bg-paper-deep text-ink ring-1 ring-inset ring-line hover:bg-accent hover:text-paper hover:ring-accent';
+  const right = pct(span.end ?? TIMELINE_END);
+  // A bar that runs to today holds its tenure inside; the rest put it just past the end.
+  const inside = right > 88;
 
   return (
     <a
       href={span.href}
-      aria-label={`${span.label}, ${span.years}`}
-      className={`group absolute inset-y-0 flex items-center transition-colors duration-200 ${colors}`}
-      style={{ left: `${left}%`, width: `${width}%` }}
+      aria-label={`${span.label}, ${span.years}, ${tenure(span)}`}
+      className="group grid grid-cols-[9.5rem_1fr] items-center gap-4 py-1"
     >
-      {narrow ? (
-        <span className="absolute bottom-full left-1/2 mb-1.5 -translate-x-1/2 whitespace-nowrap text-sm font-semibold text-ink">
-          {span.short ?? span.label}
+      <span className="flex h-11 items-center">
+        <Logo span={span} className={isCompact(span) ? 'h-11' : 'h-8'} />
+      </span>
+      <span className="relative block h-7">
+        <span
+          className="absolute inset-y-0 min-w-1.5 transition-opacity duration-200 group-hover:opacity-85"
+          style={{ left: `${left}%`, width: `${right - left}%`, backgroundColor: span.color }}
+        />
+        {span.href === '#exp-bcg' && (
+          <span
+            className="absolute inset-y-0 flex items-center justify-center bg-[repeating-linear-gradient(135deg,oklch(0.97_0.007_80/0.85)_0_2px,transparent_2px_7px)]"
+            style={{ left: `${pct(leaveSpan.start)}%`, width: `${pct(leaveSpan.end) - pct(leaveSpan.start)}%` }}
+          >
+            <span className="hidden whitespace-nowrap bg-paper px-1.5 py-0.5 text-xs font-bold text-ink lg:inline">
+              {leaveSpan.label}
+            </span>
+          </span>
+        )}
+        <span
+          className={`tabular absolute inset-y-0 flex items-center whitespace-nowrap text-sm font-bold ${
+            inside ? 'pr-3 text-paper' : 'pl-2.5 text-ink'
+          }`}
+          style={inside ? { right: `${100 - right}%` } : { left: `${right}%` }}
+        >
+          {tenure(span)}
         </span>
-      ) : (
-        <span className="truncate px-3 text-sm font-semibold">
-          <span className="hidden xl:inline">{span.label}</span>
-          <span className="xl:hidden">{span.short ?? span.label}</span>
-        </span>
-      )}
+      </span>
     </a>
   );
 }
 
-function Row({ label, children }: { label: string; children: React.ReactNode }) {
-  return (
-    <div className="grid grid-cols-[6.5rem_1fr] items-center gap-4">
-      <div className="text-sm font-semibold text-ink-soft">{label}</div>
-      <div className="relative h-11">{children}</div>
-    </div>
-  );
-}
-
-const listItems = [...workSpans.map((s) => ({ ...s, tone: 'work' as const })), ...schoolSpans.map((s) => ({ ...s, tone: 'school' as const }))].sort(
-  (a, b) => b.start - a.start,
-);
+const listItems = [...work, ...school].sort(newestFirst);
 
 export function CareerTimeline() {
   return (
     <figure className="mt-12 md:mt-16">
       <figcaption className="mb-6 text-lg font-bold">Career at a glance</figcaption>
 
-      {/* Ruler, tablet and up */}
-      <div className="hidden space-y-3 md:block">
-        <Row label="Work">
-          {workSpans.map((span) => (
-            <Band key={span.label} span={span} tone="work" />
-          ))}
-          <div
-            className="pointer-events-none absolute inset-y-0 flex items-center justify-center bg-[repeating-linear-gradient(135deg,oklch(0.97_0.007_80/0.9)_0_2px,transparent_2px_7px)] text-xs font-bold text-ink"
-            style={{ left: `${pct(leaveSpan.start)}%`, width: `${pct(leaveSpan.end) - pct(leaveSpan.start)}%` }}
-          >
-            <span className="bg-paper px-1.5 py-0.5">{leaveSpan.label}</span>
-          </div>
-        </Row>
-        <Row label="Education">
-          {schoolSpans.map((span) => (
-            <Band key={span.label} span={span} tone="school" />
-          ))}
-        </Row>
-        <div className="grid grid-cols-[6.5rem_1fr] gap-4">
+      {/* Lanes, tablet and up */}
+      <div className="hidden md:block">
+        {work.map((span) => (
+          <Lane key={span.label} span={span} />
+        ))}
+        <div className="my-2 ml-[10.5rem] border-t border-line" />
+        {school.map((span) => (
+          <Lane key={span.label} span={span} />
+        ))}
+        <div className="mt-2 grid grid-cols-[9.5rem_1fr] gap-4">
           <div />
           <div className="relative h-6 border-t border-line">
             {years.map((y) => (
@@ -100,19 +114,16 @@ export function CareerTimeline() {
       <ol className="divide-y divide-line border-y border-line md:hidden">
         {listItems.map((item) => (
           <li key={item.label}>
-            <a href={item.href} className="flex items-baseline gap-4 py-3">
+            <a href={item.href} className="flex items-center gap-4 py-3">
               <span className="tabular w-28 shrink-0 text-[0.9375rem] text-ink-soft">{item.years}</span>
-              <span className="font-semibold">
-                <span
-                  aria-hidden="true"
-                  className={`mr-2 inline-block h-2.5 w-2.5 ${item.tone === 'work' ? 'bg-ink' : 'bg-paper-deep ring-1 ring-line'}`}
-                />
-                {item.label}
-                {item.label === 'Boston Consulting Group' && (
-                  <span className="block pl-[1.125rem] text-[0.9375rem] font-normal text-ink-soft">
-                    MBA leave 2020 – 2022
-                  </span>
+              <span className="min-w-0 flex-1">
+                <Logo span={item} className={isCompact(item) ? 'h-9' : 'h-7'} />
+                {item.href === '#exp-bcg' && (
+                  <span className="mt-1 block text-[0.9375rem] text-ink-soft">MBA leave 2020 – 2022</span>
                 )}
+              </span>
+              <span className="tabular shrink-0 text-[0.9375rem] font-bold" style={{ color: item.color }}>
+                {tenure(item)}
               </span>
             </a>
           </li>
