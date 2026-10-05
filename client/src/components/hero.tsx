@@ -2,6 +2,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { useAnimationContext } from '@/context/animation-context';
 import { EMAIL, LINKEDIN_URL, OPEN_TO } from '@/lib/contact';
+import { logoScale } from '@/lib/career';
 import portrait from '@assets/web/portrait.webp';
 import bcgLogo from '@assets/web/logos/bcg.png';
 import pizzaHutLogo from '@assets/web/logos/pizza-hut.png';
@@ -9,12 +10,23 @@ import whartonLogo from '@assets/web/logos/wharton.png';
 import smuLogo from '@assets/web/logos/smu.png';
 import siliconLabsLogo from '@assets/web/logos/silicon-labs.png';
 
-const logos = [
-  { src: bcgLogo, alt: 'Boston Consulting Group', width: 730, height: 154 },
-  { src: pizzaHutLogo, alt: 'Pizza Hut', width: 200, height: 160 },
-  { src: siliconLabsLogo, alt: 'Silicon Labs', width: 242, height: 120 },
-  { src: whartonLogo, alt: 'The Wharton School', width: 641, height: 158 },
-  { src: smuLogo, alt: 'Southern Methodist University', width: 201, height: 155 },
+// Employers on one line, schools on the next.
+const logoRows = [
+  {
+    label: 'Employers',
+    logos: [
+      { src: bcgLogo, alt: 'Boston Consulting Group', width: 730, height: 154 },
+      { src: pizzaHutLogo, alt: 'Pizza Hut', width: 200, height: 160 },
+      { src: siliconLabsLogo, alt: 'Silicon Labs', width: 242, height: 120 },
+    ],
+  },
+  {
+    label: 'Schools',
+    logos: [
+      { src: whartonLogo, alt: 'The Wharton School', width: 641, height: 158 },
+      { src: smuLogo, alt: 'Southern Methodist University', width: 201, height: 155 },
+    ],
+  },
 ];
 
 /**
@@ -113,19 +125,24 @@ export function Hero() {
             </a>
           </div>
 
-          <ul aria-label="Employers and schools" className="mt-8 flex flex-wrap items-center gap-x-7 gap-y-4">
-            {logos.map((logo) => (
-              <li key={logo.alt}>
-                <img
-                  src={logo.src}
-                  alt={logo.alt}
-                  width={logo.width}
-                  height={logo.height}
-                  className="h-7 w-auto"
-                />
-              </li>
+          <div className="mt-8 space-y-4 [--logo-h:1.75rem] sm:[--logo-h:2rem]">
+            {logoRows.map((row) => (
+              <ul key={row.label} aria-label={row.label} className="flex items-center gap-x-7">
+                {row.logos.map((logo) => (
+                  <li key={logo.alt}>
+                    <img
+                      src={logo.src}
+                      alt={logo.alt}
+                      width={logo.width}
+                      height={logo.height}
+                      className="w-auto"
+                      style={{ height: `calc(${logoScale(logo)} * var(--logo-h))` }}
+                    />
+                  </li>
+                ))}
+              </ul>
             ))}
-          </ul>
+          </div>
         </div>
       </div>
     </header>

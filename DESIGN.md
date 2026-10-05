@@ -8,6 +8,8 @@ A magazine cover that turns into a résumé. The hero layers three planes: a hug
 
 **Restrained.** Tinted neutrals carry the page. Copper is the only accent and stays under about 10% of the surface: bullets, kickers, the active nav underline, the "Show more" toggles, and the "Demo, not memo." line on ink.
 
+One exception: the career journey line takes each logo's own color for its stretch (BCG green, Pizza Hut and Silicon Labs red, Wharton navy, SMU blue), so a stretch reads as that place at a glance. Those colors live with the logos in `lib/career.ts` and appear nowhere else.
+
 ## Color Palette
 
 Tokens live in `client/src/index.css` under `@theme inline`, written in OKLCH.
@@ -23,8 +25,6 @@ Tokens live in `client/src/index.css` under `@theme inline`, written in OKLCH.
 | `--color-accent-light` | `oklch(0.8 0.075 60)` | Copper on ink | 9.6:1 on ink |
 
 Old names (`warm`, `muted`, `accent-dark`, `highlight`) are aliases kept for the shadcn kit. Never use `#fff`, `#000`, `white`, `black`, or raw Tailwind palette colors.
-
-**One exception:** the career journey chart draws each employer and school in its own brand color (`color` on each stop in `lib/career.ts`), sampled from the logos.
 
 **`@theme inline` gotcha:** inline themes do not emit runtime CSS variables. In plain CSS read tokens with `--theme(--color-accent)`, and in class names use the generated utility (`ease-out-quart`, `text-accent`), never `var(--color-…)` or `ease-(--…)`.
 
@@ -89,6 +89,7 @@ Buttons: square corners, `border border-ink`, filled ink for primary, outline fo
 - Originals stay in `attached_assets/`. Web versions live in `attached_assets/web/` and are built by `script/optimize-media.py` (WebP via Pillow, golf clip to MP4 via ffmpeg).
 - The hero portrait comes from `attached_assets/headshot.png`, a waist-up shot that is already cut out: `python3 script/optimize-media.py --portrait attached_assets/headshot.png --erode 0`. A photo with a background needs `swift script/cutout.swift <photo> <tmp>.png` first (macOS 14+, Apple Vision). If the new image has different proportions, update its width, height, and `lg:aspect-[…]` in `hero.tsx`.
 - Logos come from `attached_assets/web/logos/`, made transparent by `python3 script/optimize-media.py --logos` (color-to-alpha against white, for light backgrounds only). Don't rely on `mix-blend-multiply` to hide white logo backgrounds: it stops working inside an isolated stacking context such as the hero.
+- Logos never share one fixed height: a square mark at a wordmark's height looks half the size. Size them with `logoHeight()` / `logoScale()` in `lib/career.ts`, which gives squarer marks (SMU, Pizza Hut) up to 1.6× the height of wide ones (BCG, Wharton). The hero shows employers on one line and schools on the next.
 - No gradient overlays on photos. No hover zoom. Every image has specific alt text, and every image tag carries width and height.
 
 ## Voice

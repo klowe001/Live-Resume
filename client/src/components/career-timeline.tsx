@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { TIMELINE_START, TIMELINE_END, stops, milestones, type Stop } from '@/lib/career';
+import { TIMELINE_START, TIMELINE_END, stops, milestones, logoHeight, type Stop } from '@/lib/career';
 
 /*
  * Career journey: years run along the bottom, experience climbs the unlabeled
@@ -66,8 +66,6 @@ function Label({ stop, active, onActive }: { stop: Stop; active: string | null; 
   const point = at(stop.start);
   const above = side === 'above';
   const end = align === 'end';
-  // Square marks need more height than wordmarks to read at the same size.
-  const square = stop.logo.width / stop.logo.height < 2.5;
 
   return (
     <li
@@ -96,7 +94,8 @@ function Label({ stop, active, onActive }: { stop: Stop; active: string | null; 
           height={stop.logo.height}
           alt=""
           loading="lazy"
-          className={`w-auto ${square ? 'h-10' : 'h-7'} ${end ? 'ml-auto' : ''}`}
+          className={`w-auto ${end ? 'ml-auto' : ''}`}
+          style={{ height: logoHeight(stop.logo, 1.75) }}
         />
         <span className="mt-2 block text-[0.9375rem] font-semibold leading-snug group-hover:underline group-hover:underline-offset-4">
           {stop.role}
