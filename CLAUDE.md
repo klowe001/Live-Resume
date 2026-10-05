@@ -52,8 +52,8 @@ npm run db:push        # Push database migrations (Drizzle Kit)
 - Theme: warm paper and ink with one copper accent, OKLCH tokens in `client/src/index.css` (`--color-paper`, `--color-ink`, `--color-ink-soft`, `--color-line`, `--color-accent`). See DESIGN.md.
 - The theme is `@theme inline`, so tokens are not runtime CSS variables. In CSS use `--theme(--color-accent)`; in classes use the generated utilities. `var(--color-…)` silently falls back.
 - Font: Archivo only (variable width and weight). `type-masthead` and `type-section` utilities set the condensed display styles.
-- Résumé content: roles, schools, and timeline spans live in `client/src/lib/career.ts`; email, LinkedIn, GitHub, and the "open to" line in `client/src/lib/contact.ts`. Lines marked `confirm:` are facts waiting on Kevin.
-- Copy is third person ("Kevin writes the spec…"). No em dashes.
+- Résumé content: roles, schools, and the journey chart's stops (with brand colors) live in `client/src/lib/career.ts`; email, LinkedIn, GitHub, and the "open to" line in `client/src/lib/contact.ts`. Lines marked `confirm:` are facts waiting on Kevin.
+- Copy is third person ("Kevin writes the spec…"). No em dashes. No periods at the end of bullet points.
 - Media: originals in `attached_assets/`, web versions in `attached_assets/web/` from `python3 script/optimize-media.py` (Pillow + ffmpeg). Logos are served from `attached_assets/web/logos/` with their white made transparent (`--logos` rebuilds just those). Hero portrait: `python3 script/optimize-media.py --portrait attached_assets/headshot.png --erode 0` (already transparent); photos with a background go through `swift script/cutout.swift` first (macOS 14+).
 - GDPR consent management built in (ConsentContext + ConsentBanner)
 - Google Tag Manager integration (GTM-W9Q3GNGD)

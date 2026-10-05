@@ -3,12 +3,12 @@ import { SectionHeading } from '@/components/section-heading';
 
 export function Education() {
   return (
-    <section id="education" className="page py-20 md:py-28">
+    <section id="education" className="page pt-20 md:pt-28">
       <SectionHeading>Education</SectionHeading>
 
       <div className="mt-12 divide-y divide-line border-t border-line md:mt-16">
         {schools.map((s) => (
-          <article key={s.id} id={s.id} className="grid scroll-mt-24 gap-6 py-10 md:grid-cols-12 md:gap-8 md:py-12">
+          <article key={s.id} id={s.id} className="grid scroll-mt-24 gap-6 py-10 last:pb-0 md:grid-cols-12 md:gap-8 md:py-12 md:last:pb-0">
             <div className="md:col-span-4 lg:col-span-3">
               <img
                 src={s.logo.src}

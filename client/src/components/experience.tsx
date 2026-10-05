@@ -7,7 +7,10 @@ function RoleEntry({ role }: { role: Role }) {
   return (
     <div>
       <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
-        <h4 className="text-xl font-bold leading-snug tracking-[-0.01em]">{role.title}</h4>
+        <h4 className="text-xl font-bold leading-snug tracking-[-0.01em]">
+          {role.title}
+          {role.formerly && <span className="font-normal"> (formerly {role.formerly})</span>}
+        </h4>
         <p className="tabular font-medium">{role.period}</p>
       </div>
       {role.note && <p className="mt-1 text-[0.9375rem] text-ink-soft">{role.note}</p>}
@@ -49,7 +52,7 @@ function RoleEntry({ role }: { role: Role }) {
 
 export function Experience() {
   return (
-    <section id="experience" className="page py-20 md:py-28">
+    <section id="experience" className="page pt-20 md:pt-28">
       <SectionHeading intro="At BCG since 2017, now a Principal. Before that, finance at Pizza Hut and an engineering internship at Silicon Labs.">
         Experience
       </SectionHeading>
@@ -61,7 +64,7 @@ export function Experience() {
           <article
             key={employer.id}
             id={employer.id}
-            className="grid scroll-mt-24 gap-6 py-10 md:grid-cols-12 md:gap-8 md:py-14"
+            className="grid scroll-mt-24 gap-6 py-10 last:pb-0 md:grid-cols-12 md:gap-8 md:py-14 md:last:pb-0"
           >
             <header className="md:col-span-4 lg:col-span-3">
               {employer.logo && (
