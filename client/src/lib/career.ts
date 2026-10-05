@@ -10,6 +10,20 @@ export interface Logo {
   height: number;
 }
 
+/**
+ * How much taller than a wide wordmark (BCG, Wharton) a logo should be so
+ * marks of different shapes look the same size. Squarer marks like SMU or
+ * Pizza Hut get up to `max` times the height.
+ */
+export function logoScale(logo: Pick<Logo, 'width' | 'height'>, max = 1.6): number {
+  return Math.min(max, Math.max(1, Math.sqrt(4 / (logo.width / logo.height))));
+}
+
+/** Logo height in rem, where `base` is the height of a wide wordmark. */
+export function logoHeight(logo: Pick<Logo, 'width' | 'height'>, base: number, max?: number): string {
+  return `${base * logoScale(logo, max)}rem`;
+}
+
 export interface Role {
   title: string;
   period: string;

@@ -5,6 +5,7 @@ import {
   schoolSpans,
   leaveSpan,
   tenure,
+  logoHeight,
   type Span,
 } from '@/lib/career';
 
@@ -18,18 +19,15 @@ const newestFirst = (a: Span, b: Span) => b.start - a.start;
 const work = [...workSpans].sort(newestFirst);
 const school = [...schoolSpans].sort(newestFirst);
 
-// Square-ish marks (Pizza Hut, SMU) read much smaller than wordmarks at the
-// same height, so they get more of it.
-const isCompact = (span: Span) => span.logo.width / span.logo.height < 2.5;
-
-function Logo({ span, className }: { span: Span; className: string }) {
+function Logo({ span, base }: { span: Span; base: number }) {
   return (
     <img
       src={span.logo.src}
       alt={span.label}
       width={span.logo.width}
       height={span.logo.height}
-      className={`w-auto max-w-full object-contain object-left ${className}`}
+      className="w-auto max-w-full object-contain object-left"
+      style={{ height: logoHeight(span.logo, base) }}
     />
   );
 }
@@ -47,8 +45,8 @@ function Lane({ span }: { span: Span }) {
       aria-label={`${span.label}, ${span.years}, ${tenure(span)}`}
       className="group grid grid-cols-[9.5rem_1fr] items-center gap-4 py-1"
     >
-      <span className="flex h-11 items-center">
-        <Logo span={span} className={isCompact(span) ? 'h-11' : 'h-8'} />
+      <span className="flex items-center">
+        <Logo span={span} base={2} />
       </span>
       <span className="relative block h-7">
         <span
@@ -117,7 +115,7 @@ export function CareerTimeline() {
             <a href={item.href} className="flex items-center gap-4 py-3">
               <span className="tabular w-28 shrink-0 text-[0.9375rem] text-ink-soft">{item.years}</span>
               <span className="min-w-0 flex-1">
-                <Logo span={item} className={isCompact(item) ? 'h-9' : 'h-7'} />
+                <Logo span={item} base={1.75} />
                 {item.href === '#exp-bcg' && (
                   <span className="mt-1 block text-[0.9375rem] text-ink-soft">MBA leave 2020 – 2022</span>
                 )}

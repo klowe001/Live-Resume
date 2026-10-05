@@ -89,6 +89,7 @@ Buttons: square corners, `border border-ink`, filled ink for primary, outline fo
 - Originals stay in `attached_assets/`. Web versions live in `attached_assets/web/` and are built by `script/optimize-media.py` (WebP via Pillow, golf clip to MP4 via ffmpeg).
 - The hero portrait comes from `attached_assets/headshot.png`, a waist-up shot that is already cut out: `python3 script/optimize-media.py --portrait attached_assets/headshot.png --erode 0`. A photo with a background needs `swift script/cutout.swift <photo> <tmp>.png` first (macOS 14+, Apple Vision). If the new image has different proportions, update its width, height, and `lg:aspect-[…]` in `hero.tsx`.
 - Logos come from `attached_assets/web/logos/`, made transparent by `python3 script/optimize-media.py --logos` (color-to-alpha against white, for light backgrounds only). Don't rely on `mix-blend-multiply` to hide white logo backgrounds: it stops working inside an isolated stacking context such as the hero.
+- Logos never share one fixed height: a square mark at a wordmark's height looks half the size. Size them with `logoHeight()` / `logoScale()` in `lib/career.ts`, which gives squarer marks (SMU, Pizza Hut) up to 1.6× the height of wide ones (BCG, Wharton). The hero shows employers on one line and schools on the next.
 - No gradient overlays on photos. No hover zoom. Every image has specific alt text, and every image tag carries width and height.
 
 ## Voice

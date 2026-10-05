@@ -1,4 +1,4 @@
-import { employers, type Role } from '@/lib/career';
+import { employers, logoHeight, type Role } from '@/lib/career';
 import { SectionHeading } from '@/components/section-heading';
 import { CareerTimeline } from '@/components/career-timeline';
 import { Disclosure } from '@/components/disclosure';
@@ -71,7 +71,8 @@ export function Experience() {
                   height={employer.logo.height}
                   alt=""
                   loading="lazy"
-                  className="mb-4 h-8 w-auto"
+                  className="mb-4 w-auto"
+                  style={{ height: logoHeight(employer.logo, 2) }}
                 />
               )}
               <h3 className="text-2xl font-bold leading-tight tracking-[-0.015em]">{employer.company}</h3>
