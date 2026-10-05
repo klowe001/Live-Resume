@@ -54,7 +54,7 @@ npm run db:push        # Push database migrations (Drizzle Kit)
 - Font: Archivo only (variable width and weight). `type-masthead` and `type-section` utilities set the condensed display styles.
 - Résumé content: roles, schools, and timeline spans live in `client/src/lib/career.ts`; email, LinkedIn, GitHub, and the "open to" line in `client/src/lib/contact.ts`. Lines marked `confirm:` are facts waiting on Kevin.
 - Copy is third person ("Kevin writes the spec…"). No em dashes.
-- Media: originals in `attached_assets/`, web versions in `attached_assets/web/` from `python3 script/optimize-media.py` (Pillow + ffmpeg). Hero portrait: `swift script/cutout.swift attached_assets/headshot.jpg <tmp>.png`, then `python3 script/optimize-media.py --portrait <tmp>.png` (macOS 14+).
+- Media: originals in `attached_assets/`, web versions in `attached_assets/web/` from `python3 script/optimize-media.py` (Pillow + ffmpeg). Hero portrait: `python3 script/optimize-media.py --portrait attached_assets/headshot.png --erode 0` (already transparent); photos with a background go through `swift script/cutout.swift` first (macOS 14+).
 - GDPR consent management built in (ConsentContext + ConsentBanner)
 - Google Tag Manager integration (GTM-W9Q3GNGD)
 - The build writes the rendered home page into dist/public/index.html so crawlers and link previews see real content. React replaces it on load. Replit deploys dist/public as static files.

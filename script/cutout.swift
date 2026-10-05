@@ -1,6 +1,6 @@
 // Lifts the foreground subject out of a photo with Apple's Vision framework
 // and writes it as a transparent PNG. macOS 14+ only.
-// Usage: swift script/cutout.swift attached_assets/headshot.jpg attached_assets/portrait-cutout.png
+// Usage: swift script/cutout.swift photo.jpg /tmp/cutout.png
 import Foundation
 import Vision
 import CoreImage

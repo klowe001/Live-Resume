@@ -58,18 +58,18 @@ export function Hero() {
       <div className="lg:page lg:relative lg:h-full">
       <motion.div
         style={still ? undefined : { y: portraitY, scale: portraitScale }}
-        className="relative -mt-[13vw] ml-auto w-[74vw] max-w-md origin-bottom [mask-image:linear-gradient(to_bottom,black_72%,transparent)] lg:[mask-image:none] lg:absolute lg:bottom-0 lg:left-[83%] xl:left-[78%] 2xl:left-[82%] lg:top-[calc(4.5rem_+_3svh_+_var(--mast)*0.46)] lg:mt-0 lg:mr-0 lg:aspect-[1600/1307] lg:h-auto lg:w-auto lg:max-w-none lg:-translate-x-1/2"
+        className="relative -mt-[6vw] ml-auto aspect-square w-[66vw] max-w-md origin-bottom overflow-hidden [mask-image:linear-gradient(to_bottom,black_72%,transparent)] lg:overflow-visible lg:[mask-image:none] lg:absolute lg:bottom-0 lg:left-[78%] lg:top-[calc(4.5rem_+_3svh_+_var(--mast)*0.46)] lg:mt-0 lg:mr-0 lg:aspect-[968/1473] lg:h-auto lg:w-auto lg:max-w-none lg:-translate-x-1/2"
       >
         <motion.img
           src={portrait}
           alt="Portrait of Kevin Lowe"
-          width={1600}
-          height={1307}
+          width={968}
+          height={1473}
           fetchPriority="high"
           initial={prefersReducedMotion ? false : { y: 24 }}
           animate={{ y: 0 }}
           transition={{ duration: 0.9, ease: [0.25, 1, 0.5, 1] }}
-          className="block h-auto w-full max-w-none lg:h-full lg:drop-shadow-[0_24px_40px_oklch(0.2_0.01_60/0.16)]"
+          className="block h-full w-full max-w-none object-cover object-top lg:drop-shadow-[0_24px_40px_oklch(0.2_0.01_60/0.16)]"
         />
       </motion.div>
       </div>
@@ -85,15 +85,15 @@ export function Hero() {
           <p className="mt-3 text-xl font-semibold leading-snug">
             Principal, Boston Consulting Group <span className="text-ink-soft">· New York</span>
           </p>
-          <p className="mt-3 text-lg leading-relaxed text-ink-soft">
+          <p className="mt-3 leading-relaxed text-ink-soft lg:text-lg">
             Leads loyalty redesigns for Fortune 500 brands and GenAI enablement for BCG’s New York office.
             Builds his own products with AI coding agents.
           </p>
-          <p className="mt-5 bg-paper-deep px-4 py-3 leading-snug">
+          <p className="mt-4 bg-paper-deep px-4 py-3 leading-snug lg:mt-5">
             <span className="font-bold">Open to</span> {OPEN_TO}.
           </p>
 
-          <div className="mt-6 flex flex-wrap gap-3">
+          <div className="mt-5 flex flex-wrap gap-3 lg:mt-6">
             <a
               href={`mailto:${EMAIL}`}
               className="border border-ink bg-ink px-5 py-3.5 font-semibold text-paper transition-colors hover:bg-paper hover:text-ink"

@@ -46,8 +46,8 @@ Measure stays under about 68ch. No text below 15px except timeline year labels. 
 - `--mast` (set inline on the hero) is the masthead font size: `clamp(4rem, min(contentWidth × 0.152, (88svh − 26rem) / 1.85), 12rem)`. Width keeps a lane free on the right for the portrait's head; height keeps the masthead clear of the facts.
 - Line 1 is right-aligned, line 2 left-aligned, so the head overlaps only the bottom of "STRATEGIST" and "WHO BUILDS" stays fully readable.
 - The facts start at `4.5rem + 3svh + 1.68 × --mast + 1.75rem`, so they always sit below the masthead.
-- The portrait's top is pinned to `--mast × 0.46` below the masthead top and its bottom to the hero bottom; its width follows from the image's aspect ratio. Horizontal position: 83% (lg), 78% (xl), 82% (2xl) of the page box.
-- Mobile stacks the masthead (20.5vw), then the portrait overlapping line 2 with a bottom fade, then the facts. Name, title, "Open to", Email and LinkedIn all fit in a 390×844 first screen.
+- The portrait's top is pinned to `--mast × 0.46` below the masthead top and its bottom to the hero bottom; its width follows from the image's aspect ratio. Its center sits at 78% of the page box at every desktop width.
+- Mobile stacks the masthead (20.5vw), then a square top crop of the portrait (66vw) whose head overlaps the bottom of line 2, faded at the bottom, then the facts. Name, title, "Open to", Email and LinkedIn all fit in a 390×844 first screen.
 
 ## Motion
 
@@ -85,7 +85,7 @@ Buttons: square corners, `border border-ink`, filled ink for primary, outline fo
 ## Imagery
 
 - Originals stay in `attached_assets/`. Web versions live in `attached_assets/web/` and are built by `script/optimize-media.py` (WebP via Pillow, golf clip to MP4 via ffmpeg).
-- The hero portrait is a cutout: `swift script/cutout.swift attached_assets/headshot.jpg <tmp>.png`, then `python3 script/optimize-media.py --portrait <tmp>.png`. macOS 14+ only (Apple Vision).
+- The hero portrait comes from `attached_assets/headshot.png`, a waist-up shot that is already cut out: `python3 script/optimize-media.py --portrait attached_assets/headshot.png --erode 0`. A photo with a background needs `swift script/cutout.swift <photo> <tmp>.png` first (macOS 14+, Apple Vision). If the new image has different proportions, update its width, height, and `lg:aspect-[…]` in `hero.tsx`.
 - No gradient overlays on photos. No hover zoom. Every image has specific alt text, and every image tag carries width and height.
 
 ## Voice

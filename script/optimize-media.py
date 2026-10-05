@@ -3,10 +3,10 @@
 Run from the repo root (needs Pillow, plus ffmpeg for the golf clip):
 
     python3 script/optimize-media.py
-    swift script/cutout.swift attached_assets/headshot.jpg /tmp/cutout.png
-    python3 script/optimize-media.py --portrait /tmp/cutout.png [--keep-top 0.35]
+    python3 script/optimize-media.py --portrait attached_assets/headshot.png --erode 0
 
-The portrait step takes a transparent PNG from script/cutout.swift. --keep-top
+The portrait step takes a transparent PNG. For a photo with a background, make
+one first with `swift script/cutout.swift photo.jpg /tmp/cutout.png`. --keep-top
 crops it to the top fraction of its height, for full-length photos that need
 to become a head-and-shoulders crop.
 """
