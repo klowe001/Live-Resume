@@ -2,21 +2,32 @@
 @import "tw-animate-css";
 
 @theme inline {
-  --color-ink: hsl(0 0% 8%);
-  --color-paper: hsl(40 14% 97%);
-  --color-warm: hsl(33 16% 89%);
-  --color-accent: hsl(34 43% 64%);
-  --color-accent-dark: hsl(38 30% 45%);
-  --color-muted: hsl(0 0% 25%);
-  --color-highlight: hsl(38 33% 94%);
+  /* Warm paper and ink. Every neutral leans slightly toward the paper hue. */
+  --color-paper: oklch(0.97 0.007 80);
+  --color-paper-deep: oklch(0.935 0.014 78);
+  --color-ink: oklch(0.2 0.008 60);
+  --color-ink-soft: oklch(0.41 0.01 60);
+  --color-line: oklch(0.87 0.013 75);
 
-  --font-serif: "Instrument Serif", serif;
-  --font-sans: "Manrope", sans-serif;
+  /* The one accent: copper. 5:1 on paper, so it can carry small text. */
+  --color-accent: oklch(0.5 0.1 48);
+  /* Copper for text on the ink background. */
+  --color-accent-light: oklch(0.8 0.075 60);
+
+  /* Older names still used by the shadcn ui kit. */
+  --color-warm: var(--color-line);
+  --color-muted: var(--color-ink-soft);
+  --color-accent-dark: var(--color-accent);
+  --color-highlight: var(--color-paper-deep);
+
+  --font-sans: "Archivo", ui-sans-serif, system-ui, sans-serif;
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
 
   /* Mapping standard shadcn vars to our palette for compatibility */
   --color-background: var(--color-paper);
@@ -31,45 +42,100 @@
   --color-primary: var(--color-ink);
   --color-primary-foreground: var(--color-paper);
 
-  --color-secondary: var(--color-warm);
+  --color-secondary: var(--color-paper-deep);
   --color-secondary-foreground: var(--color-ink);
 
-  --color-muted-bg: var(--color-warm);
-  --color-muted-foreground: hsl(0 0% 25%);
+  --color-muted-bg: var(--color-paper-deep);
+  --color-muted-foreground: var(--color-ink-soft);
 
   --color-accent-foreground: var(--color-paper);
 
-  --color-destructive: hsl(0 84% 60%);
-  --color-destructive-foreground: hsl(0 0% 98%);
+  --color-destructive: oklch(0.55 0.19 28);
+  --color-destructive-foreground: var(--color-paper);
 
-  --color-border: var(--color-warm);
-  --color-input: var(--color-warm);
+  --color-border: var(--color-line);
+  --color-input: var(--color-line);
   --color-ring: var(--color-accent);
 
   --color-sidebar: var(--color-paper);
   --color-sidebar-foreground: var(--color-ink);
   --color-sidebar-primary: var(--color-ink);
   --color-sidebar-primary-foreground: var(--color-paper);
-  --color-sidebar-accent: var(--color-warm);
+  --color-sidebar-accent: var(--color-paper-deep);
   --color-sidebar-accent-foreground: var(--color-ink);
-  --color-sidebar-border: var(--color-warm);
+  --color-sidebar-border: var(--color-line);
   --color-sidebar-ring: var(--color-accent);
+}
+
+/* Page gutter and width, shared by every section so left edges line up. */
+@utility page {
+  width: 100%;
+  max-width: 80rem;
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 4vw, 3.5rem);
+}
+
+/* Archivo's width axis runs 62% to 125%. The masthead uses the narrowest cut. */
+@utility type-masthead {
+  font-stretch: 62%;
+  font-weight: 850;
+  text-transform: uppercase;
+  line-height: 0.84;
+  letter-spacing: -0.005em;
+}
+
+@utility type-section {
+  font-stretch: 70%;
+  font-weight: 800;
+  line-height: 0.92;
+  letter-spacing: -0.01em;
+  font-size: clamp(3rem, 7vw, 5.5rem);
+}
+
+@utility tabular {
+  font-variant-numeric: tabular-nums;
 }
 
 @layer base {
   * {
     @apply border-border;
   }
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
   body {
-    @apply font-sans antialiased bg-paper text-ink selection:bg-accent selection:text-paper transition-colors duration-300;
+    @apply font-sans antialiased bg-paper text-ink;
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    font-kerning: normal;
   }
   h1, h2, h3, h4, h5, h6 {
-    @apply font-serif font-normal;
+    @apply font-sans;
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  /* @theme inline does not emit runtime variables, so read tokens with --theme(). */
+  ::selection {
+    background: --theme(--color-accent);
+    color: --theme(--color-paper);
+  }
+  :focus-visible {
+    outline: 2px solid --theme(--color-accent);
+    outline-offset: 3px;
+  }
+  .on-ink :focus-visible {
+    outline-color: --theme(--color-accent-light);
   }
 }
 
 /* Reduced motion support for accessibility */
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
   *,
   *::before,
   *::after {

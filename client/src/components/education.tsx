@@ -1,164 +1,40 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { GraduationCap, ChevronDown } from 'lucide-react';
-import { useAnimationContext } from '@/context/animation-context';
-import { mobileMotion } from '@/lib/motion';
-import whartonLogo from '@assets/logos/wharton.png';
-import smuLogo from '@assets/logos/smu.png';
-
-interface EducationEntry {
-  school: string;
-  university: string | null;
-  logo?: { src: string; width: number; height: number };
-  degree: string;
-  period: string;
-  location: string;
-  focus: string;
-  highlights: string[];
-  description?: string;
-  expandedDetails?: string[];
-}
-
-const education: EducationEntry[] = [
-  {
-    school: "The Wharton School",
-    university: "University of Pennsylvania",
-    logo: { src: whartonLogo, width: 643, height: 160 },
-    degree: "Master of Business Administration",
-    period: "2020 – 2022",
-    location: "Philadelphia, PA",
-    focus: "Strategic Management & Entrepreneurship",
-    highlights: ["Director's List (top 10%)", "First-Year Honors (top 20%)", "GMAT: 740"],
-    description: "Strategic Management & Entrepreneurship. Built a network spanning finance, tech, consulting, and entrepreneurship."
-  },
-  {
-    school: "Southern Methodist University",
-    university: null,
-    logo: { src: smuLogo, width: 207, height: 160 },
-    degree: "Bachelor of Science, Mechanical Engineering",
-    period: "2011 – 2015",
-    location: "Dallas, TX",
-    focus: "Minor: Business",
-    highlights: ["Magna Cum Laude", "Tau Beta Pi Engineering Honor Society", "GPA: 3.86"],
-    description: "Senior design: conduit-bending robot, full CAD, multi-axis motion."
-  }
-];
-
-function ExpandableDetails({ details }: { details: string[] }) {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const { isMobile } = useAnimationContext();
-  const m = mobileMotion(isMobile);
-
-  if (!details || details.length === 0) return null;
-
-  return (
-    <div className="mt-3">
-      <button
-        onClick={() => setIsExpanded(!isExpanded)}
-        className="group flex items-center gap-1.5 text-xs text-muted hover:text-accent-dark transition-colors focus-visible:outline-none focus-visible:text-accent-dark focus-visible:underline"
-        aria-expanded={isExpanded}
-      >
-        <span className="font-medium">{isExpanded ? 'Show less' : 'Read more'}</span>
-        <motion.span
-          animate={{ rotate: isExpanded ? 180 : 0 }}
-          transition={{ duration: 0.2 }}
-          className="inline-flex"
-        >
-          <ChevronDown className="w-3 h-3" />
-        </motion.span>
-      </button>
-
-      <AnimatePresence>
-        {isExpanded && (
-          <motion.div
-            {...m.expand}
-            className="overflow-hidden"
-          >
-            <ul className="mt-3 space-y-2 pl-4 border-l border-warm/40">
-              {details.map((detail, i) => (
-                <motion.li
-                  key={i}
-                  {...m.detailItem(i)}
-                  className="text-xs text-muted leading-relaxed"
-                >
-                  {detail}
-                </motion.li>
-              ))}
-            </ul>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
-}
+import { schools } from '@/lib/career';
+import { SectionHeading } from '@/components/section-heading';
 
 export function Education() {
-  const { isMobile } = useAnimationContext();
-  const m = mobileMotion(isMobile);
-
   return (
-    <section id="education" className="py-20 px-6 max-w-7xl mx-auto">
-      <div className="flex items-baseline gap-4 mb-20 border-b border-warm pb-8">
-        <span className="font-serif text-accent-dark italic text-lg">04</span>
-        <h2 className="font-serif text-4xl md:text-5xl text-ink">Education</h2>
-      </div>
+    <section id="education" className="page py-20 md:py-28">
+      <SectionHeading>Education</SectionHeading>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-        {education.map((edu, index) => (
-          <motion.div
-            key={index}
-            {...m.fadeUp(index)}
-            className="relative p-8 border border-warm bg-paper hover:border-accent transition-all duration-300"
-          >
-            {edu.logo ? (
+      <div className="mt-12 divide-y divide-line border-t border-line md:mt-16">
+        {schools.map((s) => (
+          <article key={s.id} id={s.id} className="grid scroll-mt-24 gap-6 py-10 md:grid-cols-12 md:gap-8 md:py-12">
+            <div className="md:col-span-4 lg:col-span-3">
               <img
-                src={edu.logo.src}
-                width={edu.logo.width}
-                height={edu.logo.height}
-                alt={`${edu.school} logo`}
+                src={s.logo.src}
+                width={s.logo.width}
+                height={s.logo.height}
+                alt=""
                 loading="lazy"
-                className="h-12 w-auto mb-6 mix-blend-multiply"
+                className="h-12 w-auto"
               />
-            ) : (
-              <GraduationCap className="w-8 h-8 text-accent mb-6 stroke-[1.5]" />
-            )}
-
-            <div className="flex flex-col md:flex-row md:items-baseline justify-between mb-2">
-              <h3 className="font-serif text-2xl text-ink">{edu.school}</h3>
-              <span className="text-sm font-medium text-accent-dark tracking-wider uppercase">{edu.period}</span>
             </div>
 
-            {edu.university && (
-              <div className="text-muted text-sm mb-2">{edu.university}</div>
-            )}
-
-            <div className="text-lg font-medium text-ink mb-2">
-              {edu.degree}
-            </div>
-
-            <div className="text-muted text-sm mb-4">
-              {edu.focus} <span className="text-muted">• {edu.location}</span>
-            </div>
-
-            {edu.description && (
-              <p className="text-muted leading-relaxed mb-4 text-sm">
-                {edu.description}
+            <div className="md:col-span-8 lg:col-span-9">
+              <h3 className="text-2xl font-bold leading-tight tracking-[-0.015em]">
+                {s.school}
+                {s.university && <span className="block text-lg font-medium text-ink-soft">{s.university}</span>}
+              </h3>
+              <p className="tabular mt-1 font-medium">
+                {s.period} <span className="font-normal text-ink-soft">· {s.location}</span>
               </p>
-            )}
 
-            <div className="flex flex-wrap gap-2 mt-6">
-              {edu.highlights.map(highlight => (
-                <span key={highlight} className="px-3 py-1 bg-warm/50 text-xs font-medium uppercase tracking-wide text-ink">
-                  {highlight}
-                </span>
-              ))}
+              <p className="mt-4 text-xl font-semibold leading-snug">{s.degree}</p>
+              <p className="text-ink-soft">{s.focus}</p>
+              {s.note && <p className="mt-3 max-w-[60ch]">{s.note}</p>}
+              <p className="mt-4">{s.honors.join(' · ')}</p>
             </div>
-
-            {edu.expandedDetails && (
-              <ExpandableDetails details={edu.expandedDetails} />
-            )}
-
-          </motion.div>
+          </article>
         ))}
       </div>
     </section>

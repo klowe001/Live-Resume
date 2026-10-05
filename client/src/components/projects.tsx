@@ -1,221 +1,165 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Globe, FileText, ChevronDown } from 'lucide-react';
-import { useAnimationContext } from '@/context/animation-context';
-import { mobileMotion } from '@/lib/motion';
-import droneImg from '@assets/image_1773102218588.jpeg';
-import wanderluxeImg from '@assets/wanderluxe-product-clean.jpeg';
-import cpfDanceImg from '@assets/cpfdance-clean.jpeg';
+import { ArrowUpRight } from 'lucide-react';
+import { SectionHeading } from '@/components/section-heading';
+import wanderluxeImg from '@assets/web/wanderluxe.webp';
+import cpfDanceImg from '@assets/web/cpfdance.webp';
+import cardCaddieImg from '@assets/web/cardcaddie.webp';
+import droneImg from '@assets/web/drone.webp';
 
-type ProjectLink = {
-  label: string;
-  url: string;
-  icon: React.ComponentType<{ className?: string }>;
-};
-
-type Project = {
-  title: string;
-  role: string;
-  type: string;
+interface Feature {
+  name: string;
+  kicker: string;
   description: string;
-  problem?: string;
-  why?: string;
-  call?: string;
-  change?: string;
-  chips: string[];
-  links: ProjectLink[];
-  /** Shown in the footer when a project has no links. */
-  footer?: string;
-  image?: string;
-};
+  why: string;
+  call: string;
+  features: string[];
+  links: { label: string; url: string }[];
+  image: { src: string; width: number; height: number; alt: string };
+}
 
-const projects: Project[] = [
+const featured: Feature[] = [
   {
-    title: "WanderLuxe",
-    role: "Founder",
-    type: "AI Travel Platform",
-    description: "Group trip planner for the person who always ends up organizing. Every booking lands on one shared timeline, and the AI assistant turns a pasted confirmation into an itinerary item. Founded the LLC, filed the trademark, and wrote the product spec.",
-    problem: "Travel planning is fragmented across spreadsheets, docs, and screenshots. Existing tools are either too simple or too complex for collaborative trip planning.",
-    why: "I built this because I was planning a month-long honeymoon across multiple countries and needed a way to keep track of every hotel reservation, wine-tasting, and tea time that we had.",
-    call: "Planning is free in full, including unlimited AI chat. The one paid feature is Print Studio, a keepsake edition of the trip, because metering the assistant would have taxed the behavior the product is built around. In Print Studio the model art-directs and the database supplies every fact, so a bad generation can hurt the styling but never the itinerary.",
-    chips: ["Real-Time Collaboration", "AI Assistant", "Print Studio (Pro)", "MCP Server"],
+    name: 'WanderLuxe',
+    kicker: 'Founder · Group trip planner',
+    description:
+      'A group trip planner for the person who always ends up organizing. Every booking lands on one shared timeline, and the AI assistant turns a pasted confirmation into an itinerary item. Kevin founded the LLC, filed the trademark, and wrote the product spec.',
+    why: 'He was planning a month-long honeymoon across multiple countries and needed one place to track every hotel reservation, wine tasting, and tea time.',
+    call: 'Planning is free in full, including unlimited AI chat. The one paid feature is Print Studio, a keepsake edition of the trip, because metering the assistant would have taxed the behavior the product is built around. In Print Studio the model art-directs and the database supplies every fact, so a bad generation can hurt the styling but never the itinerary.',
+    features: ['Real-time collaboration', 'AI assistant', 'Print Studio (Pro)', 'MCP server'],
     links: [
-      { label: "Website", url: "https://wanderluxe.io", icon: Globe },
-      { label: "Spec", url: "https://github.com/reminiscent-io/wanderluxe/blob/main-agent/PRODUCT.md", icon: FileText }
+      { label: 'wanderluxe.io', url: 'https://wanderluxe.io' },
+      { label: 'Product spec', url: 'https://github.com/reminiscent-io/wanderluxe/blob/main-agent/PRODUCT.md' },
     ],
-    image: wanderluxeImg
+    image: { src: wanderluxeImg, width: 1024, height: 630, alt: 'WanderLuxe on two phones: a Paris trip cover and its day-by-day timeline' },
   },
   {
-    title: "CPF Dance",
-    role: "Co-Founder",
-    type: "Private Coaching Platform",
-    description: "Private, invite-only platform for one coach and her dancers. She leaves a note after each lesson, typed or by voice. Dancers read it on their phones, journal against it, and request lessons.",
-    problem: "Professional dance instructors manage students via spreadsheets, text messages, and paper waivers. The operational infrastructure that exists for gyms and yoga studios doesn't exist for dance.",
-    why: "My wife is a former Rockette. I saw the problem firsthand and built it for her and her dancers.",
-    call: "Narrowed it from a multi-instructor platform to a private one for a single coach. No streaks or badges, since the dancers are already motivated. Success is dancers logging in between lessons because a new note is waiting.",
-    chips: ["Invite-Only", "Lesson Notes", "Dancer Journal", "Digital Waivers"],
+    name: 'CPF Dance',
+    // confirm: "Co-founder" vs "Technical co-founder".
+    kicker: 'Co-founder · Private coaching platform',
+    description:
+      'An invite-only app for one coach and her dancers. She leaves a note after each lesson, typed or by voice. Dancers read it on their phones, journal against it, and request lessons.',
+    why: 'His wife is a former Rockette. He saw the problem firsthand and built it for her and her dancers.',
+    call: 'Narrowed it from a multi-instructor platform to a private one for a single coach. No streaks or badges, since the dancers are already motivated. Success is dancers logging in between lessons because a new note is waiting.',
+    features: ['Invite-only', 'Lesson notes', 'Dancer journal', 'Digital waivers'],
     links: [
-      { label: "Website", url: "https://cpfdance.com", icon: Globe },
-      { label: "Spec", url: "https://github.com/reminiscent-io/CPF-Dance/blob/main/PRODUCT.md", icon: FileText }
+      { label: 'cpfdance.com', url: 'https://cpfdance.com' },
+      { label: 'Product spec', url: 'https://github.com/reminiscent-io/CPF-Dance/blob/main/PRODUCT.md' },
     ],
-    image: cpfDanceImg
+    image: { src: cpfDanceImg, width: 1440, height: 773, alt: 'CPF Dance home page with photos of a dancer' },
   },
-  {
-    title: "3D Printed Drone",
-    role: "Creator",
-    type: "Hardware / CAD",
-    description: "Custom quadcopter built from 3D-printed parts, designed in SolidWorks. Features a DJI Naza flight controller, FatShark FPV system, and GPS module, all integrated into a self-designed frame.",
-    why: "Started in college as a way to teach myself SolidWorks 3D CAD and explore the intersection of hardware design and hands-on fabrication. What began as a learning exercise turned into a decade-long project, with iterative redesigns of the frame, upgraded components, and lessons in aerodynamics, electronics integration, and rapid prototyping.",
-    chips: ["SolidWorks", "3D Printing", "DJI Naza FC", "FatShark FPV", "GPS Navigation"],
-    links: [],
-    footer: "Hardware project",
-    image: droneImg
-  }
 ];
 
-function ProjectCard({ project, index }: { project: Project; index: number }) {
-  const [expanded, setExpanded] = useState(false);
-  const { isMobile } = useAnimationContext();
-  const m = mobileMotion(isMobile);
-
-  const story = [
-    { label: 'Problem', text: project.problem },
-    { label: 'Why I Built This', text: project.why },
-    { label: 'The Call I Made', text: project.call },
-    { label: "What I'd Change", text: project.change },
-  ].filter((field): field is { label: string; text: string } => Boolean(field.text));
-
+function ExternalLink({ href, children }: { href: string; children: React.ReactNode }) {
   return (
-    <motion.div
-      {...m.fadeUp(index)}
-      className="group bg-paper border border-warm overflow-hidden hover:border-accent transition-all duration-300 hover:shadow-lg flex flex-col h-full"
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex items-center gap-1 font-semibold text-ink underline decoration-line decoration-2 underline-offset-[5px] transition-colors hover:decoration-accent"
     >
-      {project.image && (
-        <div
-          className="h-48 relative overflow-hidden group-hover:opacity-90 transition-opacity"
-        >
-          <img
-            src={project.image}
-            alt={project.title}
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-ink/10 via-transparent to-ink/25 pointer-events-none" />
-        </div>
-      )}
+      {children}
+      <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
+    </a>
+  );
+}
 
-      <div className="p-8 flex flex-col flex-grow">
-        <div className="text-xs font-bold text-accent-dark tracking-widest uppercase mb-2">
-          {project.role} <span className="text-warm">/</span> {project.type}
-        </div>
-        <h3 className="font-serif text-3xl mb-3 text-ink group-hover:text-accent-dark transition-colors">
-          {project.title}
-        </h3>
-        <p className="text-muted text-sm leading-relaxed mb-4">
-          {project.description}
-        </p>
+function FeaturedProject({ project, flip }: { project: Feature; flip: boolean }) {
+  return (
+    <article className="grid items-start gap-8 lg:grid-cols-12 lg:gap-12">
+      <div className={`lg:col-span-7 ${flip ? 'lg:order-2' : ''}`}>
+        <img
+          src={project.image.src}
+          width={project.image.width}
+          height={project.image.height}
+          alt={project.image.alt}
+          loading="lazy"
+          decoding="async"
+          className="h-auto w-full bg-paper-deep ring-1 ring-line"
+        />
+      </div>
 
-        {story.length > 0 && (
-          <div className="mb-4">
-            <button
-              onClick={() => setExpanded(!expanded)}
-              className="flex items-center gap-1 text-xs font-semibold text-accent-dark hover:text-accent transition-colors uppercase tracking-wide"
-            >
-              <span>{expanded ? 'Less' : 'The Story'}</span>
-              <ChevronDown className={`w-3 h-3 transition-transform ${expanded ? 'rotate-180' : ''}`} />
-            </button>
+      <div className="lg:col-span-5">
+        <p className="font-semibold text-accent">{project.kicker}</p>
+        <h3 className="mt-1 text-4xl font-extrabold tracking-[-0.03em] md:text-5xl">{project.name}</h3>
+        <p className="mt-4">{project.description}</p>
 
-            <AnimatePresence>
-              {expanded && (
-                <motion.div
-                  {...m.expand}
-                  transition={{ duration: isMobile ? 0.15 : 0.2 }}
-                  className="overflow-hidden"
-                >
-                  <div className="pt-3 space-y-3 bg-warm/30 px-4 py-3 mt-3">
-                    {story.map(field => (
-                      <div key={field.label}>
-                        <div className="text-[10px] font-bold uppercase tracking-widest text-accent-dark mb-1">{field.label}</div>
-                        <p className="text-xs text-muted leading-relaxed">{field.text}</p>
-                      </div>
-                    ))}
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+        <dl className="mt-6 space-y-4 border-t border-line pt-5">
+          <div>
+            <dt className="font-bold">Why he built it</dt>
+            <dd className="mt-1 text-ink-soft">{project.why}</dd>
           </div>
-        )}
+          <div>
+            <dt className="font-bold">The call he made</dt>
+            <dd className="mt-1 text-ink-soft">{project.call}</dd>
+          </div>
+        </dl>
 
-        <div className="flex flex-wrap gap-2 mb-8 mt-auto">
-          {project.chips.map(chip => (
-            <span key={chip} className="px-2 py-1 bg-warm/50 text-[10px] font-medium uppercase tracking-wide text-ink">
-              {chip}
-            </span>
+        <p className="mt-5 text-[0.9375rem] text-ink-soft">{project.features.join(' · ')}</p>
+
+        <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2">
+          {project.links.map((link) => (
+            <ExternalLink key={link.url} href={link.url}>
+              {link.label}
+            </ExternalLink>
           ))}
         </div>
-
-        <div className="flex gap-4 pt-4 border-t border-warm/50">
-          {project.links.length > 0 ? (
-            project.links.map(link => {
-              const external = link.url.startsWith('http');
-              return (
-                <a
-                  key={link.label}
-                  href={link.url}
-                  target={external ? '_blank' : undefined}
-                  rel={external ? 'noopener noreferrer' : undefined}
-                  className="flex items-center gap-2 text-sm font-semibold text-ink hover:text-accent transition-colors"
-                >
-                  <link.icon className="w-4 h-4" />
-                  {link.label}
-                </a>
-              );
-            })
-          ) : (
-            <span className="text-sm font-semibold text-muted italic">{project.footer}</span>
-          )}
-        </div>
       </div>
-    </motion.div>
+    </article>
   );
 }
 
 export function Projects() {
-  const { isMobile } = useAnimationContext();
-  const m = mobileMotion(isMobile);
-
   return (
-    <section id="projects" className="py-20 px-6 max-w-7xl mx-auto bg-paper">
-      <div className="mb-16 border-b border-warm pb-8">
-        <div className="flex items-baseline gap-4">
-          <span className="font-serif text-accent-dark italic text-lg">01</span>
-          <h2 className="font-serif text-4xl md:text-5xl text-ink">Selected Work</h2>
-        </div>
-        <p className="mt-6 text-lg text-muted leading-relaxed max-w-2xl">
-          I write the spec and make the product calls. Claude Code, Cursor, and Replit write the code.
-        </p>
-      </div>
+    <section id="projects" className="page py-20 md:py-28">
+      <SectionHeading intro="Kevin writes the spec and makes the product calls. Claude Code, Cursor, and Replit write the code.">
+        Projects
+      </SectionHeading>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {projects.map((project, index) => (
-          <ProjectCard key={project.title} project={project} index={index} />
+      <div className="mt-14 space-y-20 md:mt-20 md:space-y-28">
+        {featured.map((project, i) => (
+          <FeaturedProject key={project.name} project={project} flip={i % 2 === 1} />
         ))}
       </div>
 
-      <motion.p
-        {...m.fadeUp(projects.length)}
-        className="mt-12 text-sm text-muted leading-relaxed"
-      >
-        Also built{' '}
-        <a
-          href="https://cardcaddie.golf"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="font-semibold text-ink underline underline-offset-4 decoration-warm hover:decoration-accent transition-colors focus-visible:outline-none focus-visible:decoration-accent"
-        >
-          Card Caddie
-        </a>
-        , live scoring and leaderboards for golf trips.
-      </motion.p>
+      <div className="mt-20 grid gap-10 border-t border-line pt-10 md:mt-28 md:grid-cols-2 md:gap-12">
+        <article className="grid grid-cols-[7.5rem_1fr] gap-5 sm:grid-cols-[10rem_1fr]">
+          <img
+            src={cardCaddieImg}
+            width={900}
+            height={760}
+            alt="Card Caddie home page with a live golf scorecard"
+            loading="lazy"
+            decoding="async"
+            className="aspect-[4/3] w-full bg-paper-deep object-cover object-bottom ring-1 ring-line"
+          />
+          <div>
+            <h3 className="text-2xl font-extrabold tracking-[-0.02em]">Card Caddie</h3>
+            <p className="mt-1 text-ink-soft">Live scoring and leaderboards for golf trips.</p>
+            <p className="mt-3">
+              <ExternalLink href="https://cardcaddie.golf">cardcaddie.golf</ExternalLink>
+            </p>
+          </div>
+        </article>
+
+        <article className="grid grid-cols-[7.5rem_1fr] gap-5 sm:grid-cols-[10rem_1fr]">
+          <img
+            src={droneImg}
+            width={1200}
+            height={857}
+            alt="Quadcopter on a 3D-printed frame"
+            loading="lazy"
+            decoding="async"
+            className="aspect-[4/3] w-full bg-paper-deep object-cover ring-1 ring-line"
+          />
+          <div>
+            <h3 className="text-2xl font-extrabold tracking-[-0.02em]">3D-printed drone</h3>
+            <p className="mt-1 text-ink-soft">
+              A quadcopter on a frame he designed in SolidWorks and 3D printed, with a DJI Naza flight controller,
+              FatShark FPV, and GPS. It started in college as a way to learn CAD and turned into a decade of frame
+              redesigns and component upgrades.
+            </p>
+          </div>
+        </article>
+      </div>
     </section>
   );
 }
