@@ -1,4 +1,4 @@
-import { schools } from '@/lib/career';
+import { schools, logoHeight } from '@/lib/career';
 import { SectionHeading } from '@/components/section-heading';
 
 export function Education() {
@@ -16,7 +16,8 @@ export function Education() {
                 height={s.logo.height}
                 alt=""
                 loading="lazy"
-                className="h-12 w-auto"
+                className="w-auto"
+                style={{ height: logoHeight(s.logo, 2.75) }}
               />
             </div>
 
