@@ -78,39 +78,36 @@ export const employers: Employer[] = [
     roles: [
       {
         title: 'Principal',
-        formerly: 'Project Leader',
-        period: '2023 – Present',
-        location: 'New York, NY',
+        period: '2017 – Present',
+        // confirm: exact title dates. Journey chart marks Consultant Sept 2019, Project Leader 2023, Principal 2025.
+        note: 'Started as an Associate in 2017; promoted through Consultant and Project Leader',
+        location: 'Dallas, TX → New York, NY',
         summary:
-          'Leads loyalty redesigns end to end, from consumer research and transaction-level analysis through financial modeling, executive alignment, and launch KPIs. Also leads GenAI enablement for BCG’s New York office.',
+          'Leads high-performance teams on growth strategy and loyalty redesigns, and does the hands-on work himself, from customer insights and transaction-level analytics to business cases, financial models, executive alignment, and launch KPIs. Also leads GenAI enablement for BCG’s New York office.',
         highlights: [
-          'Works directly for VP and C-suite clients while keeping 20 to 40 cross-functional stakeholders aligned',
-          'Leads teams of 4 to 6 consultants and analysts; coached team members into repeat staffing and, in several cases, promotion',
-          // confirm: CCO here may mean Chief Commercial Officer.
-          'Built an interactive calculator in two days with AI coding tools, comparing member return across six airline loyalty programs; shared directly with the airline’s CCO',
+          'Leads teams of 4 to 6 consultants and analysts for VP and C-suite clients, keeping 20 to 40 cross-functional stakeholders aligned; coached team members into repeat staffing and, in several cases, promotion',
+          'Built the economic model for a $3B loyalty program redesign on 1.5B+ rows of transaction data',
+          // confirm: profile files "30+ value plays" and "$3M" under Project Leader.
+          'Led pricing and competitor analytics that prioritized 30 value plays, then coached senior client leaders through negotiations that cut run-rate costs by $3M',
         ],
         more: [
+          'Built the company-wide financial model a $5B business used to set targets and track progress',
+          'Delivered growth strategies across retail, beauty, travel, hospitality, and airlines',
+          // confirm: CCO here may mean Chief Commercial Officer.
+          'Built an interactive calculator in two days with AI coding tools, comparing member return across six airline loyalty programs; shared directly with the airline’s CCO',
           'Ran a three-hour Replit hackathon where 50 colleagues built working apps, and trained senior partners on AI workflows',
           'Coached an associate through building a branded, clickable version of a loyalty redesign with AI coding tools; the client shared it with the company’s Chief Customer Officer in week 5 of 14',
           'Turned business goals into engineering-ready requirements on a large data transformation and framed the technical trade-offs so executives could decide quickly',
         ],
         // confirm: badge title, "Node Lead" vs "Enablement Lead".
-        focus: ['GenAI Enablement Lead, New York office', 'Enterprise loyalty', 'Team leadership', 'Financial modeling'],
-      },
-      {
-        title: 'Consultant',
-        formerly: 'Associate',
-        // confirm: exact title dates inside this span.
-        period: '2017 – 2023',
-        location: 'Dallas, TX → New York, NY',
-        summary:
-          // confirm: profile files "30+ value plays" and "$3M" under Project Leader.
-          'Built the economic model for a $3B loyalty program redesign on 1.5B+ rows of transaction data. Led pricing and competitor analytics that prioritized 30 value plays, then coached senior client leaders through negotiations that cut run-rate costs by $3M.',
-        highlights: [
-          'Built the company-wide financial model a $5B business used to set targets and track progress',
-          'Delivered growth strategies across retail, beauty, travel, hospitality, and airlines',
+        focus: [
+          'GenAI Enablement Lead, New York office',
+          'Enterprise loyalty',
+          'Team leadership',
+          'Customer insights',
+          'Financial modeling',
+          'Pricing',
         ],
-        focus: ['Loyalty economics', 'Pricing', 'Financial modeling', 'Alteryx'],
       },
     ],
   },
