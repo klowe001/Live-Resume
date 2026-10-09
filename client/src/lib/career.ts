@@ -71,7 +71,7 @@ export const employers: Employer[] = [
     company: 'Boston Consulting Group',
     logo: { src: bcgLogo, width: 730, height: 154 },
     tenure: '2017 – Present',
-    location: 'Dallas → New York',
+    location: 'New York, NY',
     // confirm: "$500M+" (annual or total), and "drives" vs "represents".
     summary:
       'Growth strategy and loyalty redesign for Fortune 500 retail, hospitality, and airline companies, on programs representing 50 to 70% of company revenue. $500M+ in identified impact.',
@@ -81,7 +81,7 @@ export const employers: Employer[] = [
         period: '2017 – Present',
         // confirm: exact title dates. Journey chart marks Consultant Sept 2019, Project Leader 2023, Principal 2025.
         note: 'Started as an Associate in 2017; promoted through Consultant and Project Leader',
-        location: 'Dallas, TX → New York, NY',
+        location: 'New York, NY',
         summary:
           'Leads high-performance teams on growth strategy and loyalty redesigns, and does the hands-on work himself, from customer insights and transaction-level analytics to business cases, financial models, executive alignment, and launch KPIs. Also leads GenAI enablement for BCG’s New York office.',
         highlights: [
