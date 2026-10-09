@@ -13,7 +13,7 @@ export function Footer() {
             <h2 className="type-masthead text-[clamp(4rem,11vw,9.5rem)]">Get in touch</h2>
             <p className="mt-8 max-w-[34rem] text-xl leading-relaxed text-paper/85">
               Kevin is open to {OPEN_TO}, AI-native or established. Physical products like robots and aircraft are
-              a soft spot.
+              of particular interest.
             </p>
           </div>
 
