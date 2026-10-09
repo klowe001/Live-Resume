@@ -42,12 +42,13 @@ export async function prerender(): Promise<void> {
   const origin = `http://127.0.0.1:${PORT}`;
   console.log(`[prerender] Preview server listening on ${origin}`);
 
-  const browser = await puppeteer.launch({
-    headless: true,
-    args: ["--no-sandbox", "--disable-setuid-sandbox"],
-  });
-
+  let browser: Awaited<ReturnType<typeof puppeteer.launch>> | undefined;
   try {
+    browser = await puppeteer.launch({
+      headless: true,
+      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    });
+
     const page = await browser.newPage();
     await page.setViewport({ width: 1280, height: 800 });
 
@@ -99,7 +100,7 @@ export async function prerender(): Promise<void> {
     fs.writeFileSync(indexPath, html, "utf8");
     console.log(`[prerender] Wrote ${indexPath} (${(html.length / 1024).toFixed(1)} kB)`);
   } finally {
-    await browser.close();
+    await browser?.close();
     await new Promise<void>((resolve) => server.httpServer.close(() => resolve()));
   }
 }
