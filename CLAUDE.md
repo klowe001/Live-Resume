@@ -14,7 +14,7 @@ Live-Resume is a full-stack interactive portfolio/resume website for Kevin Lowe.
 
 ```
 client/src/           # React frontend
-  pages/              # Page components (home.tsx, not-found.tsx)
+  pages/              # Page components (home.tsx, blog.tsx, post.tsx, not-found.tsx)
   components/         # App components + ui/ (shadcn)
   context/            # AnimationContext, ConsentContext
   hooks/              # Custom React hooks
@@ -25,6 +25,7 @@ server/               # Express backend
   storage.ts          # Data storage interface
 shared/               # Shared code
   schema.ts           # Drizzle schema + Zod validation
+content/posts/        # Blog posts as Markdown (YYYY-MM-DD-slug.md)
 ```
 
 ## Commands
@@ -59,5 +60,7 @@ npm run db:push        # Push database migrations (Drizzle Kit)
 - Google Tag Manager integration (GTM-W9Q3GNGD)
 - The build writes the rendered home page into dist/public/index.html so crawlers and link previews see real content. React replaces it on load. Replit deploys dist/public as static files.
 - Head tags (title, description, canonical, Open Graph) live in client/index.html. The share image is client/public/og.jpg.
+- Blog: posts are Markdown files in `content/posts/`, named `YYYY-MM-DD-slug.md`; the filename is the URL (`/blog/2026-10-19-hard-tech-weekly`). Front matter holds `title`, `date` (the publish date shown), `summary` (index, meta description, link previews), and optional `draft: true`. `lib/posts.ts` loads them at build time and `lib/markdown.tsx` renders them (headings, lists, pipe tables, links, bold, italic, code; no raw HTML). The prerender writes `blog.html`, `blog/<slug>.html`, `404.html`, and `sitemap.xml`, each page with its own head tags.
+- Hard Tech Weekly: the Monday scheduled task emails the briefing and also commits it to `content/posts/` on main. `.github/workflows/deploy.yml` builds and publishes to GitHub Pages on every push to main.
 - No test suite or linter configured
 - PostgreSQL required via DATABASE_URL env var

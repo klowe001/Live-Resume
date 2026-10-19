@@ -1,4 +1,17 @@
+import { useEffect } from 'react';
+
 export default function NotFound() {
+  useEffect(() => {
+    document.title = 'Page not found | Kevin Lowe';
+    let robots = document.head.querySelector<HTMLMetaElement>('meta[name="robots"]');
+    if (!robots) {
+      robots = document.createElement('meta');
+      robots.name = 'robots';
+      document.head.appendChild(robots);
+    }
+    robots.content = 'noindex';
+  }, []);
+
   return (
     <main className="page flex min-h-screen flex-col justify-center bg-paper py-20 text-ink">
       <p className="font-semibold text-accent">404</p>

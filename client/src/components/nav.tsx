@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
+import { useLocation } from 'wouter';
 import { EMAIL, LINKEDIN_URL } from '@/lib/contact';
 
 const links = [
@@ -8,8 +9,13 @@ const links = [
   { name: 'How he works', id: 'how-he-works' },
   { name: 'Education', id: 'education' },
   { name: 'Life', id: 'life' },
+  { name: 'Writing', id: 'writing', href: '/blog' },
   { name: 'Contact', id: 'contact' },
 ];
+
+/** Section links point at the home page so they also work from /blog. Contact is the footer, which every page has. */
+const hrefFor = (link: (typeof links)[number], onHome: boolean) =>
+  link.href ?? (onHome || link.id === 'contact' ? `#${link.id}` : `/#${link.id}`);
 
 /** The last section whose top has passed a third of the way down the viewport, or null in the hero. */
 function useActiveSection(ids: string[]) {
@@ -48,7 +54,12 @@ const sectionIds = links.map((l) => l.id);
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const active = useActiveSection(sectionIds);
+  const [location] = useLocation();
+  const onHome = location === '/';
+  const onBlog = location.startsWith('/blog');
+  const sectionActive = useActiveSection(sectionIds);
+  // On the blog, Writing is the current page, unless the reader has scrolled to the footer.
+  const active = onBlog && sectionActive !== 'contact' ? 'writing' : sectionActive;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -86,7 +97,7 @@ export function Nav() {
         }`}
       >
         <div className="page flex h-16 items-center justify-between gap-6 md:h-[4.5rem]">
-          <a href="#top" className="text-lg font-bold tracking-tight text-ink" onClick={() => setMenuOpen(false)}>
+          <a href={onHome ? '#top' : '/'} className="text-lg font-bold tracking-tight text-ink" onClick={() => setMenuOpen(false)}>
             Kevin Lowe
           </a>
 
@@ -96,8 +107,8 @@ export function Nav() {
               return (
                 <li key={link.id}>
                   <a
-                    href={`#${link.id}`}
-                    aria-current={isActive ? 'true' : undefined}
+                    href={hrefFor(link, onHome)}
+                    aria-current={isActive ? (link.href ? 'page' : 'true') : undefined}
                     className={`relative py-2 text-[0.9375rem] font-medium transition-colors after:absolute after:inset-x-0 after:-bottom-0.5 after:h-0.5 after:origin-left after:bg-accent after:transition-transform after:duration-300 ${
                       isActive ? 'text-ink after:scale-x-100' : 'text-ink-soft hover:text-ink after:scale-x-0'
                     }`}
@@ -139,7 +150,7 @@ export function Nav() {
             {links.map((link) => (
               <li key={link.id} className="border-b border-line">
                 <a
-                  href={`#${link.id}`}
+                  href={hrefFor(link, onHome)}
                   onClick={() => setMenuOpen(false)}
                   className="type-section block py-3 text-[2.75rem] text-ink"
                 >

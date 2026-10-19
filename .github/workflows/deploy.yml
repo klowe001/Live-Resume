@@ -1,0 +1,50 @@
+# Builds the site and publishes dist/public to GitHub Pages on every push to
+# main, so a new post in content/posts/ goes live without a manual publish.
+# One-time setup: Settings > Pages > Source: GitHub Actions.
+name: Deploy site
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      # Fail the deploy rather than ship pages crawlers and link previews see as empty.
+      - name: Check prerendered pages
+        run: |
+          test -s dist/public/blog.html
+          grep -q 'id="main"' dist/public/index.html
+      - name: Custom domain
+        run: echo "kevin-lowe.com" > dist/public/CNAME
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist/public
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - id: deploy
+        uses: actions/deploy-pages@v4
