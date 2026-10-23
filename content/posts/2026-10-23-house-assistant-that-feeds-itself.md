@@ -21,7 +21,7 @@ Now I want it to cover the whole household, plus a workshop assistant for my new
 
 For in-the-moment capture I want two doors. The first already exists. Open Claude, turn on Wispr Flow, and talk; the MCP server just needs an `add_to_list` tool. The second is a text message, because it works for my wife and me without opening an app.
 
-I looked hard at the Mac Mini route, with a dedicated Apple account and Claude driving iMessage. Several hundred dollars of hardware for a shopping list is hard to justify. A Twilio number runs a few dollars a month, and an incoming text hits a webhook that calls Claude and writes to the same database. The catch is that US carriers require A2P 10DLC registration even for a hobby number, so expect a round of paperwork before the first text goes through. I'm starting with Twilio and will buy the Mac Mini only if iMessage features (reactions, a family group thread) turn out to matter.
+I've been debating the Mac Mini route, with a dedicated Apple account and Claude driving iMessage. Several hundred dollars of hardware for a shopping list is hard to justify. A Twilio number runs a few dollars a month, and an incoming text hits a webhook that calls Claude and writes to the same database. The catch is that US carriers require A2P 10DLC registration even for a hobby number, so expect a round of paperwork before the first text goes through. I'm starting with Twilio and will buy the Mac Mini only if iMessage features (reactions, a family group thread) turn out to matter.
 
 ## Interpretation: ask one question, only when the answer changes the plan
 
@@ -39,7 +39,7 @@ I don't want my location tracked all day. I also won't remember to check a list.
 - For the few stores I visit most, an iPhone Shortcuts automation sends that same text when I arrive. The geofence lives on my phone, and the assistant only ever learns that I'm at Home Depot
 - Before an Instacart order, "what do we need from the grocery store?" returns one list to work through
 
-The claim matters more than it looks. It's how my wife's view shows "Kevin's getting these" before I've bought anything.
+Claiming is how my wife's view shows "Kevin's getting these" before I've bought anything.
 
 ## Checking things off without a recap
 
