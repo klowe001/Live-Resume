@@ -2,7 +2,7 @@ import { Link } from 'wouter';
 import { ArrowLeft } from 'lucide-react';
 import { Nav } from '@/components/nav';
 import { Footer } from '@/components/footer';
-import { Markdown } from '@/lib/markdown';
+import { Markdown, renderInline } from '@/lib/markdown';
 import { formatDate, getPost, posts, topicKey } from '@/lib/posts';
 import { usePageMeta } from '@/lib/page-meta';
 import NotFound from '@/pages/not-found';
@@ -58,7 +58,16 @@ function Article({ slug }: { slug: string }) {
             <h1 className="mt-3 text-[clamp(2.25rem,5vw,3.5rem)] font-extrabold leading-[1.05] tracking-[-0.03em]">
               {post.title}
             </h1>
-            {post.summary && <p className="mt-5 text-xl leading-relaxed text-ink-soft">{post.summary}</p>}
+            {post.tldr ? (
+              <aside aria-label="TL;DR" className="mt-6 bg-paper-deep px-5 py-4 md:px-6 md:py-5">
+                <p className="text-[0.9375rem] font-bold text-accent">TL;DR</p>
+                <p className="mt-1 text-lg leading-relaxed [&_a]:text-accent [&_a]:underline [&_a]:underline-offset-[3px] [&_a:hover]:text-ink">
+                  {renderInline(post.tldr)}
+                </p>
+              </aside>
+            ) : (
+              post.summary && <p className="mt-5 text-xl leading-relaxed text-ink-soft">{post.summary}</p>
+            )}
           </header>
 
           <div className="post-body mt-10 max-w-[68ch]">

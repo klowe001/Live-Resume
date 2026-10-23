@@ -2,6 +2,7 @@
 title: "Hard Tech Weekly, September 28, 2026"
 date: 2026-09-28
 summary: "TEKEVER raised $580M at a $6.4B valuation, BIS capped new polysilicon imports, and the NRC proposed a sweeping rewrite of reactor rules."
+tldr: "TEKEVER raised $580M at a $6.4B valuation, BIS capped polysilicon imports ahead of the December 4 tariffs, and the NRC proposed rewriting reactor rules across nine CFR parts. FAA Part 108 BVLOS is still stuck in White House review."
 ---
 
 Atoms, not bits. Week of September 21 to 28, 2026.

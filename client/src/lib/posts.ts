@@ -8,9 +8,11 @@
  *   title: "Hard Tech Weekly, October 19, 2026"
  *   date: 2026-10-19
  *   summary: "One sentence for the index, search results, and link previews"
+ *   tldr: "Two or three plain sentences, shown in a box at the top of the post"
  *   topic: AI
  *   ---
  *
+ * Every post gets a `tldr`; a post without one shows its summary instead.
  * `topic` labels the post and drives the filter on /blog. Posts named
  * *-hard-tech-weekly.md default to "Hard Tech", so the Monday task needs no change.
  * Add `draft: true` to keep a post out of the build.
@@ -22,6 +24,8 @@ export interface Post {
   /** YYYY-MM-DD, the publish date shown on the site. */
   date: string;
   summary: string;
+  /** The TL;DR box at the top of the post. Inline Markdown (links, bold) is allowed. */
+  tldr: string;
   /** "AI", "Hard Tech", or empty. */
   topic: string;
   body: string;
@@ -57,6 +61,7 @@ export const posts: Post[] = Object.entries(files)
       title: data.title || slug,
       date: data.date || slug.slice(0, 10),
       summary: data.summary || '',
+      tldr: data.tldr || '',
       topic: data.topic || (slug.endsWith('-hard-tech-weekly') ? 'Hard Tech' : ''),
       body,
       draft: data.draft === 'true',

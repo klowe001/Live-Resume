@@ -2,6 +2,7 @@
 title: "Hard Tech Weekly, October 12, 2026"
 date: 2026-10-12
 summary: "Schneider Electric agreed to buy PTC for $22.6B, the FAA proposed five Part 450 launch licensing rules, and Google signed for 890 MW of nuclear uprates."
+tldr: "Schneider Electric is buying PTC for $22.6B, Google signed for 890 MW of nuclear uprates with Constellation, and the FAA proposed five rules to ease launch licensing. Missile interceptor output was the defense theme."
 ---
 
 Atoms, not bits. Week of October 5 to 12, 2026.

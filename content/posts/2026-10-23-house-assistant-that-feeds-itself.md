@@ -2,6 +2,7 @@
 title: "Designing a house assistant that feeds itself"
 date: 2026-10-23
 summary: "Twelve rolls of paper towels, and what it takes to build an assistant that collects its own data, shows up while I shop, and only keeps what it should."
+tldr: "A house assistant only helps if it has all the data, and I won't do data entry. Capture rides on what I already do: email receipts, a quick text or voice note, and one yes or no question when there's a gap. Updates land instantly so we never buy the same thing twice, and evals keep it to what's relevant."
 topic: AI
 ---
 
