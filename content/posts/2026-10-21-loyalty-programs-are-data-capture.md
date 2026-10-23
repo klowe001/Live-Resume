@@ -1,6 +1,6 @@
 ---
 title: "Loyalty programs were always data capture programs"
-date: 2026-10-23
+date: 2026-10-21
 summary: "The sign-in pays for the points. What years of loyalty work taught me about the data AI needs, and why I'm building the same thing for my house."
 tldr: "Data capture is going to be critical to agentic AI success. That means non-intrusive ways of capturing data that add the absolute minimum. Additional workflow is super hard but equally important. I explore this in [the house assistant I'm building](/blog/2026-10-23-house-assistant-that-feeds-itself)."
 topic: AI
