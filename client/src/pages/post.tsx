@@ -3,7 +3,7 @@ import { ArrowLeft } from 'lucide-react';
 import { Nav } from '@/components/nav';
 import { Footer } from '@/components/footer';
 import { Markdown } from '@/lib/markdown';
-import { formatDate, getPost, posts } from '@/lib/posts';
+import { formatDate, getPost, posts, topicKey } from '@/lib/posts';
 import { usePageMeta } from '@/lib/page-meta';
 import NotFound from '@/pages/not-found';
 
@@ -42,9 +42,19 @@ function Article({ slug }: { slug: string }) {
           </Link>
 
           <header className="mt-8 max-w-[68ch] border-t border-line pt-6 md:pt-8">
-            <time dateTime={post.date} className="tabular font-semibold text-accent">
-              {formatDate(post.date)}
-            </time>
+            <p className="font-semibold text-accent">
+              <time dateTime={post.date} className="tabular">
+                {formatDate(post.date)}
+              </time>
+              {post.topic && (
+                <>
+                  <span aria-hidden="true"> · </span>
+                  <Link href={`/blog?topic=${topicKey(post.topic)}`} className="underline-offset-4 hover:underline">
+                    {post.topic}
+                  </Link>
+                </>
+              )}
+            </p>
             <h1 className="mt-3 text-[clamp(2.25rem,5vw,3.5rem)] font-extrabold leading-[1.05] tracking-[-0.03em]">
               {post.title}
             </h1>

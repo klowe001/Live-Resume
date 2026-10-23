@@ -43,7 +43,7 @@ script/                Build, prerender, OG render, media optimization
 ## Editing content
 
 - **Résumé:** roles, schools, and journey stops are in `client/src/lib/career.ts`. Email, LinkedIn, GitHub, and the "open to" line are in `client/src/lib/contact.ts`. Lines marked `confirm:` are waiting on Kevin
-- **Blog posts:** add `content/posts/YYYY-MM-DD-slug.md`. The filename becomes the URL (`/blog/YYYY-MM-DD-slug`). Front matter takes `title`, `date`, `summary`, and optional `draft: true`
+- **Blog posts:** add `content/posts/YYYY-MM-DD-slug.md`. The filename becomes the URL (`/blog/YYYY-MM-DD-slug`). Front matter takes `title`, `date`, `summary`, optional `topic` (`AI` or `Hard Tech`, which drives the filter on /blog), and optional `draft: true`
 - **Media:** drop originals in `attached_assets/` and run `python3 script/optimize-media.py` (needs Pillow and ffmpeg). `--logos` rebuilds only the logos
 
 Copy is third person, with no em dashes and no periods at the end of bullets.
