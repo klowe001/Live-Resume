@@ -33,7 +33,7 @@ export interface Role {
   note?: string;
   location: string;
   summary: string;
-  /** Always visible. Keep to the strongest two or three. */
+  /** Always visible. Keep to the strongest two or three, or leave empty to put every bullet behind "See more". */
   highlights: string[];
   /** Behind "More". */
   more?: string[];
@@ -84,13 +84,12 @@ export const employers: Employer[] = [
         location: 'New York, NY',
         summary:
           'Leads high-performance teams on growth strategy and loyalty redesigns, and does the hands-on work himself, from customer insights and transaction-level analytics to business cases, financial models, executive alignment, and launch KPIs. Also leads GenAI enablement for BCG’s New York office.',
-        highlights: [
+        highlights: [],
+        more: [
           'Leads teams of 4 to 6 consultants and analysts for VP and C-suite clients, keeping 20 to 40 cross-functional stakeholders aligned; coached team members into repeat staffing and, in several cases, promotion',
           'Built the economic model for a $3B loyalty program redesign on 1.5B+ rows of transaction data',
           // confirm: profile files "30+ value plays" and "$3M" under Project Leader.
           'Led pricing and competitor analytics that prioritized 30 value plays, then coached senior client leaders through negotiations that cut run-rate costs by $3M',
-        ],
-        more: [
           'Built the company-wide financial model a $5B business used to set targets and track progress',
           'Delivered growth strategies across retail, beauty, travel, hospitality, and airlines',
           // confirm: CCO here may mean Chief Commercial Officer.
