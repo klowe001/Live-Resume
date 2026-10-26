@@ -2,6 +2,7 @@
 title: "Hard Tech Weekly, October 19, 2026"
 date: 2026-10-19
 summary: "Hegseth sought about $50B for mass drone production, GlobalFoundries was picked to run two Japan-funded New York fabs, and ASML said 2027 supply falls short."
+tldr: "Hegseth asked Congress for about $50B to mass-produce drones, GlobalFoundries will run two Japan-funded New York fabs, and ASML said 2027 supply falls short of demand. Rocket Lab pushed Neutron's first flight to 2027."
 ---
 
 Atoms, not bits. Week of October 12 to 19, 2026.

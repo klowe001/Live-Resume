@@ -2,6 +2,7 @@
 title: "Hard Tech Weekly, October 5, 2026"
 date: 2026-10-05
 summary: "AMD agreed to buy World Labs for $8.2B, Starship reached orbit on Flight 14, and the FCC moved to open 1,000+ MHz for satellite broadband."
+tldr: "AMD is buying World Labs for $8.2B to bring world models to robotics, Starship reached orbit on Flight 14, and the FCC moved to open 1,000+ MHz for satellite broadband. BVLOS drones still wait on FAA Part 108."
 ---
 
 Atoms, not bits. Week of September 28 to October 5, 2026.
