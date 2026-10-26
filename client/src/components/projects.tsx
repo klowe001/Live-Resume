@@ -48,7 +48,7 @@ const featured: Feature[] = [
       { label: 'cpfdance.com', url: 'https://cpfdance.com' },
       { label: 'Product spec', url: 'https://github.com/reminiscent-io/CPF-Dance/blob/main/PRODUCT.md' },
     ],
-    image: { src: cpfDanceImg, width: 1440, height: 773, alt: 'CPF Dance home page with photos of a dancer' },
+    image: { src: cpfDanceImg, width: 1440, height: 711, alt: 'CPF Dance home page introducing Courtney File, with two photos of her dancing' },
   },
 ];
 
