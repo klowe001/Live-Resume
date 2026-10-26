@@ -30,8 +30,8 @@ function RoleEntry({ role }: { role: Role }) {
         )}
 
         {role.more && role.more.length > 0 && (
-          <div className="mt-3">
-            <Disclosure label={`${role.more.length} more`}>
+          <div className={role.highlights.length > 0 ? 'mt-3' : 'mt-4'}>
+            <Disclosure label={role.highlights.length > 0 ? `${role.more.length} more` : 'See more'}>
               <ul className="space-y-2.5 pt-2">
                 {role.more.map((item) => (
                   <li key={item} className="grid grid-cols-[1rem_1fr]">
