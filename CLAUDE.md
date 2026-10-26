@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-Live-Resume is a full-stack interactive portfolio/resume website for Kevin Lowe. React frontend with Express.js backend, deployed on Replit.
+Live-Resume is a full-stack interactive portfolio/resume website for Kevin Lowe. React frontend with Express.js backend, deployed to GitHub Pages at kevin-lowe.com.
 
 ## Tech Stack
 
@@ -58,7 +58,7 @@ npm run db:push        # Push database migrations (Drizzle Kit)
 - Media: originals in `attached_assets/`, web versions in `attached_assets/web/` from `python3 script/optimize-media.py` (Pillow + ffmpeg). Logos are served from `attached_assets/web/logos/` with their white made transparent (`--logos` rebuilds just those). Hero portrait: `python3 script/optimize-media.py --portrait attached_assets/headshot.png --erode 0` (already transparent); photos with a background go through `swift script/cutout.swift` first (macOS 14+).
 - GDPR consent management built in (ConsentContext + ConsentBanner)
 - Google Tag Manager integration (GTM-W9Q3GNGD)
-- The build writes the rendered home page into dist/public/index.html so crawlers and link previews see real content. React replaces it on load. Replit deploys dist/public as static files.
+- The build writes the rendered home page into dist/public/index.html so crawlers and link previews see real content. React replaces it on load. GitHub Pages serves dist/public as static files.
 - Head tags (title, description, canonical, Open Graph) live in client/index.html. The share image is client/public/og.jpg.
 - Blog: posts are Markdown files in `content/posts/`, named `YYYY-MM-DD-slug.md`; the filename is the URL (`/blog/2026-10-19-hard-tech-weekly`). Front matter holds `title`, `date` (the publish date shown), `summary` (index, meta description, link previews), `tldr` (two or three plain sentences in a box at the top of the post; every post gets one), optional `topic` (`AI`, `Hard Tech`; labels the post and drives the `/blog?topic=` filter; `*-hard-tech-weekly` posts default to Hard Tech), and optional `draft: true`. `lib/posts.ts` loads them at build time and `lib/markdown.tsx` renders them (headings, lists, pipe tables, links, bold, italic, code; no raw HTML). The prerender writes `blog.html`, `blog/<slug>.html`, `404.html`, and `sitemap.xml`, each page with its own head tags.
 - Hard Tech Weekly: the Monday scheduled task emails the briefing and also commits it to `content/posts/` on main. `.github/workflows/deploy.yml` builds and publishes to GitHub Pages on every push to main.
