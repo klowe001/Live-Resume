@@ -164,7 +164,8 @@ export const schools: School[] = [
   },
   {
     id: 'edu-smu',
-    school: 'Southern Methodist University',
+    school: 'Lyle School of Engineering',
+    university: 'Southern Methodist University',
     logo: { src: smuLogo, width: 201, height: 155 },
     degree: 'Bachelor of Science, Mechanical Engineering',
     focus: 'Minor in Business',
